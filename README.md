@@ -2,10 +2,10 @@
 Repository to reproduce analyses from the GTEx V6P Rare Variation Manuscript
 
 # To run the code
-Download processed files from \<website\>
+Download processed files from \<website\> <br>
 
 # Pipeline
-## Expression data correction and normalization
+## Expression data correction and normalization (Generates processed data that can be downloaded from the website)
 
 #### Make directory to hold PEER normalized data
 mkdir /srv/scratch/restricted/goats/preprocessing/PEER
