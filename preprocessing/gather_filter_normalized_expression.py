@@ -12,11 +12,7 @@
 import numpy as np
 from operator import itemgetter
 
-if len(sys.argv) != 4:
-        print "usage: gather_filter_normalized_expression.py tissueFile indFile outFile"
-        sys.exit()
-
-dir = '/srv/scratch/restricted/goats/preprocessing/'
+dir = '../preprocessing/'
 tissueNamesFile = dir + 'gtex_2015-01-12_tissues_all_normalized_samples.txt'
 individualsFile = dir + 'gtex_2015-01-12_individuals_all_normalized_samples.txt'
 outfile = dir + 'gtex_2015-01-12_normalized_expression.txt'

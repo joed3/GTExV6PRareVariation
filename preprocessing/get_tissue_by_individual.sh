@@ -3,11 +3,11 @@
 # Go though GTEx data to figure out which individuals have data for which tissues.
 # Create a file that has 2 columns:
 # one column with the individual id and one column with the tissue name.
-# Also generate a files with the lists of unique tissue names and individual IDs.
+# Also generate files with the lists of unique tissue names and individual IDs.
 
 set -o nounset -o errexit -o pipefail
 
-dir=/srv/scratch/restricted/goats/preprocessing
+dir=../preprocessing
 out=${dir}/gtex_2015-01-12_tissue_by_ind.txt 
 tissues=${dir}/gtex_2015-01-12_tissues_all_normalized_samples.txt
 inds=${dir}/gtex_2015-01-12_individuals_all_normalized_samples.txt
