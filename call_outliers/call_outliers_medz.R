@@ -109,7 +109,6 @@ medz_ind_counts = table(medz_picked_thresh$INDS)
 medz_ind_picked = names(medz_ind_counts)[medz_ind_counts < medz_ind_filt]
 medz_picked_thresh = medz_picked_thresh[medz_picked_thresh$INDS %in% medz_ind_picked, ]
 write.table(medz_picked_thresh, '../data/outliers_medz_picked.txt', col.names = T, row.names = F, quote = F, sep = '\t')
-write.table(medz_ind_picked, '../data/outliers_medz_picked_qc_samples.txt', col.names = F, row.names = F, quote = F, sep = '\t')
 write.table(medz_ind_counts, '../data/outliers_medz_picked_counts_per_ind.txt', col.names = F, row.names = F, quote = F, sep = '\t')
 # clean up the unthresholded set
 medz_picked = medz_picked[medz_picked$INDS %in% medz_ind_picked, ]
