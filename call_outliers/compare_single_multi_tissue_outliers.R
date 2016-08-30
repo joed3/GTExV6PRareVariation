@@ -66,5 +66,5 @@ for (i in 1:nrow(overlap)) {
 cat('percentage of genes that have outliers per tissue:')
 print(overlap[order(total/single.tested), total/single.tested])
 
-save.image(paste0(dir, '/data/suppfig.single.multi.overlap.RData'))
+save(samples.tissue.overlap, correlation, file = paste0(dir, '/data/suppfig.single.multi.overlap.RData'))
 
