@@ -24,7 +24,6 @@ Otherwise, set this to be any path where you want to scripts to output.
 Either run or add the following to your .bashrc: <br>
 export RAREVARDIR=<the path to the upper-level directory without trailing slash>
 
-
 If you are going to run everything from scratch, first make the directories that are assumed to exist. <br>
 You can skip this step if you will use the processed data files downloaded from <\website\>.
 mkdir ${RAREVARDIR}/preprocessing <br>
@@ -33,6 +32,7 @@ mkdir ${RAREVARDIR}/reference <br>
 mkdir ${RAREVARDIR}/data <br>
 mkdir ${RAREVARDIR}/data/medz <br>
 mkdir ${RAREVARDIR}/data/singlez <br>
+mkdir ${RAREVARDIR}/paper_figures <br>
 
 Then you can run the code below. <br>
 Some of the steps reproduce processed files available on \<website\> and are marked as such.
