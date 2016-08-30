@@ -9,11 +9,14 @@
 ## outputs outliers as tab-delimited file with the following columns:
 ## GENE INDS TISSUE Z
 
-infile = '../preprocessing/gtex_2015-01-12_normalized_expression.txt'
-outfile = '../data/outliers_singlez_picked.txt'
-noThreshPrefix = '../data/singlez/outliers_singlez_nothreshold_'
-genefile = '../reference/gencode.v19.genes.v6p.patched_contigs_genetypes_autosomal.txt'
-indivfile = '../data/outliers_medz_picked_counts_per_ind.txt'
+import os
+
+dir = os.environ['RAREVARDIR']
+infile = dir + '/preprocessing/gtex_2015-01-12_normalized_expression.txt'
+outfile = dir + '/data/outliers_singlez_picked.txt'
+noThreshPrefix = dir + '/data/singlez/outliers_singlez_nothreshold_'
+genefile = dir + '/reference/gencode.v19.genes.v6p.patched_contigs_genetypes_autosomal.txt'
+indivfile = dir + '/data/outliers_medz_picked_counts_per_ind.txt'
 
 zscores = open(infile, 'r')
 outliers = open(outfile, 'w')

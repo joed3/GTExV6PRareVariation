@@ -10,6 +10,8 @@ library(doMC)
 ###
 doMC::registerDoMC(cores=12)
 
+### Master directory
+dir = Sys.getenv('RAREVARDIR')
 
 ############ FUNCTIONS
 
@@ -47,7 +49,7 @@ pick_outliers <- function(medzz, counts, individs){
 ### Loading data
 ###
 ## Load flat file with filtered and normalized expression data
-data = fread('../preprocessing/gtex_2015-01-12_normalized_expression.txt', header = T)
+data = fread(paste0(dir,'/preprocessing/gtex_2015-01-12_normalized_expression.txt'), header = T)
 
 setkey(data, Gene)
 
@@ -55,7 +57,7 @@ setkey(data, Gene)
 individs = colnames(data)[-c(1,2)] 
 
 ## Read in list of GENCODE genes with types
-genes_types = read.table('../reference/gencode.v19.genes.v6p.patched_contigs_genetypes_autosomal.txt', sep = '\t', header = F, stringsAsFactors = F)
+genes_types = read.table(paste0(dir,'/reference/gencode.v19.genes.v6p.patched_contigs_genetypes_autosomal.txt'), sep = '\t', header = F, stringsAsFactors = F)
 
 ## Filter for protein_coding and lincRNA genes
 types_to_keep = c('protein_coding', 'lincRNA')
@@ -85,11 +87,11 @@ genes = rownames(medz)
 
 ## Write out unmelted summary matrices
 header = matrix(c('GENE', colnames(counts)), nrow = 1)
-write.table(header, '../data/outliers_medz_counts.txt', sep = '\t', col.names = F, row.names = F, quote = F)
-write.table(header, '../data/outliers_medz_zscores.txt', sep = '\t', col.names = F, row.names = F, quote = F)
+write.table(header, paste0(dir, '/data/outliers_medz_counts.txt'), sep = '\t', col.names = F, row.names = F, quote = F)
+write.table(header, paste0(dir, '/data/outliers_medz_zscores.txt'), sep = '\t', col.names = F, row.names = F, quote = F)
 
-write.table(counts, '../data/outliers_medz_counts.txt', sep = '\t', col.names = F, row.names = T, quote = F, append = T)
-write.table(medz, '../data/outliers_medz_zscores.txt', sep = '\t', col.names = F, row.names = T, quote = F, append = T)
+write.table(counts, paste0(dir, '/data/outliers_medz_counts.txt'), sep = '\t', col.names = F, row.names = T, quote = F, append = T)
+write.table(medz, paste0(dir, '/data/outliers_medz_zscores.txt'), sep = '\t', col.names = F, row.names = T, quote = F, append = T)
 
 ## Pick outliers using median Z-score >= 2
 ## Remove individuals with >= 50 outliers 
@@ -108,19 +110,19 @@ medz_picked_thresh = medz_picked_thresh[order(-abs(medz_picked_thresh$Z)), ]
 medz_ind_counts = table(medz_picked_thresh$INDS)
 medz_ind_picked = names(medz_ind_counts)[medz_ind_counts < medz_ind_filt]
 medz_picked_thresh = medz_picked_thresh[medz_picked_thresh$INDS %in% medz_ind_picked, ]
-write.table(medz_picked_thresh, '../data/outliers_medz_picked.txt', col.names = T, row.names = F, quote = F, sep = '\t')
-write.table(medz_ind_counts, '../data/outliers_medz_picked_counts_per_ind.txt', col.names = F, row.names = F, quote = F, sep = '\t')
+write.table(medz_picked_thresh, paste0(dir, '/data/outliers_medz_picked.txt'), col.names = T, row.names = F, quote = F, sep = '\t')
+write.table(medz_ind_counts, paste0(dir, '/data/outliers_medz_picked_counts_per_ind.txt'), col.names = F, row.names = F, quote = F, sep = '\t')
 # clean up the unthresholded set
 medz_picked = medz_picked[medz_picked$INDS %in% medz_ind_picked, ]
 medz_picked = medz_picked[order(-abs(medz_picked$Z)), ]
-write.table(medz_picked, '../data/outliers_medz_nothreshold_picked.txt', col.names = T, row.names = F, quote = F, sep = '\t')
+write.table(medz_picked, paste0(dir, '/data/outliers_medz_nothreshold_picked.txt'), col.names = T, row.names = F, quote = F, sep = '\t')
 
 ## Filter WGS individual lists for individuals that pass the number of outlier filters
-wgs.feat.inds = read.table('../preprocessing/gtex_2015-01-12_wgs_ids.txt', sep = '\t', header = F, stringsAsFactors = F)[, 1]
-wgs.count.inds = read.table('../preprocessing/gtex_2015-01-12_wgs_ids_SV.txt', sep = '\t', header = F, stringsAsFactors = F)[, 1]
+wgs.feat.inds = read.table(paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids.txt'), sep = '\t', header = F, stringsAsFactors = F)[, 1]
+wgs.count.inds = read.table(paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids_SV.txt'), sep = '\t', header = F, stringsAsFactors = F)[, 1]
 
 wgs.feat.inds = wgs.feat.inds[wgs.feat.inds %in% medz_ind_picked]
 wgs.count.inds = wgs.count.inds[wgs.count.inds %in% medz_ind_picked]
 
-write.table(wgs.feat.inds, '../preprocessing/gtex_2015-01-12_wgs_ids_outlier_filtered.txt', quote = F, sep = '\t', col.names = F, row.names = F)
-write.table(wgs.count.inds, '../preprocessing/gtex_2015-01-12_wgs_ids_SV_outlier_filtered.txt', quote = F, sep = '\t', col.names = F, row.names = F)
+write.table(wgs.feat.inds, paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids_outlier_filtered.txt'), quote = F, sep = '\t', col.names = F, row.names = F)
+write.table(wgs.count.inds, paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids_SV_outlier_filtered.txt'), quote = F, sep = '\t', col.names = F, row.names = F)
