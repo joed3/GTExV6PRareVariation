@@ -7,7 +7,7 @@
 
 set -o nounset -o errexit -o pipefail
 
-dir=../preprocessing
+dir=${RAREVARDIR}/preprocessing
 out=${dir}/gtex_2015-01-12_tissue_by_ind.txt 
 tissues=${dir}/gtex_2015-01-12_tissues_all_normalized_samples.txt
 inds=${dir}/gtex_2015-01-12_individuals_all_normalized_samples.txt

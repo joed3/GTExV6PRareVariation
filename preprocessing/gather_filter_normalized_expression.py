@@ -9,10 +9,12 @@
 # Missing values are coded as NAs
 # Gets tissues and individual IDs from file
 
+import os
 import numpy as np
 from operator import itemgetter
 
-dir = '../preprocessing/'
+dir = os.environ["RAREVARDIR"]
+dir = dir + '/preprocessing/'
 tissueNamesFile = dir + 'gtex_2015-01-12_tissues_all_normalized_samples.txt'
 individualsFile = dir + 'gtex_2015-01-12_individuals_all_normalized_samples.txt'
 outfile = dir + 'gtex_2015-01-12_normalized_expression.txt'

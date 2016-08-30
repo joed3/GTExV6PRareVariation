@@ -39,7 +39,8 @@ def getIndiv(sample):
 
 #----------- MAIN
 
-iodir = '../preprocessing/'
+iodir = os.environ["RAREVARDIR"]
+iodir = iodir + '/preprocessing/'
 tissueNamesFile = iodir + 'gtex_2015-01-12_tissues_all_normalized_samples.txt'
 individualsFile = iodir + 'gtex_2015-01-12_individuals_all_normalized_samples.txt'
 rpkmDir = iodir + 'PEER/'

@@ -13,8 +13,8 @@ fi
 gtex=$1
 gencode=$2
 
-gencodeprefix=../reference/gencode.v19.annotation
-gtexprefix=../reference/gencode.v19.genes.v6p.patched_contigs
+gencodeprefix=${RAREVARDIR}/reference/gencode.v19.annotation
+gtexprefix=${RAREVARDIR}/reference/gencode.v19.genes.v6p.patched_contigs
 
 # TSS
 bash gtf2TSS.sh <(zcat $gtex) > ${gtexprefix}_TSS.bed
