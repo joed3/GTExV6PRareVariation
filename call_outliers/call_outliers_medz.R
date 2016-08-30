@@ -119,10 +119,10 @@ write.table(medz_picked, paste0(dir, '/data/outliers_medz_nothreshold_picked.txt
 
 ## Filter WGS individual lists for individuals that pass the number of outlier filters
 wgs.feat.inds = read.table(paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids.txt'), sep = '\t', header = F, stringsAsFactors = F)[, 1]
-wgs.count.inds = read.table(paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids_SV.txt'), sep = '\t', header = F, stringsAsFactors = F)[, 1]
+wgs.count.inds = read.table(paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids_HallLabSV.txt'), sep = '\t', header = F, stringsAsFactors = F)[, 1]
 
 wgs.feat.inds = wgs.feat.inds[wgs.feat.inds %in% medz_ind_picked]
 wgs.count.inds = wgs.count.inds[wgs.count.inds %in% medz_ind_picked]
 
 write.table(wgs.feat.inds, paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids_outlier_filtered.txt'), quote = F, sep = '\t', col.names = F, row.names = F)
-write.table(wgs.count.inds, paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids_SV_outlier_filtered.txt'), quote = F, sep = '\t', col.names = F, row.names = F)
+write.table(wgs.count.inds, paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids_HallLabSV_outlier_filtered.txt'), quote = F, sep = '\t', col.names = F, row.names = F)
