@@ -74,7 +74,7 @@ Generates processed data that can be downloaded from \<website\>. <br>
 
 Copy or move the GTEx annotation file (gencode.v19.genes.v6p_model.patched_contigs.gtf.gz) to ${RAREVARDIR}/reference.
 
-bash preprocessing/process.reference.files.sh \<path to downloaded file\>/gencode.v19.genes.v6p_model.patched_contigs.gtf.gz \<path to downloaded file\>/gencode.v19.annotation.gtf <br>
+bash preprocessing/process.reference.files.sh \<path to\>/gencode.v19.genes.v6p_model.patched_contigs.gtf.gz \<path to\>/gencode.v19.annotation.gtf <br>
 (relies on pad.gtf.exons.py, gtf2TSS.sh, and gtf2genebed.sh in preprocessing/)
 
 ## Outlier calling
