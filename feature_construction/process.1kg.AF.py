@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# author: Emily Tsang
+
 # Takes allele frequencies for all populations extracted from VCF (from the command line)
 # sums allele frequencies for different alleles at the same position
 
@@ -10,6 +12,10 @@ import sys
 prevChrom = ''
 prevPos = ''
 prevFreqs = [0,0,0,0,0]
+
+def maf(altAF):
+    refAF = 1 - altAF
+    return min(altAF, refAF)
 
 for line in sys.stdin:
     line = line.strip().split()
@@ -23,10 +29,11 @@ for line in sys.stdin:
 
     # if multiple frequencies per column (because of multiple alleles), add them
     freqs = [reduce(lambda a,b: a+b, map(float,f.split(','))) for f in freqs]
+    freqs = [maf(f) for f in freqs]
 
     # add up frequencies as long as it's the same position
     if chrom == prevChrom and pos == prevPos:
-        prevFreqs = [a+b for a,b in zip(prevFreqs,freqs)]
+        prevFreqs = [max(a,b) for a,b in zip(prevFreqs,freqs)]
     # if new position output previous position
     else:
         if prevChrom!='':
@@ -35,4 +42,5 @@ for line in sys.stdin:
         prevChrom = chrom
         prevPos = pos
 
-    
+# print last line
+sys.stdout.write("\t".join(["chr"+prevChrom, str(int(prevPos)-1), prevPos] + [str(round(f,4)) for f in prevFreqs]) + '\n')
