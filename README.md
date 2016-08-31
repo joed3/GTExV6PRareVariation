@@ -110,7 +110,8 @@ Generates processed data that can be downloaded from \<website\>. <br>
 Copy or move the GTEx annotation file (gencode.v19.genes.v6p_model.patched_contigs.gtf.gz) to ${RAREVARDIR}/reference.
 
 bash preprocessing/process.reference.files.sh \<path to\>/gencode.v19.genes.v6p_model.patched_contigs.gtf.gz \<path to\>/gencode.v19.annotation.gtf <br>
-(relies on pad.gtf.exons.py, gtf2TSS.sh, and gtf2genebed.sh in preprocessing/)
+(relies on pad.gtf.exons.py, gtf2TSS.sh, and gtf2genebed.sh)
+
 
 ## Outlier calling
 Generates processed data that can be downloaded from \<website\>. <br>
@@ -128,14 +129,16 @@ Rscript call_outliers/compare_single_multi_outliers.R
 
 #### Run replication for single-tissue and multi-tissue outliers
 (Both take a while to run. The multi-tissue replication uses multiple cores.)
-Rscript multi_tissue_replication.R
-Rscript single_tissue_replication.R
+Rscript call_outliers/multi_tissue_replication.R
+Rscript call_outliers/single_tissue_replication.R
+
 
 ## Feature generation
 
 #### Processing VCFs into bed files for each individual
-bash vcf2bedfiles.sh \<path to \>/GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Indiv_GATK_HaplotypeCaller.vcf.gz 
-\<path to\>/gtex.lumpy.gs.svscore.low_conf.vcf.gz <br>
+bash feature_construction/vcf2bedfiles.sh 
+	 \<path to \>/GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Indiv_GATK_HaplotypeCaller.vcf.gz 
+	 \<path to\>/gtex.lumpy.gs.svscore.low_conf.vcf.gz <br>
 (relies on : <br>
 * vcf2bedfiles_helper_processVCF.sh
 * vcf2bedfiles_helper_processVCF_SV.sh
@@ -146,22 +149,33 @@ bash vcf2bedfiles.sh \<path to \>/GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Ind
 *)
 
 #### Extract features to be combined with the individual bed files
-bash extract.1kg.AF.sh <br>
-(relies on process.1kg.AF.py)
+bash feature_construction/extract.1kg.AF.sh <br>
+(uses multiple cores; relies on process.1kg.AF.py)
 
-bash subset.CADD.features.sh <br>
+bash feature_construction/subset.CADD.features.sh <br>
 (takes many hours)
 
-bash TFBS_pipeline.sh
+bash feature_construction/TFBS_pipeline.sh <br>
+(relies on pouya.raw.summary.py)
 
-bash ER_pipeline.sh
+bash feature_construction/ER_pipeline.sh
+
+#### Add extracted features to individual bed files
+bash run_add_features_variant_beds.sh <br>
+**Important:** Make sure to use bedtools version 2.26.0 or later.
+Memory leak in previous versions causes the memory for this script to blow up. <br>
+(uses multiple cores; relies on add_features_variant_beds.sh)
+
+#### Collapse site-level features created above into gene-level features
+
+#### Compile features for outliers and controls
 
 ## Main figures
 #### Figure 1
-bash pick.cartoon.example.sh <br>
-Rscript figure1a.plot.cartoon.example.R <br>
-Rscript figure1b.outlier.sharing.R <br>
-Rscript figure1c.replication.rate.consistent.R
+bash paper_figures/pick.cartoon.example.sh <br>
+Rscript paper_figures/figure1a.plot.cartoon.example.R <br>
+Rscript paper_figures/figure1b.outlier.sharing.R <br>
+Rscript paper_figures/figure1c.replication.rate.consistent.R
 
 #### Figure 2
 
@@ -172,4 +186,4 @@ Rscript figure1c.replication.rate.consistent.R
 ## Supplemental figures
 
 #### Overlap between single and multi-tissue outliers
-Rscript suppfig.compare.single.multi.R
+Rscript paper_figures/suppfig.compare.single.multi.R
