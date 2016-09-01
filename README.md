@@ -139,14 +139,13 @@ Rscript call_outliers/single_tissue_replication.R
 bash feature_construction/vcf2bedfiles.sh 
 	 \<path to \>/GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Indiv_GATK_HaplotypeCaller.vcf.gz 
 	 \<path to\>/gtex.lumpy.gs.svscore.low_conf.vcf.gz <br>
-(relies on : <br>
+(relies on :
 * vcf2bedfiles_helper_processVCF.sh
 * vcf2bedfiles_helper_processVCF_SV.sh
 * vcf2bedfiles_helper_processVCFtoolsOutput.sh
 * vcf2bedfiles_helper_processVCFtoolsOutput_CNV.sh
 * compileCADDscores.sh
-* extractCADDscores_ekt.py
-*)
+* extractCADDscores_ekt.py)
 
 #### Extract features to be combined with the individual bed files
 bash feature_construction/extract.1kg.AF.sh <br>
@@ -164,7 +163,7 @@ bash feature_construction/ER_pipeline.sh
 bash run_add_features_variant_beds.sh <br>
 **Important:** Make sure to use bedtools version 2.26.0 or later.
 Memory leak in previous versions causes the memory for this script to blow up. <br>
-(uses multiple cores; relies on add_features_variant_beds.sh)
+(uses multiple cores and takes several hours; relies on add_features_variant_beds.sh)
 
 #### Collapse site-level features created above into gene-level features
 
