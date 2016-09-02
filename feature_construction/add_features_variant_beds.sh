@@ -70,7 +70,7 @@ echo $ind
 # 24* TFBS
 # 25* TFBSPeaks
 # 26* TFBSPeaksMax
-# 24* 1KG allele frequency from 5 super populations (5 columns: EAS, AMR, AFR, EUR, SAS)
+# 27* 1KG allele frequency from 5 super populations (5 columns: EAS, AMR, AFR, EUR, SAS)
 ##################################
 
 
