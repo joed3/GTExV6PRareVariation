@@ -166,6 +166,11 @@ Memory leak in previous versions causes the memory for this script to blow up. <
 (uses multiple cores and takes several hours; relies on add_features_variant_beds.sh)
 
 #### Collapse site-level features created above into gene-level features
+bash run_build_feature_count_summaries_all_genes.sh
+(uses multiple cores and takes several hours to run; relies on :
+* build_count_summaries_all_genes.sh
+* build_feature_summaries_all_genes.sh
+* build_feature_set.py)
 
 #### Compile features for outliers and controls
 
