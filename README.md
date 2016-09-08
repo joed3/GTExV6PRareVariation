@@ -100,7 +100,6 @@ bash preprocessing/get_tissue_by_individual.sh
 bash PEER/goats_peer_pipeline_covs.sh ${RAREVARDIR}/preprocessing/PEER
 
 #### Make flat files from raw RPKMs and PEER-corrected data for all tissues and individuals
-(Takes 10 minutes or so to run) <br>
 python preprocessing/gather_filter_normalized_expression.py <br>
 python preprocessing/gather_filter_rpkm.py
 
@@ -117,18 +116,17 @@ bash preprocessing/process.reference.files.sh \<path to\>/gencode.v19.genes.v6p_
 Generates processed data that can be downloaded from \<website\>. <br>
 
 #### Call multi-tissue outliers
-(Uses multiple cores. Can set the number at the top of the script. Takes several minutes to run.) <br>
+(Uses multiple cores. Can set the number at the top of the script.) <br>
 Rscript call_outliers/call_outliers_medz.R
 
 #### Call single-tissue outliers
-(Also takes several minutes to run.) <br>
 python call_outliers/call_outliers_single_tissue.py
 
 #### Compare single-tissue and multi-tissue outliers as well as get stats on each.
 Rscript call_outliers/compare_single_multi_outliers.R
 
 #### Run replication for single-tissue and multi-tissue outliers
-(Both take a while to run. The multi-tissue replication uses multiple cores.)
+(The multi-tissue replication uses multiple cores.)
 Rscript call_outliers/multi_tissue_replication.R
 Rscript call_outliers/single_tissue_replication.R
 
@@ -152,7 +150,6 @@ bash feature_construction/extract.1kg.AF.sh <br>
 (uses multiple cores; relies on process.1kg.AF.py)
 
 bash feature_construction/subset.CADD.features.sh <br>
-(takes many hours)
 
 bash feature_construction/TFBS_pipeline.sh <br>
 (relies on pouya.raw.summary.py)
@@ -163,16 +160,22 @@ bash feature_construction/ER_pipeline.sh
 bash run_add_features_variant_beds.sh <br>
 **Important:** Make sure to use bedtools version 2.26.0 or later.
 Memory leak in previous versions causes the memory for this script to blow up. <br>
-(uses multiple cores and takes several hours; relies on add_features_variant_beds.sh)
+(uses multiple cores; relies on add_features_variant_beds.sh)
 
 #### Collapse site-level features created above into gene-level features
 bash run_build_feature_count_summaries_all_genes.sh
-(uses multiple cores and takes several hours to run; relies on :
+(uses multiple cores; relies on :
 * build_count_summaries_all_genes.sh
 * build_feature_summaries_all_genes.sh
 * build_feature_set.py)
 
 #### Compile features for outliers and controls
+bash run_compile_features_outliers.sh
+(uses multiple cores; relies on:
+* compile_features_outliers.sh
+* compile_features_outliers_nothresh.sh
+* compile_features_outliers_singletissue.sh
+* pick_outliers_controls_imbalanced.py)
 
 ## Main figures
 #### Figure 1
