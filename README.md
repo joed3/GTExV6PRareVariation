@@ -55,7 +55,7 @@ export RAREVARDIR=\<the path to the upper-level directory\> <br>
 export CADD_DIR=\<the path to the CADD files\> <br>
 export KG_DIR=\<the path to the 1000 genomes files\> <br>
 export ENCODE_MOTIF_DIR=\<the path to matches.txt.gz (excluding the file name)\> <br>
-export ER_DIR=/<the path to the Epigenomics Roadmap directory (sub directories are prom, enh, and dyadic)\> <br>
+export ER_DIR=\<the path to the Epigenomics Roadmap directory (sub directories are prom, enh, and dyadic)\> <br>
 export EXAC_DIR=\<the path to forweb_cleaned_exac_r03_march16_z_data_pLI.txt (excluding the file name)\>
 
 If you are going to run everything from scratch, first make the directories that are assumed to exist. <br>
