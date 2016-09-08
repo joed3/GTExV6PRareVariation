@@ -107,7 +107,7 @@ bash PEER/goats_peer_pipeline_covs.sh ${RAREVARDIR}/preprocessing/PEER
 python preprocessing/gather_filter_normalized_expression.py <br>
 python preprocessing/gather_filter_rpkm.py
 
-## Preparing reference files used later.
+## Preparing reference files used later
 Generates processed data that can be downloaded from \<website\>. <br>
 
 Copy or move the GTEx annotation file (gencode.v19.genes.v6p_model.patched_contigs.gtf.gz) to ${RAREVARDIR}/reference.
