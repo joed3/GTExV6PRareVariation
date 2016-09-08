@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-# author: Emily Tsang
-
 # Takes allele frequencies for all populations extracted from VCF (from the command line)
 # sums allele frequencies for different alleles at the same position
 
