@@ -191,9 +191,9 @@ Rscript paper_figures/figure1c.replication.rate.consistent.R
 #### Figure 4
 
 #### Figure 5
-Rscript getPosteriorsEval.R genomic_features.txt outliers.txt <br>
+Rscript getPosteriorsEval.R data/genomic_features.txt data/outliers.txt <br>
 Rscript paper_figures/figure5b.R <br>
-Rscript getPosteriorsApp.R genomic_features.txt outliers.txt /data/postprobs_all.txt <br>
+Rscript getPosteriorsApp.R data/genomic_features.txt data/outliers.txt /data/postprobs_all.txt <br>
 Rscript paper_figures/figure5c.R
 
 ## Supplemental figures
