@@ -190,7 +190,33 @@ Rscript paper_figures/figure1c.replication.rate.consistent.R
 
 #### Figure 4
 
+#### Figure 5
+Rscript getPosteriorsEval.R genomic_features.txt outliers.txt <br>
+Rscript paper_figures/figure5b.R <br>
+Rscript getPosteriorsApp.R genomic_features.txt outliers.txt /data/postprobs_all.txt <br>
+Rscript paper_figures/figure5c.R
+
 ## Supplemental figures
 
 #### Overlap between single and multi-tissue outliers
 Rscript paper_figures/suppfig.compare.single.multi.R
+
+#### Improvement of replication of outliers across tissues by PEER correction
+Rscript paper_figures/ExtendedDataFigure3.R
+
+#### Enrichment of functional genomic annotations among an expanded set of multi-tissue outliers
+Rscript paper_figures/ExtendedDataFigure9.R
+
+#### Association between ASE and RIVER scores
+Rscript paper_figures/ExtendedDataFigure11.R
+
+#### Correlation between test posterior probabilities and the fraction of tissues
+Rscript paper_figures/main_RIVER_10CV.R <br>
+Rscript paper_figures/ExtendedDataFigure12.R
+
+#### Distribution of predictive scores for pathogenic variants and all variants
+Rscript paper_figures/ExtendedDataFigure13.R
+
+#### Expression levels for genes proximal to pathogenic variants
+Rscript paper_figures/ExtendedDataFigure14.rpkm.R <br>
+Rscript paper_figures/ExtendedDataFigure14.Zscores.R
