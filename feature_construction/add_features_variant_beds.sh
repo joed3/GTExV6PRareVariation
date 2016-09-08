@@ -12,13 +12,6 @@
 #   (bed file with 5 additional columns with the AF for each super population [EAS, AMR, AFR, EUR, SAS])
 # * output directory
 
-# REQUIRES
-# * /mnt/lab_data/montgomery/shared/conservation/sorted.consolidated.annotations.bed.gz (15 cols, with chr)
-# * /srv/scratch/restricted/goats/features/variantBeds/1KG/indels.1kg.AF.bed.gz (8 cols, with chr)
-# * /srv/scratch/restricted/goats/features/variantBeds/1KG/SNPs.1kg.AF.bed.gz (ditto)
-# * /srv/scratch/restricted/goats/features/annotations/TFBS_Pouya/*merged.bed.gz (3 cols, with chr)
-# * /srv/scratch/restricted/goats/features/annotations/epigenomicsRoadmap/[prom/dyadic/enh]/*.bed.gz (3 cols, with chr)
-
 set -o nounset -o errexit -o pipefail
 
 # PATHS TO SET #######################
