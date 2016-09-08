@@ -37,6 +37,9 @@ Download Epigenomics Roadmap files from http://www.broadinstitute.org/~meuleman/
 * enh/BED_files_per_sample/regions_enh_E*.bed
 * dyadic/BED_files_per_sample/regions_dyadic_E*.bed
 
+Download ExAC constraint data from ftp://ftp.broadinstitute.org/pub/ExAC_release/release0.3/functional_gene_constraint/:
+* forweb_cleaned_exac_r03_march16_z_data_pLI.txt
+
 Other file: <br>
 (Obtained directly from the Hall Lab.)
 * gtex.lumpy.gs.svscore.low_conf.vcf.gz
@@ -48,11 +51,12 @@ If you are using the processed files available online, set this upper-level dire
 Otherwise, set this to be any path where you want to scripts to output.
 
 Either run or add the following to your .bashrc (omit trailing slashes for all directories): <br>
-export RAREVARDIR=/<the path to the upper-level directory/>
-export CADD_DIR=/<the path to the CADD files/>
-export KG_DIR=/<the path to the 1000 genomes files/>
-export ENCODE_MOTIF_DIR=/<the path to />/matches.txt.gz
-export ER_DIR=/<the path to the Epigenomics Roadmap directory (sub directories are prom, enh, and dyadic)/>
+export RAREVARDIR=\<the path to the upper-level directory\> <br>
+export CADD_DIR=\<the path to the CADD files\> <br>
+export KG_DIR=\<the path to the 1000 genomes files\> <br>
+export ENCODE_MOTIF_DIR=\<the path to matches.txt.gz (excluding the file name)\> <br>
+export ER_DIR=/<the path to the Epigenomics Roadmap directory (sub directories are prom, enh, and dyadic)\> <br>
+export EXAC_DIR=\<the path to forweb_cleaned_exac_r03_march16_z_data_pLI.txt (excluding the file name)\>
 
 If you are going to run everything from scratch, first make the directories that are assumed to exist. <br>
 You can skip this step if you will use the processed data files downloaded from <\website\>.
@@ -163,14 +167,14 @@ Memory leak in previous versions causes the memory for this script to blow up. <
 (uses multiple cores; relies on add_features_variant_beds.sh)
 
 #### Collapse site-level features created above into gene-level features
-bash run_build_feature_count_summaries_all_genes.sh
+bash feature_construction/run_build_feature_count_summaries_all_genes.sh
 (uses multiple cores; relies on :
 * build_count_summaries_all_genes.sh
 * build_feature_summaries_all_genes.sh
 * build_feature_set.py)
 
 #### Compile features for outliers and controls
-bash run_compile_features_outliers.sh
+bash feature_construction/run_compile_features_outliers.sh
 (uses multiple cores; relies on:
 * compile_features_outliers.sh
 * compile_features_outliers_nothresh.sh
@@ -185,10 +189,22 @@ Rscript paper_figures/figure1b.outlier.sharing.R <br>
 Rscript paper_figures/figure1c.replication.rate.consistent.R
 
 #### Figure 2
+Rscript paper_figures/figure2a.count.enrichments.R <br>
+Rscript paper_figures/figure2b.threshold.enrichments.R <br>
+Rscript paper_figures/figure2c.ASE.enrichments.R <br>
+Rscript paper_figures/figure2.R
 
 #### Figure 3
+Rscript paper_figures/figure3a.rare.variant.class.enrichments.R <br>
+Rscript paper_figures/figure3b.feature.enrichments.R <br>
+Rscript paper_figures/figure3de.outlier.effect.size.R <br>
+Rscript paper_figures/figure3.R
 
 #### Figure 4
+Rscript paper_figures/figure4a.uk10k.R <br>
+Rscript paper_figures/figure4b.exac.enrichments.R <br>
+Rscript paper_figures/figure4c.gene.list.enrichments.R <br>
+Rscript paper_figures/figure4.R
 
 #### Figure 5
 Rscript getPosteriorsEval.R data/genomic_features.txt data/outliers.txt <br>
