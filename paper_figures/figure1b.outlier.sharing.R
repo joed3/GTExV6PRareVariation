@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 # Load required packages
 require(ggplot2)
 require(reshape2)
