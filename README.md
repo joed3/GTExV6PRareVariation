@@ -3,7 +3,7 @@ Repository to reproduce analyses from the GTEx V6P Rare Variation Manuscript
 
 # To run the code
 ## Download required files
-Download from \<website\>: <br>
+Download from \<website - coming soon\>: <br>
 * processed data directory (referred to below as \<processed_data\>)
 
 Download from http://www.gtexportal.org/home/datasets: <br>
@@ -61,7 +61,7 @@ export ER_DIR=\<the path to the Epigenomics Roadmap directory (sub directories a
 export EXAC_DIR=\<the path to forweb_cleaned_exac_r03_march16_z_data_pLI.txt (excluding the file name)\>
 
 If you are going to run everything from scratch, first make the directories that are assumed to exist. <br>
-You can skip this step if you will use the processed data files downloaded from <\website\>.
+You can skip this step if you will use the processed data files downloaded from <\website - coming soon\>.
 mkdir ${RAREVARDIR}/preprocessing <br>
 mkdir ${RAREVARDIR}/preprocessing/PEER <br>
 mkdir ${RAREVARDIR}/reference <br>
@@ -76,11 +76,11 @@ mkdir ${RAREVARDIR}/features/variantBeds <br>
 mkdir ${RAREVARDIR}/features/annotations <br>
 
 Then you can run the code below. <br>
-Some of the steps reproduce processed files available on \<website\> and are marked as such.
+Some of the steps reproduce processed files available on \<website - coming soon\> and are marked as such.
 
 # Pipeline
 ## Expression data correction and normalization
-Generates processed data that can be downloaded from \<website\>. <br>
+Generates processed data that can be downloaded from \<website - coming soon\>. <br>
 
 #### Generate rpkm and read count matrices from GTEx V6P combined file
 cat \<path to downloaded file\>/GTEx_Data_V6_Annotations_SampleAttributesDS.txt | \ <br>
@@ -110,7 +110,7 @@ python preprocessing/gather_filter_normalized_expression.py <br>
 python preprocessing/gather_filter_rpkm.py
 
 ## Preparing reference files used later
-Generates processed data that can be downloaded from \<website\>. <br>
+Generates processed data that can be downloaded from \<website - coming soon\>. <br>
 
 Copy or move the GTEx annotation file (gencode.v19.genes.v6p_model.patched_contigs.gtf.gz) to ${RAREVARDIR}/reference.
 
@@ -119,7 +119,7 @@ bash preprocessing/process.reference.files.sh \<path to\>/gencode.v19.genes.v6p_
 
 
 ## Outlier calling
-Generates processed data that can be downloaded from \<website\>. <br>
+Generates processed data that can be downloaded from \<website - coming soon\>. <br>
 
 #### Call multi-tissue outliers
 (Uses multiple cores. Can set the number at the top of the script.) <br>
