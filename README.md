@@ -191,6 +191,7 @@ Rscript paper_figures/figure1b.outlier.sharing.R <br>
 Rscript paper_figures/figure1c.replication.rate.consistent.R
 
 #### Figure 2
+bash paper_figures/count_rarevars.sh <br>
 Rscript paper_figures/figure2a.count.enrichments.R <br>
 Rscript paper_figures/figure2b.threshold.enrichments.R <br>
 Rscript paper_figures/figure2c.ASE.enrichments.R <br>
