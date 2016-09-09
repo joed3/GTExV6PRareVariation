@@ -11,6 +11,8 @@ Download from http://www.gtexportal.org/home/datasets: <br>
 * GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_reads.gct.gz (gunzip it) <br>
 * GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_rpkm.gct.gz (gunzip it) <br>
 * GTEx_Data_V6_Annotations_SampleAttributesDS.txt
+* GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt
+* the covariates used during eQTL discovery
 
 Download from Gencode (http://www.gencodegenes.org/releases/19.html; Comprehensive gene annotation gtf):
 * gencode.v19.annotation.gtf.gz (gunzip it)
@@ -126,7 +128,7 @@ Rscript call_outliers/call_outliers_medz.R
 #### Call single-tissue outliers
 python call_outliers/call_outliers_single_tissue.py
 
-#### Compare single-tissue and multi-tissue outliers as well as get stats on each.
+#### Compare single-tissue and multi-tissue outliers as well as get stats on each
 Rscript call_outliers/compare_single_multi_outliers.R
 
 #### Run replication for single-tissue and multi-tissue outliers
@@ -209,16 +211,33 @@ Rscript paper_figures/figure4.R
 #### Figure 5
 Rscript getPosteriorsEval.R data/genomic_features.txt data/outliers.txt <br>
 Rscript paper_figures/figure5b.R <br>
-Rscript getPosteriorsApp.R data/genomic_features.txt data/outliers.txt /data/postprobs_all.txt <br>
+Rscript getPosteriorsApp.R data/genomic_features.txt data/outliers.txt data/postprobs_all.txt <br>
 Rscript paper_figures/figure5c.R
 
 ## Supplemental figures
 
-#### Overlap between single and multi-tissue outliers
-Rscript paper_figures/suppfig.compare.single.multi.R
+#### Number of rare variants per individual and PCA
+You need to set the path to the downloaded expression covariates and subject annotations in the script below. <br> 
+Rscript paper_figures/suppfig.number.rare.vars.pca.R
 
 #### Improvement of replication of outliers across tissues by PEER correction
 Rscript paper_figures/ExtendedDataFigure3.R
+
+#### Distribution of the nubmer of genes with an multi-tissue outlier
+You need to set the path to the subject annotations in the script below. <br> 
+Rscript paper_figures/suppfig.number.outliers.per.individual.R
+
+#### Single-tissue replication analysis controlling for sampling differences
+Generated when running paper_figures/figure1b.outlier.sharing.R above
+
+#### Overlap between single and multi-tissue outliers
+Rscript paper_figures/suppfig.compare.single.multi.R
+
+#### Single-tissue outlier rare variant enrichments
+Generated when running paper_figures/figure2b.threshold.enrichments.R above
+
+#### Multi-tissue outlier rare variant enrichments when excluding coding regions
+Generated when running paper_figures/figure2a.count.enrichments.R above
 
 #### Enrichment of functional genomic annotations among an expanded set of multi-tissue outliers
 Rscript paper_figures/ExtendedDataFigure9.R
