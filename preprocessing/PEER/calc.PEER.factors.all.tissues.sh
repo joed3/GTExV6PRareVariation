@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+set -o nounset -o errexit -o pipefail
+
 PEER_DIR=${RAREVARDIR}/preprocessing/PEER
 
 # Function of calculate PEER factors for a given tissue
