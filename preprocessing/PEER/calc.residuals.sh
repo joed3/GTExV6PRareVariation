@@ -8,7 +8,7 @@ PEER_DIR=${RAREVARDIR}/preprocessing/PEER
 residCalculator(){
 	line=${1}
 	RPKM=${PEER_DIR}/${line}.rpkm.log2.ztrans.txt
-	Covariates=${RAREVARDIR}/data/eqtl_data/eQTLInputFiles/covariates/${line}_Analysis.covariates.txt
+	Covariates=${RAREVARDIR}/data/covariates/${line}_Analysis.covariates.txt
 	Peer=${PEER_DIR}/${line}_Factors*/factors.tsv
 	OUT=${PEER_DIR}/${line}.peer.ztrans.txt
 	R -f ${PEER_DIR}/calc.residuals.core.R --slave --vanilla --args ${RPKM} ${Covariates} ${Peer} ${OUT} &>${RAREVARDIR}/logs/calc.residuals.${line}.log
