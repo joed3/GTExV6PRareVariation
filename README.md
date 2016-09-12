@@ -60,7 +60,7 @@ export ER_DIR=\<the path to the Epigenomics Roadmap directory (sub directories a
 export EXAC_DIR=\<the path to forweb_cleaned_exac_r03_march16_z_data_pLI.txt (excluding the file name)\>
 
 If you are going to run everything from scratch, first make the directories that are assumed to exist. <br>
-You can skip this step if you will use the processed data files downloaded from \<website - coming soon\>.
+You can skip this step if you will use the processed data files downloaded from \<website - coming soon\>. <br>
 mkdir ${RAREVARDIR}/logs <br>
 mkdir ${RAREVARDIR}/preprocessing <br>
 mkdir ${RAREVARDIR}/preprocessing/PEER <br>
