@@ -4,7 +4,7 @@ set -o nounset -o errexit -o pipefail
 
 PEER_DIR=${RAREVARDIR}/preprocessing/PEER
 TraitsFileName=${PEER_DIR}/${1}.rpkm.log2.ztrans.txt
-CovsFileName=${RAREVARDIR}/data/eqtl_data/eQTLInputFiles/covariates/${1}_Analysis.covariates.txt
+CovsFileName=${RAREVARDIR}/data/covariates/${1}_Analysis.covariates.txt
 MaxFactorsN=$(grep InferredCov ${CovsFileName} | wc -l)
 MaxIterations=10000
 BoundTol=0.001

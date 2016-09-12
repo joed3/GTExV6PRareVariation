@@ -35,7 +35,7 @@ for(i in 1:length(tissues)){
 	rownames(reads) = reads[, 1]
 	reads = reads[, -1]
 	reads = reads[rownames(rpkm), names(rpkm)]
-	covariates = read.table(paste('data/eqtl_data/covariates/', tissue, '_Analysis.covariates.txt', sep = ''), header = T, stringsAsFactors = F, row.names = 1)
+	covariates = read.table(paste('data/covariates/', tissue, '_Analysis.covariates.txt', sep = ''), header = T, stringsAsFactors = F, row.names = 1)
 	colnames(covariates) = gsub('\\.', '-', colnames(covariates))
 
 	rpkm = rpkm[, colnames(covariates)]
