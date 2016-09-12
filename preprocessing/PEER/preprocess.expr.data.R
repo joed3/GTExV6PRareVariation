@@ -14,7 +14,7 @@ require(reshape2)
 #------------- MAIN
 
 # Read in list of tissues with eQTL data
-tissues = read.table('/preprocessing/PEER/gtex_eqtl_tissues.txt', header = F, stringsAsFactors = F)[, 1]
+tissues = read.table('preprocessing/PEER/gtex_eqtl_tissues.txt', header = F, stringsAsFactors = F)[, 1]
 
 # For each tissue, read in the RPKM and covariate files
 # Subset and reorder columns of RPKM file to match covariate file
@@ -28,14 +28,14 @@ for(i in 1:length(tissues)){
 	tissue = tissues[i]
 	print(i)
 	print(tissue)
-	rpkm = as.data.frame(fread(paste('/preprocessing/PEER/', tissue, '.rpkm.txt', sep = ''), header = T))
+	rpkm = as.data.frame(fread(paste('preprocessing/PEER/', tissue, '.rpkm.txt', sep = ''), header = T))
 	rownames(rpkm) = rpkm[, 1]
 	rpkm = rpkm[, -1]
-	reads = as.data.frame(fread(paste('/preprocessing/PEER/', tissue, '.reads.txt', sep = ''), header = T))
+	reads = as.data.frame(fread(paste('preprocessing/PEER/', tissue, '.reads.txt', sep = ''), header = T))
 	rownames(reads) = reads[, 1]
 	reads = reads[, -1]
 	reads = reads[rownames(rpkm), names(rpkm)]
-	covariates = read.table(paste('/data/eQTLInputFiles/covariates/', tissue, '_Analysis.covariates.txt', sep = ''), header = T, stringsAsFactors = F, row.names = 1)
+	covariates = read.table(paste('data/eQTLInputFiles/covariates/', tissue, '_Analysis.covariates.txt', sep = ''), header = T, stringsAsFactors = F, row.names = 1)
 	colnames(covariates) = gsub('\\.', '-', colnames(covariates))
 
 	rpkm = rpkm[, colnames(covariates)]
@@ -43,6 +43,6 @@ for(i in 1:length(tissues)){
 	indices_to_keep = rowSums(rpkm > rpkm_filt & reads > read_filt) >= ind_filt
 	rpkm = rpkm[indices_to_keep, ]
 	rpkm_out = scale(t(log2(rpkm + 2)))
-	write.table(rpkm_out, paste('/preprocessing/PEER/', tissue, '.rpkm.log2.ztrans.txt', sep = ''), quote = F, sep = '\t', row.names = T, col.names = T)
+	write.table(rpkm_out, paste('preprocessing/PEER/', tissue, '.rpkm.log2.ztrans.txt', sep = ''), quote = F, sep = '\t', row.names = T, col.names = T)
 }
 
