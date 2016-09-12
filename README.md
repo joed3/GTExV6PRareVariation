@@ -42,15 +42,14 @@ Download Epigenomics Roadmap files from http://www.broadinstitute.org/~meuleman/
 Download ExAC constraint data from ftp://ftp.broadinstitute.org/pub/ExAC_release/release0.3/functional_gene_constraint/:
 * forweb_cleaned_exac_r03_march16_z_data_pLI.txt
 
-Other file: <br>
-(Obtained directly from the Hall Lab.)
-* gtex.lumpy.gs.svscore.low_conf.vcf.gz
+Other files: <br>
+* gtex.lumpy.gs.svscore.low_conf.vcf.gz (Obtained directly from the Hall Lab.)
 
 ## Setup
 The code relies on an assumed directory structure.
 Everything is under an upper level directory.
 If you are using the processed files available online, set this upper-level directory to be the path to \<processed_data\>. <br>
-Otherwise, set this to be any path where you want to scripts to output.
+Otherwise, set this to be any path where you want scripts to output.
 
 Either run or add the following to your .bashrc (omit trailing slashes for all directories): <br>
 export RAREVARDIR=\<the path to the upper-level directory\> <br>
@@ -61,7 +60,8 @@ export ER_DIR=\<the path to the Epigenomics Roadmap directory (sub directories a
 export EXAC_DIR=\<the path to forweb_cleaned_exac_r03_march16_z_data_pLI.txt (excluding the file name)\>
 
 If you are going to run everything from scratch, first make the directories that are assumed to exist. <br>
-You can skip this step if you will use the processed data files downloaded from <\website - coming soon\>.
+You can skip this step if you will use the processed data files downloaded from \<website - coming soon\>.
+mkdir ${RAREVARDIR}/logs <br>
 mkdir ${RAREVARDIR}/preprocessing <br>
 mkdir ${RAREVARDIR}/preprocessing/PEER <br>
 mkdir ${RAREVARDIR}/reference <br>
