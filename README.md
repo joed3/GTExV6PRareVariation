@@ -95,7 +95,7 @@ python preprocessing/split_by_tissues.py \ <br>
 
 python preprocessing/split_by_tissues.py \ <br>
     --GTEX \<path to downloaded file\>/GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_reads.gct \ <br>
-    --SAMPLE ${RAREVARDIR}/preprocessing/gtex_2015--1-12_samples_tissues.txt \ <br>
+    --SAMPLE ${RAREVARDIR}/preprocessing/gtex_2015-1-12_samples_tissues.txt \ <br>
     --OUT ${RAREVARDIR}/preprocessing/PEER \ <br>
     --END .reads.txt
 
