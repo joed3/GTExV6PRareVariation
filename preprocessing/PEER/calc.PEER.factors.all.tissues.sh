@@ -7,7 +7,7 @@ PEER_DIR=${RAREVARDIR}/preprocessing/PEER
 # Function of calculate PEER factors for a given tissue
 factorCalculator(){
 	line=${1}
-	bash ${PEER_DIR}/calc.PEER.factors.single.tissue.sh &>${RAREVARDIR}/logs/calc.PEER.factors.${line}.log
+	bash ${PEER_DIR}/calc.PEER.factors.single.tissue.sh ${line} &>${RAREVARDIR}/logs/calc.PEER.factors.${line}.log
 }
 
 # Calculate PEER factors for each tissue
