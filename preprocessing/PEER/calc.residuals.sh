@@ -11,7 +11,7 @@ residCalculator(){
 	Covariates=${RAREVARDIR}/data/eqtl_data/eQTLInputFiles/covariates/${line}_Analysis.covariates.txt
 	Peer=${PEER_DIR}/${line}_Factors*/factors.tsv
 	OUT=${PEER_DIR}/${line}.peer.ztrans.txt
-	R -f calc.residuals.core.R --slave --vanilla --args ${RPKM} ${Covariates} ${Peer} ${OUT} &>${RAREVARDIR}/logs/calc.residuals.${line}.log
+	R -f ${PEER_DIR}/calc.residuals.core.R --slave --vanilla --args ${RPKM} ${Covariates} ${Peer} ${OUT} &>${RAREVARDIR}/logs/calc.residuals.${line}.log
 }
 
 # Run above function for each tissue in parallel
