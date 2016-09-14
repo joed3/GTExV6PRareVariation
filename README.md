@@ -99,15 +99,18 @@ python preprocessing/split_by_tissues.py \ <br>
     --OUT ${RAREVARDIR}/preprocessing/PEER \ <br>
     --END .reads.txt
 
+#### Run bash scripts to generate PEER corrected data (includes non-EAs) with covariates removed
+bash preprocessing/PEER/PEER.pipeline.sh
+
 #### Make list of individuals and tissues
 bash preprocessing/get_tissue_by_individual.sh
-
-#### Run bash scripts to generate PEER corrected data (includes non-EAs) with covariates removed
-bash PEER/goats_peer_pipeline_covs.sh ${RAREVARDIR}/preprocessing/PEER
 
 #### Make flat files from raw RPKMs and PEER-corrected data for all tissues and individuals
 python preprocessing/gather_filter_normalized_expression.py <br>
 python preprocessing/gather_filter_rpkm.py
+
+#### Make summary statistics for expressed genes
+Rscript preprocessing/rpkm.expression.analysis.R
 
 ## Preparing reference files used later
 Generates processed data that can be downloaded from \<website - coming soon\>. <br>
