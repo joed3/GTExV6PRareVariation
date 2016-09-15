@@ -203,14 +203,33 @@ Source: http://www.ncbi.nlm.nih.gov/clinvar/docs/acmg/ <br>
 Raw file: disease.genes/ACMG/acmg.csv
 
 #### ClinVar
+Source: http://www.ncbi.nlm.nih.gov/clinvar/
+Raw file: disease.genes/ClinVar/gene_condition_source_id
 
 #### GWAS
+Source: http://www.ebi.ac.uk/gwas/
+Raw file: disease.genes/GWAS/gwas_catalog_v1.0-downloaded_2015-11-30.tsv
 
 #### OMIM
+Source: http://www.omim.org/
+Raw files: disease.genes/OMIM/morbidmap.txt and disease.genes/OMIM/mim2gene.txt 
+Processed file: disease.genes/OMIM/omim.genes.txt
+
+To produce the processed file from the raw file: 
+grep '(3)' disease.genes/OMIM/morbidmap.txt | cut -f2 | sed 's/, /\n/g' | sort | uniq > disease.genes/OMIM/omim.genes.temp.txt
+
+grep -wf disease.genes/OMIM/omim.genes.temp.txt disease.genes/OMIM/mim2gene.txt  > disease.genes/OMIM/temp.mim2gene.intersection.txt
+
+cut -f4,5 disease.genes/OMIM/temp.mim2gene.intersection.txt | sort | uniq > disease.genes/OMIM/omim.genes.txt
+
+rm disease.genes/OMIM/omim.genes.temp.txt disease.genes/OMIM/temp.mim2gene.intersection.txt
 
 #### Orphanet
+Source: http://www.orpha.net/
+Raw file: 
 
 #### Other: Cardiovascular and Cancer disease genes
+
 
 ## Main figures
 #### Figure 1
