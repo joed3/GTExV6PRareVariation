@@ -29,21 +29,21 @@ Download from http://krishna.gs.washington.edu/download/CADD/v1.2/:
 * `whole_genome_SNVs_inclAnno.tsv.gz.tbi`
 
 Download from ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/release/20130502/:
-* ALL.chr*.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
+* `ALL.chr*.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz`
 
 Download from http://compbio.mit.edu/encode-motifs/:
-* matches.txt.gz
+* `matches.txt.gz`
 
 Download Epigenomics Roadmap files from http://www.broadinstitute.org/~meuleman/reg2map/HoneyBadger2_release/DNase/p2/:
-* prom/BED_files_per_sample/regions_prom_E*.bed
-* enh/BED_files_per_sample/regions_enh_E*.bed
-* dyadic/BED_files_per_sample/regions_dyadic_E*.bed
+* `prom/BED_files_per_sample/regions_prom_E*.bed`
+* `enh/BED_files_per_sample/regions_enh_E*.bed`
+* `dyadic/BED_files_per_sample/regions_dyadic_E*.bed`
 
 Download ExAC constraint data from ftp://ftp.broadinstitute.org/pub/ExAC_release/release0.3/functional_gene_constraint/:
-* forweb_cleaned_exac_r03_march16_z_data_pLI.txt
+* `forweb_cleaned_exac_r03_march16_z_data_pLI.txt`
 
 Other files: <br>
-* gtex.lumpy.gs.svscore.low_conf.vcf.gz (Obtained directly from the Hall Lab.)
+* `gtex.lumpy.gs.svscore.low_conf.vcf.gz` (Obtained directly from the Hall Lab.)
 
 ## Setup
 The code relies on an assumed directory structure.
@@ -52,12 +52,14 @@ If you are using the processed files available online, set this upper-level dire
 Otherwise, set this to be any path where you want scripts to output.
 
 Either run or add the following to your .bashrc (omit trailing slashes for all directories): <br>
-export RAREVARDIR=\<the path to the upper-level directory\> <br>
-export CADD_DIR=\<the path to the CADD files\> <br>
-export KG_DIR=\<the path to the 1000 genomes files\> <br>
-export ENCODE_MOTIF_DIR=\<the path to matches.txt.gz (excluding the file name)\> <br>
-export ER_DIR=\<the path to the Epigenomics Roadmap directory (sub directories are prom, enh, and dyadic)\> <br>
+```
+export RAREVARDIR=\<the path to the upper-level directory\>
+export CADD_DIR=\<the path to the CADD files\>
+export KG_DIR=\<the path to the 1000 genomes files\>
+export ENCODE_MOTIF_DIR=\<the path to matches.txt.gz (excluding the file name)\>
+export ER_DIR=\<the path to the Epigenomics Roadmap directory (sub directories are prom, enh, and dyadic)\>
 export EXAC_DIR=\<the path to forweb_cleaned_exac_r03_march16_z_data_pLI.txt (excluding the file name)\>
+```
 
 If you are going to run everything from scratch, first make the directories that are assumed to exist. <br>
 You can skip this step if you will use the processed data files downloaded from \<website - coming soon\>. <br>
