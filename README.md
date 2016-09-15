@@ -195,7 +195,7 @@ bash feature_construction/run_compile_features_outliers.sh
 * pick_outliers_controls_imbalanced.py)
 
 ## Disease gene annotations
-We are providing the processed gene lists for the 7 disease gene sets we analyzed for overlap with outlier genes. <br>
+We are providing the processed gene lists for the eight disease gene sets we analyzed for overlap with genes with multi-tissue outliers. <br>
 We are also providing, where applicable, the commands and raw files needed to generate these processed lists.
 
 #### ACMG
@@ -230,11 +230,11 @@ Raw file: disease.genes/Orphanet/en_product6.xml
 Processed file: disease.genes/Orphanet/orphanet.genes.txt
 
 To produce the processed file from the raw file:
-grep ENSG disease.genes/OrphaNet/en_product6.xml | sort | uniq | grep -o 'ENSG[0-9]*' > disease.genes/OrphaNet/orphanet.genes.txt
-
+grep ENSG disease.genes/Orphanet/en_product6.xml | sort | uniq | grep -o 'ENSG[0-9]*' > disease.genes/Orphanet/orphanet.genes.txt
 
 #### Other: Cardiovascular and Cancer disease genes
-
+We assessed overlap of genes with multi-tissue outliers with two expert curated disease gene lists: one for heritable cancer predisposition and one for heritable cardiovascular disease. See the methods section of our manuscript for more information.
+Raw files: cancer.genes.gold.standard.csv (Cancer), cardio.genes.gold.standard.csv (Cardio) 
 
 ## Main figures
 #### Figure 1

@@ -1,0 +1,56 @@
+Gene,HGNC Approved Name,Germline Tumour Types,Cancer Syndrome
+APC,adenomatous polyposis coli,"colorectal, pancreatic, desmoid, hepatoblastoma, glioma, other CNS",Familial Adenomatous Polyposis; Turcot syndrome
+ATM,ATM serine/threonine kinase,"leukaemia, lymphoma, medulloblastoma, glioma",Ataxia Telangiectasia {ATM-associated breast cancer susceptibility}
+BAP1,BRCA1 associated protein-1 (ubiquitin carboxy-terminal hydrolase),"mesothelioma, uveal melanoma","Melanocytic Tumor syndrome, Familial Uveal Melanoma"
+BARD1,BRCA1 associated RING domain 1,,{Breast cancer susceptibility}
+BLM,"Bloom syndrome, RecQ helicase-like","leukaemia, lymphoma, skin squamous cell, other tumour types",Bloom syndrome
+BMPR1A,"bone morphogenetic protein receptor, type IA",gastrointestinal polyps,juvenile polyposis
+BRCA1,"breast cancer 1, early onset","breast, ovarian",hereditary breast/ovarian cancer
+BRCA2,"breast cancer 2, early onset","breast, ovarian, pancreatic, leukaemia  (FANCB, FANCD1)",hereditary breast/ovarian cancer
+BRIP1,BRCA1 interacting protein C-terminal helicase 1,"AML, leukaemia, breast","Fanconi anaemia J, breast cancer susceptiblity"
+CDH1,"cadherin 1, type 1, E-cadherin (epithelial)",gastric,"familial gastric carcinoma, {Breast cancer, lobular}, {Prostate cancer, susceptibility to}"
+CDK4,cyclin-dependent kinase 4,melanoma,Cutaneous malignant melanoma syndrome (CMM)
+CDKN1B,"cyclin-dependent kinase inhibitor 1B (p27, Kip1)","pituitary, parathyroid",multiple endocrine neoplasia type IV
+CDKN2A,cyclin-dependent kinase inhibitor 2A,"melanoma, pancreatic",familial malignant melanoma
+CHEK2,checkpoint kinase 2,breast,Familial breast cancer
+DICER1,"dicer 1, ribonuclease type III",pleuropulmonary blastoma,familial pleuropulmonary blastoma or DICER1 syndrome
+EPCAM,epithelial cell adhesion molecule,"Colon/colorectal, Uterine/endometrial, Kidney/renal, ovarian, prostate",Lynch syndrome (Hereditary nonpolyposis colorectal cancer)
+FH,fumarate hydratase,"leiomyomatosis, renal",Hereditary leiomyomatosis and renal cell cancer (HLRCC)
+FLCN,folliculin,"renal, fibrofolliculomas, trichodiscomas",Birt-Hogg-Dube syndrome
+GREM1,"gremlin 1, DAN family BMP antagonist",,
+KIT,v-kit Hardy-Zuckerman 4 feline sarcoma viral oncogene homolog,"GIST, epithelioma",familial gastrointestinal stromal tumour
+LZTR1,,,
+MEN1,multiple endocrine neoplasia I,"parathyroid adenoma, pituitary adenoma, pancreatic islet cell, carcinoid",multiple endocrine neoplasia type 1
+MET,"MET proto-oncogene, receptor tyrosine kinase",papillary renal,familial papillary renal cancer
+MITF,microphthalmia-associated transcription factor,,"{Melanoma, cutaneous malignant, susceptibility to, 8}"
+MLH1,mutL homolog 1,"colorectal, endometrial, ovarian, CNS","hereditary non-polyposis colorectal cancer (Lynch syndrome), Turcot syndrome"
+MRE11A,MRE11 meiotic recombination 11 homolog A (S. cerevisiae),,
+MSH2,mutS homolog 2,"colorectal, endometrial, ovarian",hereditary non-polyposis colorectal cancer (Lynch syndrome)
+MSH6,mutS homolog 6,"colorectal, endometrial, ovarian",hereditary non-polyposis colorectal cancer (Lynch syndrome)
+MUTYH,mutY homolog,colorectal,MUTYH-associated polyposis (MAP)
+NBN,nibrin,"NHL, glioma, medulloblastoma, rhabdomyosarcoma",Nijmegen breakage syndrome
+NF1,neurofibromin 1,"neurofibroma, glioma",neurofibromatosis type 1
+NF2,neurofibromin 2 (merlin),"meningioma, acoustic neuroma",neurofibromatosis type 2
+PALB2,partner and localizer of BRCA2,"Wilms tumour, medulloblastoma, AML ,breast","Fanconi anaemia N, breast cancer susceptibility"
+PMS2,PMS2 postmeiotic segregation increased 2 (S. cerevisiae),"colorectal, endometrial, ovarian, medulloblastoma, glioma","hereditary non-polyposis colorectal cancer (Lynch syndrome), Turcot syndrome"
+POLD1,"polymerase (DNA directed), delta 1, catalytic subunit",,"{Colorectal cancer, susceptibility to, 10}"
+POLE,"polymerase (DNA directed), epsilon, catalytic subunit",colorectal cancer susceptibility,
+PTCH1,patched 1,"skin basal cell, medulloblastoma",nevoid basal cell carcinoma syndrome
+PTEN,phosphatase and tensin homolog,"harmartoma, glioma, prostate, endometrial","Cowden syndrome, Bannayan-Riley-Ruvalcaba syndrome"
+RAD50,RAD50 homolog (S. cerevisiae),,
+RAD51,,,
+RAD51C,RAD51 paralog C,,Fanconi anemia O
+RAD51D,RAD51 paralog D,,
+RB1,retinoblastoma 1,"retinoblastoma, sarcoma, breast, small cell lung carcinoma",familial retinoblastoma
+RET,ret proto-oncogene,"medullary thyroid,  papillary thyroid, pheochromocytoma",multiple endocrine neoplasia 2A/2B
+SDHA,"succinate dehydrogenase complex, subunit A, flavoprotein (Fp)","Paraganglioma (PGL), pheochromocytoma (PCC), GIST, Kidney/renal",Hereditary PGL-PCC syndrome
+SDHAF2,succinate dehydrogenase complex assembly factor 2,paraganglioma,familial paraganglioma
+SDHB,"succinate dehydrogenase complex, subunit B, iron sulfur (Ip)","paraganglioma, pheochromocytoma",familial paraganglioma
+SDHC,"succinate dehydrogenase complex, subunit C, integral membrane protein, 15kDa","paraganglioma, pheochromocytoma",familial paraganglioma
+SDHD,"succinate dehydrogenase complex, subunit D, integral membrane protein","paraganglioma, pheochromocytoma",familial paraganglioma
+SMAD4,SMAD family member 4,gastrointestinal polyp,juvenile polyposis
+STK11,serine/threonine kinase 11,"jejunal hamartoma, ovarian, testicular, pancreatic",Peutz-Jeghers syndrome
+TP53,tumor protein p53,"breast, sarcoma, adrenocortical carcinoma, glioma, multiple other tumour types",Li-Fraumeni syndrome
+TSC1,tuberous sclerosis 1,"hamartoma, renal cell carcinoma, tuberous sclerosis tuber",Tuberous sclerosis 1
+TSC2,tuberous sclerosis 2,"hamartoma, renal cell carcinoma, tuberous sclerosis tuber",Tuberous sclerosis 2
+VHL,"von Hippel-Lindau tumor suppressor, E3 ubiquitin protein ligase","renal, haemangioma, pheochromocytoma",Von Hippel-Lindau syndrome

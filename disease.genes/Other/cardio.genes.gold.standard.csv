@@ -1,0 +1,87 @@
+Gene,Disease(s) | HCM=hypertrophic cardiomyopathy; DCM= dilated cardiomyopathy; ARVC=Arrhythmogenic right ventricular cardiomyopathy; LQTS=long QT syndrome; CPVT= Catecholaminergic polymorphic ventricular tachycardia; FH=familial hypercholesterolemia; afib=atrial fibrillation; BAV=Bicuspid aortic valve; FTAAD=Familial Thoracic Aortic Aneurysm And Dissection
+DSC2,ARVC
+DSG2,ARVC
+PKP2,ARVC
+TMEM43,ARVC
+RYR2,ARVC; CPVT
+JUP,ARVC; DCM
+CACNA2D1,Brugada
+CACNB2,Brugada
+GPD1L,Brugada
+HCN4,Brugada; Conduction system disease
+SCN1B,Brugada; Conduction system disease
+TBX5,Conduction system disease
+TRPM4,Conduction system disease
+GATA4,Congenital heart disease
+PTPN11,Congenital heart disease
+TBX1,Congenital heart disease
+NKX2-5,Congenital heart disease; Conduction system disease
+ACTA2,Connective Tissue Disorders/BAV/FTAAD
+CBS,Connective Tissue Disorders/BAV/FTAAD
+COL3A1,Connective Tissue Disorders/BAV/FTAAD
+COL5A1,Connective Tissue Disorders/BAV/FTAAD
+COL5A2,Connective Tissue Disorders/BAV/FTAAD
+FBN1,Connective Tissue Disorders/BAV/FTAAD
+FBN2,Connective Tissue Disorders/BAV/FTAAD
+FLNA,Connective Tissue Disorders/BAV/FTAAD
+LOX,Connective Tissue Disorders/BAV/FTAAD
+MED12,Connective Tissue Disorders/BAV/FTAAD
+MYH11,Connective Tissue Disorders/BAV/FTAAD
+MYLK,Connective Tissue Disorders/BAV/FTAAD
+PLOD1,Connective Tissue Disorders/BAV/FTAAD
+PRKG1,Connective Tissue Disorders/BAV/FTAAD
+SKI,Connective Tissue Disorders/BAV/FTAAD
+SLC2A10,Connective Tissue Disorders/BAV/FTAAD
+SMAD3,Connective Tissue Disorders/BAV/FTAAD
+SMAD4,Connective Tissue Disorders/BAV/FTAAD
+TGFB2,Connective Tissue Disorders/BAV/FTAAD
+TGFB3,Connective Tissue Disorders/BAV/FTAAD
+TGFBR1,Connective Tissue Disorders/BAV/FTAAD
+TGFBR2,Connective Tissue Disorders/BAV/FTAAD
+NOTCH1,Connective Tissue Disorders/BAV/FTAAD; Congenital heart disease
+CALM1,CPVT
+CALM2,CPVT
+CALM3,CPVT
+CASQ2,CPVT
+TRDN,CPVT
+BAG3,DCM
+RBM20,DCM
+TTN,DCM
+VCL,DCM
+DSP,DCM; ARVC
+PLN,DCM; ARVC
+DES,DCM; Conduction system disease
+DMD,DCM; Conduction system disease
+EMD,DCM; Conduction system disease
+LMNA,DCM; Conduction system disease
+APOB,FH
+LDLR,FH
+PCSK9,FH
+ACTC1,HCM
+GLA,HCM
+LAMP2,HCM
+MYBPC3,HCM
+MYL2,HCM
+MYL3,HCM
+PRKAG2,HCM
+TNNC1,HCM
+TTR,HCM
+MYH7,HCM; DCM
+TNNI3,HCM; DCM
+TNNT2,HCM; DCM
+TPM1,HCM; DCM
+AKAP9,LQTS and afib
+ANK2,LQTS and afib
+CAV3,LQTS and afib
+GJA5,LQTS and afib
+KCNA5,LQTS and afib
+KCNE1,LQTS and afib
+KCNE2,LQTS and afib
+SCN4B,LQTS and afib
+SNTA1,LQTS and afib
+CACNA1C,LQTS and afib; Brugada
+SCN5A,LQTS and afib; DCM; Brugada; Conduction system disease
+KCNH2,LQTS and afib; Short QT
+KCNQ1,LQTS and afib; Short QT
+KCNJ2,LQTS and afib; Short QT; CPVT
+ACTN2,Sudden cardiac arrest
