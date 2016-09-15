@@ -203,19 +203,19 @@ Source: http://www.ncbi.nlm.nih.gov/clinvar/docs/acmg/ <br>
 Raw file: disease.genes/ACMG/acmg.csv
 
 #### ClinVar
-Source: http://www.ncbi.nlm.nih.gov/clinvar/
+Source: http://www.ncbi.nlm.nih.gov/clinvar/ <br>
 Raw file: disease.genes/ClinVar/gene_condition_source_id
 
 #### GWAS
-Source: http://www.ebi.ac.uk/gwas/
+Source: http://www.ebi.ac.uk/gwas/ <br>
 Raw file: disease.genes/GWAS/gwas_catalog_v1.0-downloaded_2015-11-30.tsv
 
 #### OMIM
-Source: http://www.omim.org/
-Raw files: disease.genes/OMIM/morbidmap.txt and disease.genes/OMIM/mim2gene.txt 
+Source: http://www.omim.org/ <br>
+Raw files: disease.genes/OMIM/morbidmap.txt and disease.genes/OMIM/mim2gene.txt <br>
 Processed file: disease.genes/OMIM/omim.genes.txt
 
-To produce the processed file from the raw files: 
+To produce the processed file from the raw files: <br>
 grep '(3)' disease.genes/OMIM/morbidmap.txt | cut -f2 | sed 's/, /\n/g' | sort | uniq > disease.genes/OMIM/omim.genes.temp.txt
 
 grep -wf disease.genes/OMIM/omim.genes.temp.txt disease.genes/OMIM/mim2gene.txt  > disease.genes/OMIM/temp.mim2gene.intersection.txt
@@ -225,15 +225,15 @@ cut -f4,5 disease.genes/OMIM/temp.mim2gene.intersection.txt | sort | uniq > dise
 rm disease.genes/OMIM/omim.genes.temp.txt disease.genes/OMIM/temp.mim2gene.intersection.txt
 
 #### Orphanet
-Source: http://www.orpha.net/
-Raw file: disease.genes/Orphanet/en_product6.xml
+Source: http://www.orpha.net/ <br>
+Raw file: disease.genes/Orphanet/en_product6.xml <br>
 Processed file: disease.genes/Orphanet/orphanet.genes.txt
 
-To produce the processed file from the raw file:
+To produce the processed file from the raw file: <br>
 grep ENSG disease.genes/Orphanet/en_product6.xml | sort | uniq | grep -o 'ENSG[0-9]*' > disease.genes/Orphanet/orphanet.genes.txt
 
 #### Other: Cardiovascular and Cancer disease genes
-We assessed overlap of genes with multi-tissue outliers with two expert curated disease gene lists: one for heritable cancer predisposition and one for heritable cardiovascular disease. See the methods section of our manuscript for more information.
+We assessed overlap of genes with multi-tissue outliers with two expert curated disease gene lists: one for heritable cancer predisposition and one for heritable cardiovascular disease. See the methods section of our manuscript for more information. <br>
 Raw files: cancer.genes.gold.standard.csv (Cancer), cardio.genes.gold.standard.csv (Cardio) 
 
 ## Main figures
