@@ -1,0 +1,59 @@
+Phenotype,Gene,"MIM, disorder",PMID - GeneReviews Entry,Age of Onset,"MIM, gene",gene ID,Inheritance,Variants to Report,ID number (To tie it to variants),Chromosome,start position,end position
+Hereditary Breast and Ovarian Cancer,BRCA1,"604370;612555",20301425,Adult,113705,672,AD,Known pathogenic; Expected pathogenic,1,17,41196312,41277500
+Hereditary Breast and Ovarian Cancer,BRCA2,604370;612555,20301425,Adult,600185,675,AD,Known pathogenic; Expected pathogenic,2,13,32889617,32973809
+Li-Fraumeni Syndrome,TP53,151623,20301488,Child/Adult,191170,7157,AD,Known pathogenic; Expected pathogenic,3,17,7571720,7590868
+Peutz-Jeghers Syndrome,STK11,175200,20301443,Child/Adult,602216,6794,AD,Known pathogenic; Expected pathogenic,4,19,1205798,1228434
+Lynch syndrome,MLH1,120435,20301390,Adult,120436,4292,AD,Known pathogenic; Expected pathogenic,5,3,37034841,37092337
+Lynch syndrome,MSH2,120435,20301390,Adult,609309,4436,AD,Known pathogenic; Expected pathogenic,6,2,47630206,47710367
+Lynch syndrome,MSH6,120435,20301390,Adult,600678,2956,AD,Known pathogenic; Expected pathogenic,7,2,48010221,48034092
+Lynch syndrome,PMS2,120435,20301390,Adult,600259,5395,AD,Known pathogenic; Expected pathogenic,8,7,6012870,6048737
+Familial adenomatous polyposis,APC,175100,20301519,Child,611731,324,AD,Known pathogenic; Expected pathogenic,9,5,112043202,112181936
+"MYH-Associated Polyposis; Adenomas, multiple colorectal, FAP type 2; Colorectal adenomatous polyposis, autosomal recessive, with pilomatricomas",MUTYH,608456;132600,23035301,Adult,604933,4595,AR**,Known pathogenic; Expected pathogenic,10,1,45794914,45806142
+Von Hippel Lindau syndrome,VHL,193300,20301636,Child/Adult,608537,7428,AD,Known pathogenic; Expected pathogenic,11,3,10183319,10195354
+Multiple Endocrine Neoplasia Type 1,MEN1,131100,20301710,Child/Adult,613733,4221,AD,Known pathogenic; Expected pathogenic,12,11,64570986,64578766
+Multiple Endocrine Neoplasia Type 2,RET,171400;162300,20301434,Child/Adult,164761,5979,AD,Known pathogenic,13,10,43572517,43625799
+Familial Medullary Thyroid Cancer (FMTC),RET,1552401,20301434,Child/Adult,164761,5979,AD,Known pathogenic,14,10,43572517,43625799
+Familial Medullary Thyroid Cancer (FMTC),NTRK1,1552401,20301434,Child/Adult,191315,4914,Suspected AD,Known pathogenic,15,1,156785542,156851642
+PTEN Hamartoma Tumor Syndrome,PTEN,153480,20301661,Child,601728,5728,AD,Known pathogenic; Expected pathogenic,16,10,89623195,89728532
+Retinoblastoma,RB1,180200,20301625,Child,614041,5925,AD,Known pathogenic; Expected pathogenic,17,13,48877883,49056026
+Hereditary Paraganglioma Pheochromocytoma Syndrome (PGL1),SDHD,168000,20301715,Child/Adult,602690,6392,AD,Known pathogenic; Expected pathogenic,18,11,111957571,111966518
+Hereditary Paraganglioma Pheochromocytoma Syndrome (PGL2),SDHAF2,601650,20301715,Child/Adult,613019,54949,AD,Known pathogenic,19,11,61197597,61214239
+Hereditary Paraganglioma Pheochromocytoma Syndrome (PGL3),SDHC,605373,20301715,Child/Adult,602413,6391,AD,Known pathogenic; Expected pathogenic,20,1,161284166,161334541
+Hereditary Paraganglioma Pheochromocytoma Syndrome (PGL4),SDHB,115310,20301715,Child/Adult,185470,6390,AD,Known pathogenic; Expected pathogenic,21,1,17345217,17380665
+Tuberous Sclerosis Complex,TSC1,"191100;613254",20301399,Child,605284,7248,AD,Known pathogenic; Expected pathogenic,22,9,135766735,135820020
+Tuberous Sclerosis Complex,TSC2,191100;613254,20301399,Child,191092,7249,AD,Known pathogenic; Expected pathogenic,23,16,2097990,2138713
+WT1-related Wilms tumor,WT1,194070,20301471,Child,607102,7490,AD,Known pathogenic; Expected pathogenic,24,11,32409321,32457081
+Neurofibromatosis type 2,NF2,101100,20301380,Child/Adult,607379,4771,AD,Known pathogenic; Expected pathogenic,25,22,29999545,30094589
+EDS - Vascular type,COL3A1,130050,20301667,Child/Adult,120180,1281,AD,Known pathogenic; Expected pathogenic,26,2,189839099,189877472
+Marfan Syndrome; Loeys-Dietz Syndromes; and Familial Thoracic Aortic Aneurysms and Dissections,FBN1,154700; 609192; 608967; 610168; 610380; 613795; 611788,20301510; 20301312; 20301299,Child/Adult,134797,2200,AD,Known pathogenic; Expected pathogenic,27,15,48700503,48937985
+Marfan Syndrome; Loeys-Dietz Syndromes; and Familial Thoracic Aortic Aneurysms and Dissections,TGFBR1,154700; 609192; 608967; 610168; 610380; 613795; 611788,20301510; 20301312; 20301299,Child/Adult,190181,7046,AD,Known pathogenic; Expected pathogenic,28,9,101867412,101916474
+Marfan Syndrome; Loeys-Dietz Syndromes; and Familial Thoracic Aortic Aneurysms and Dissections,TGFBR2,154700; 609192; 608967; 610168; 610380; 613795; 611788,20301510; 20301312; 20301299,Child/Adult,190182,7048,AD,Known pathogenic; Expected pathogenic,29,3,30647994,30735634
+Marfan Syndrome; Loeys-Dietz Syndromes; and Familial Thoracic Aortic Aneurysms and Dissections,SMAD3,154700; 609192; 608967; 610168; 610380; 613795; 611788,20301510; 20301312; 20301299,Child/Adult,603109,4088,AD,Known pathogenic; Expected pathogenic,30,15,67358195,67487533
+Marfan Syndrome; Loeys-Dietz Syndromes; and Familial Thoracic Aortic Aneurysms and Dissections,ACTA2,154700; 609192; 608967; 610168; 610380; 613795; 611788,20301510; 20301312; 20301299,Child/Adult,102620,11475,AD,Known pathogenic; Expected pathogenic,31,19,34241091,34255336
+Marfan Syndrome; Loeys-Dietz Syndromes; and Familial Thoracic Aortic Aneurysms and Dissections,MYLK,154700; 609192; 608967; 610168; 610380; 613795; 611788,20301510; 20301312; 20301299,Child/Adult,600922,4638,AD,Known pathogenic; Expected pathogenic,32,3,123331143,123603149
+Marfan Syndrome; Loeys-Dietz Syndromes; and Familial Thoracic Aortic Aneurysms and Dissections,MYH11,154700; 609192; 608967; 610168; 610380; 613795; 611788,20301510; 20301312; 20301299,Child/Adult,160745,17880,AD,Known pathogenic; Expected pathogenic,33,16,14194527,14291408
+Hypertrophic cardiomyopathy; Dilated cardiomyopathy,MYBPC3,"115197; 192600; 601494; 613690; 115196; 608751; 612098; 600858; 301500; 608758; 115200",20301725,Child/Adult,600958,4607,AD,Known pathogenic; Expected pathogenic,34,11,47352957,47374253
+Hypertrophic cardiomyopathy; Dilated cardiomyopathy,MYH7,"115197; 192600; 601494; 613690; 115196; 608751; 612098; 600858; 301500; 608758; 115200",20301725,Child/Adult,160760,4625,AD,Known pathogenic,35,14,23881947,23903496
+Hypertrophic cardiomyopathy; Dilated cardiomyopathy,TNNT2,"115197; 192600; 601494; 613690; 115196; 608751; 612098; 600858; 301500; 608758; 115200",20301725,Child/Adult,191045,7139,AD,Known pathogenic; Expected pathogenic,36,1,201328142,201346805
+Hypertrophic cardiomyopathy; Dilated cardiomyopathy,TNNI3,"115197; 192600; 601494; 613690; 115196; 608751; 612098; 600858; 301500; 608758; 115200",20301725,Child/Adult,191044,7137,AD,Known pathogenic,37,19,55663135,55669100
+Hypertrophic cardiomyopathy; Dilated cardiomyopathy,TPM1,"115197; 192600; 601494; 613690; 115196; 608751; 612098; 600858; 301500; 608758; 115200",20301725,Child/Adult,191010,7168,AD,Known pathogenic,38,15,63334838,63364114
+Hypertrophic cardiomyopathy; Dilated cardiomyopathy,MYL3,"115197; 192600; 601494; 613690; 115196; 608751; 612098; 600858; 301500; 608758; 115200",20301725,Child/Adult,160790,4634,AD,Known pathogenic,39,3,46899357,46904973
+Hypertrophic cardiomyopathy; Dilated cardiomyopathy,ACTC1,"115197; 192600; 601494; 613690; 115196; 608751; 612098; 600858; 301500; 608758; 115200",20301725,Child/Adult,102540,70,AD,Known pathogenic,40,15,35080297,35087927
+Hypertrophic cardiomyopathy; Dilated cardiomyopathy,PRKAG2,"115197; 192600; 601494; 613690; 115196; 608751; 612098; 600858; 301500; 608758; 115200",20301725,Child/Adult,602743,51422,AD,Known pathogenic,41,7,151253200,151574316
+Hypertrophic cardiomyopathy; Dilated cardiomyopathy,GLA,"115197; 192600; 601494; 613690; 115196; 608751; 612098; 600858; 301500; 608758; 115200",20301725,Child/Adult,300644,2717,XL,Known pathogenic; Expected pathogenic,42,X,100652779,100663001
+Hypertrophic cardiomyopathy; Dilated cardiomyopathy,MYL2,"115197; 192600; 601494; 613690; 115196; 608751; 612098; 600858; 301500; 608758; 115200",20301725,Child/Adult,160781,17906,AD,Known pathogenic,43,5,122100980,122106854
+Hypertrophic cardiomyopathy; Dilated cardiomyopathy,LMNA,"115197; 192600; 601494; 613690; 115196; 608751; 612098; 600858; 301500; 608758; 115200",20301725,Child/Adult,150330,4000,AD,Known pathogenic; Expected pathogenic,44,1,156052369,156109880
+Catecholaminergic polymorphic ventricular tachycardia,RYR2,604772,Not specified,Not Specified,180902,6262,AD,Known pathogenic,45,1,237205702,237997288
+Arrhythmogenic right ventricular cardiomyopathy,PKP2,609040; 604400; 610476; 607450; 610193,20301310,Child/Adult,602861,5318,AD,Known pathogenic; Expected pathogenic,46,12,32943680,33049780
+Arrhythmogenic right ventricular cardiomyopathy,DSP,609040; 604400; 610476; 607450; 610193,20301310,Child/Adult,125647,1832,AD,Known pathogenic; Expected pathogenic,47,6,7541870,7586946
+Arrhythmogenic right ventricular cardiomyopathy,DSC2,609040; 604400; 610476; 607450; 610193,20301310,Child/Adult,125645,1824,AD,Known pathogenic; Expected pathogenic,48,18,20030798,20059505
+Arrhythmogenic right ventricular cardiomyopathy,TMEM43,609040; 604400; 610476; 607450; 610193,20301310,Child/Adult,612048,79188,AD,Known pathogenic,49,3,14166440,14185180
+Arrhythmogenic right ventricular cardiomyopathy,DSG2,609040; 604400; 610476; 607450; 610193,20301310,Child/Adult,125671,1829,AD,Known pathogenic; Expected pathogenic,50,18,29078027,29128814
+"Romano-Ward Long QT Syndromes Types 1 2 and 3 Brugada Syndrome",KCNQ1,192500; 613688; 603830; 601144,20301308,Child/Adult,607542,3784,AD,Known pathogenic; Expected pathogenic,51,11,2466221,2870340
+"Romano-Ward Long QT Syndromes Types 1 2 and 3 Brugada Syndrome",KCNH2,192500; 613688; 603830; 601144,20301308,Child/Adult,152427,3757,AD,Known pathogenic; Expected pathogenic,52,7,150642044,150675402
+"Romano-Ward Long QT Syndromes Types 1 2 and 3 Brugada Syndrome",SCN5A,192500; 613688; 603830; 601144,20301308,Child/Adult,600163,6331,AD,Known pathogenic; Expected pathogenic,53,3,38589553,38691164
+Familial hypercholesterolemia,LDLR,143890; 603776,Not specified,Child,606945,16835,SD,Known pathogenic,54,9,21723576,21749919
+Familial hypercholesterolemia,APOB,143890; 603776,Not specified,Child,107730,338,SD,Known pathogenic,55,2,21224301,21266945
+Familial hypercholesterolemia,PCSK9,143890; 603776,Not specified,Child,607786,255738,AD,Known pathogenic,56,1,55505149,55530526
+Malignant hyperthermia susceptibility,RYR1,145600,20301325,Child/Adult,180901,6261,AD,Known pathogenic,57,19,38924340,39078204
+Malignant hyperthermia susceptibility,CACNA1S,145600,20301325,Child/Adult,114208,779,AD,Known pathogenic,58,1,201008640,201081694

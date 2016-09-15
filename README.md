@@ -101,7 +101,7 @@ python preprocessing/split_by_tissues.py \ <br>
 
 #### Run bash scripts to generate PEER corrected data (includes non-EAs) with covariates removed
 (Uses multiple cores. Currently set to 10 cores. Can be altered by changing the number of cores <br> 
-`parallel --jobs 10` in the scripts `preprocessing/PEER/calc.PEER.factors.all.tissues.sh` and <br>
+specified by `parallel --jobs 10` in the scripts `preprocessing/PEER/calc.PEER.factors.all.tissues.sh` and <br>
 `preprocessing/PEER/calc.residuals.sh`) <br>
 bash preprocessing/PEER/PEER.pipeline.sh
 
@@ -193,6 +193,24 @@ bash feature_construction/run_compile_features_outliers.sh
 * compile_features_outliers_nothresh.sh
 * compile_features_outliers_singletissue.sh
 * pick_outliers_controls_imbalanced.py)
+
+## Disease gene annotations
+We are providing the processed gene lists for the 7 disease gene sets we analyzed for overlap with outlier genes. <br>
+We are also providing, where applicable, the commands and raw files needed to generate these processed lists.
+
+#### ACMG
+Source: http://www.ncbi.nlm.nih.gov/clinvar/docs/acmg/ <br>
+Raw file: disease.genes/ACMG/acmg.csv
+
+#### ClinVar
+
+#### GWAS
+
+#### OMIM
+
+#### Orphanet
+
+#### Other: Cardiovascular and Cancer disease genes
 
 ## Main figures
 #### Figure 1
