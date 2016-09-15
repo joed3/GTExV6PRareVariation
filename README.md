@@ -215,7 +215,7 @@ Source: http://www.omim.org/
 Raw files: disease.genes/OMIM/morbidmap.txt and disease.genes/OMIM/mim2gene.txt 
 Processed file: disease.genes/OMIM/omim.genes.txt
 
-To produce the processed file from the raw file: 
+To produce the processed file from the raw files: 
 grep '(3)' disease.genes/OMIM/morbidmap.txt | cut -f2 | sed 's/, /\n/g' | sort | uniq > disease.genes/OMIM/omim.genes.temp.txt
 
 grep -wf disease.genes/OMIM/omim.genes.temp.txt disease.genes/OMIM/mim2gene.txt  > disease.genes/OMIM/temp.mim2gene.intersection.txt
@@ -226,7 +226,12 @@ rm disease.genes/OMIM/omim.genes.temp.txt disease.genes/OMIM/temp.mim2gene.inter
 
 #### Orphanet
 Source: http://www.orpha.net/
-Raw file: 
+Raw file: disease.genes/Orphanet/en_product6.xml
+Processed file: disease.genes/Orphanet/orphanet.genes.txt
+
+To produce the processed file from the raw file:
+grep ENSG disease.genes/OrphaNet/en_product6.xml | sort | uniq | grep -o 'ENSG[0-9]*' > disease.genes/OrphaNet/orphanet.genes.txt
+
 
 #### Other: Cardiovascular and Cancer disease genes
 
