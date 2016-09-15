@@ -100,6 +100,9 @@ python preprocessing/split_by_tissues.py \ <br>
     --END .reads.txt
 
 #### Run bash scripts to generate PEER corrected data (includes non-EAs) with covariates removed
+(Uses multiple cores. Currently set to 10 cores. Can be altered by changing the number of cores <br> 
+`parallel --jobs 10` in the scripts `preprocessing/PEER/calc.PEER.factors.all.tissues.sh` and <br>
+`preprocessing/PEER/calc.residuals.sh`) <br>
 bash preprocessing/PEER/PEER.pipeline.sh
 
 #### Make list of individuals and tissues
@@ -109,8 +112,13 @@ bash preprocessing/get_tissue_by_individual.sh
 python preprocessing/gather_filter_normalized_expression.py <br>
 python preprocessing/gather_filter_rpkm.py
 
+#### Make list of expressed genes
+cat preprocessing/PEER/*peer.ztrans.txt | cut -f1 | sort | uniq | \ <br>
+grep -v Id > preprocessing/gtex.expressed.genes.txt
+
 #### Make summary statistics for expressed genes
-Rscript preprocessing/rpkm.expression.analysis.R
+(Uses multiple cores. Can set the number at the top of the script. Currently set to 10 cores.) <br>
+Rscript preprocessing/rpkm.expression.analysis.R >&logs/rpkm.expression.analysis.Rout
 
 ## Preparing reference files used later
 Generates processed data that can be downloaded from \<website - coming soon\>. <br>
