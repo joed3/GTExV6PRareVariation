@@ -7,26 +7,26 @@ Download from \<website - coming soon\>: <br>
 * processed data directory (referred to below as \<processed_data\>)
 
 Download from http://www.gtexportal.org/home/datasets: <br>
-* gencode.v19.genes.v6p_model.patched_contigs.gtf.gz
-* GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_reads.gct.gz (gunzip it) <br>
-* GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_rpkm.gct.gz (gunzip it) <br>
-* GTEx_Data_V6_Annotations_SampleAttributesDS.txt
-* GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt
+* `gencode.v19.genes.v6p_model.patched_contigs.gtf.gz`
+* `GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_reads.gct.gz` (gunzip it)
+* `GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_rpkm.gct.gz` (gunzip it)
+* `GTEx_Data_V6_Annotations_SampleAttributesDS.txt`
+* `GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt`
 * the covariates used during eQTL discovery
 
-Download from Gencode (http://www.gencodegenes.org/releases/19.html; Comprehensive gene annotation gtf):
-* gencode.v19.annotation.gtf.gz (gunzip it)
+Download from Gencode (`http://www.gencodegenes.org/releases/19.html`; Comprehensive gene annotation gtf):
+* `gencode.v19.annotation.gtf.gz` (gunzip it)
 
 Download from dbGaP: <br>
 (It is possible some of the file names may be different in the final release.)
-* GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Indiv_GATK_HaplotypeCaller.vcf.gz
+* `GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Indiv_GATK_HaplotypeCaller.vcf.gz`
 * ASE files
 
 Download from http://krishna.gs.washington.edu/download/CADD/v1.2/:
-* whole_genome_SNVs.tsv.gz
-* whole_genome_SNVs.tsv.gz.tbi
-* whole_genome_SNVs_inclAnno.tsv.gz
-* whole_genome_SNVs_inclAnno.tsv.gz.tbi
+* `whole_genome_SNVs.tsv.gz`
+* `whole_genome_SNVs.tsv.gz.tbi`
+* `whole_genome_SNVs_inclAnno.tsv.gz`
+* `whole_genome_SNVs_inclAnno.tsv.gz.tbi`
 
 Download from ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/release/20130502/:
 * ALL.chr*.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz
