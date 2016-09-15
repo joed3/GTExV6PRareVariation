@@ -269,6 +269,7 @@ Downlaod the raw and processed files from \<website - coming soon\>. <br>
 Move these files to `${RAREVARDIR}/disease.genes/OMIM/`.
 
 To produce the processed file from the raw files: <br>
+```
 grep '(3)' ${RAREVARDIR}/disease.genes/OMIM/morbidmap.txt | cut -f2 | sed 's/, /\n/g' | sort | uniq > ${RAREVARDIR}/disease.genes/OMIM/omim.genes.temp.txt
 
 grep -wf ${RAREVARDIR}/disease.genes/OMIM/omim.genes.temp.txt ${RAREVARDIR}/disease.genes/OMIM/mim2gene.txt  > ${RAREVARDIR}/disease.genes/OMIM/temp.mim2gene.intersection.txt
@@ -276,6 +277,7 @@ grep -wf ${RAREVARDIR}/disease.genes/OMIM/omim.genes.temp.txt ${RAREVARDIR}/dise
 cut -f4,5 ${RAREVARDIR}/disease.genes/OMIM/temp.mim2gene.intersection.txt | sort | uniq > ${RAREVARDIR}/disease.genes/OMIM/omim.genes.txt
 
 rm ${RAREVARDIR}/disease.genes/OMIM/omim.genes.temp.txt ${RAREVARDIR}/disease.genes/OMIM/temp.mim2gene.intersection.txt
+```
 
 #### Orphanet
 Source: http://www.orphadata.org/data/xml/en_product6.xml <br>
