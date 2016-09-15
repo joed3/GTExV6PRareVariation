@@ -16,13 +16,13 @@ gg_color_hue <- function(n) {
 read_type <- function(DIR, MAFs, TYPE, mafstr, prefix){
     pref = paste0(prefix, 'features_')
     ocs = read.table(paste(DIR, pref, TYPE, mafstr, MAFs[1], '.txt', sep = ''), header = T, sep = '\t', stringsAsFactors = F)
-    # ocs$MAF = paste(MAFs[1], '%', sep = '')
     ocs$MAF = MAFs[1]
-    for(i in 2:length(MAFs)){
-        ocs_temp = read.table(paste(DIR, pref, TYPE, mafstr, MAFs[i], '.txt', sep = ''), header = T, sep = '\t', stringsAsFactors = F)
-    # ocs_temp$MAF = paste(MAFs[i], '%', sep = '')
-        ocs_temp$MAF = MAFs[i]
-        ocs = rbind(ocs, ocs_temp)
+	if (length(MAFs) > 1) {
+       for(i in 2:length(MAFs)){
+           ocs_temp = read.table(paste(DIR, pref, TYPE, mafstr, MAFs[i], '.txt', sep = ''), header = T, sep = '\t', stringsAsFactors = F)
+           ocs_temp$MAF = MAFs[i]
+           ocs = rbind(ocs, ocs_temp)
+       }
     }
     return(ocs)
 }
