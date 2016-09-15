@@ -71,6 +71,13 @@ mkdir ${RAREVARDIR}/reference
 mkdir ${RAREVARDIR}/data
 mkdir ${RAREVARDIR}/data/medz
 mkdir ${RAREVARDIR}/data/singlez
+mkdir ${RAREVARDIR}/disease.genes
+mkdir ${RAREVARDIR}/disease.genes/ACMG
+mkdir ${RAREVARDIR}/disease.genes/ClinVar
+mkdir ${RAREVARDIR}/disease.genes/GWAS
+mkdir ${RAREVARDIR}/disease.genes/OMIM
+mkdir ${RAREVARDIR}/disease.genes/Orphanet
+mkdir ${RAREVARDIR}/disease.genes/Other
 ```
 
 These directories are required to hold the results of scripts for which we do not provide processed data.
@@ -238,41 +245,55 @@ We are also providing, where applicable, the commands and raw files needed to ge
 
 #### ACMG
 Source: http://www.ncbi.nlm.nih.gov/clinvar/docs/acmg/ <br>
-Raw file: disease.genes/ACMG/acmg.csv
+Raw file: `acmg.csv` <br>
+Download from \<website - coming soon\>. <br>
+Move the downloaded file to `${RAREVARDIR}/disease.genes/ACMG/`.
 
 #### ClinVar
-Source: http://www.ncbi.nlm.nih.gov/clinvar/ <br>
-Raw file: disease.genes/ClinVar/gene_condition_source_id
+Source: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/gene_condition_source_id <br>
+Raw file: `gene_condition_source_id` <br>
+Download from \<website - coming soon\>. <br>
+Move the downloaded file to `${RAREVARDIR}/disease.genes/ClinVar/`.
 
 #### GWAS
 Source: http://www.ebi.ac.uk/gwas/ <br>
-Raw file: disease.genes/GWAS/gwas_catalog_v1.0-downloaded_2015-11-30.tsv
+Raw file: `gwas_catalog_v1.0-downloaded_2015-11-30.tsv` <br>
+Download from \<website - coming soon\>. <br>
+Move the downloaded file to `${RAREVARDIR}/disease.genes/GWAS/`.
 
 #### OMIM
 Source: http://www.omim.org/ <br>
-Raw files: disease.genes/OMIM/morbidmap.txt and disease.genes/OMIM/mim2gene.txt <br>
-Processed file: disease.genes/OMIM/omim.genes.txt
+Raw files: `morbidmap.txt` and `mim2gene.txt` <br>
+Processed file: `omim.genes.txt`
+Downlaod the raw and processed files from \<website - coming soon\>. <br>
+Move these files to `${RAREVARDIR}/disease.genes/OMIM/`.
 
 To produce the processed file from the raw files: <br>
-grep '(3)' disease.genes/OMIM/morbidmap.txt | cut -f2 | sed 's/, /\n/g' | sort | uniq > disease.genes/OMIM/omim.genes.temp.txt
+grep '(3)' ${RAREVARDIR}/disease.genes/OMIM/morbidmap.txt | cut -f2 | sed 's/, /\n/g' | sort | uniq > ${RAREVARDIR}/disease.genes/OMIM/omim.genes.temp.txt
 
-grep -wf disease.genes/OMIM/omim.genes.temp.txt disease.genes/OMIM/mim2gene.txt  > disease.genes/OMIM/temp.mim2gene.intersection.txt
+grep -wf ${RAREVARDIR}/disease.genes/OMIM/omim.genes.temp.txt ${RAREVARDIR}/disease.genes/OMIM/mim2gene.txt  > ${RAREVARDIR}/disease.genes/OMIM/temp.mim2gene.intersection.txt
 
-cut -f4,5 disease.genes/OMIM/temp.mim2gene.intersection.txt | sort | uniq > disease.genes/OMIM/omim.genes.txt
+cut -f4,5 ${RAREVARDIR}/disease.genes/OMIM/temp.mim2gene.intersection.txt | sort | uniq > ${RAREVARDIR}/disease.genes/OMIM/omim.genes.txt
 
-rm disease.genes/OMIM/omim.genes.temp.txt disease.genes/OMIM/temp.mim2gene.intersection.txt
+rm ${RAREVARDIR}/disease.genes/OMIM/omim.genes.temp.txt ${RAREVARDIR}/disease.genes/OMIM/temp.mim2gene.intersection.txt
 
 #### Orphanet
-Source: http://www.orpha.net/ <br>
-Raw file: disease.genes/Orphanet/en_product6.xml <br>
-Processed file: disease.genes/Orphanet/orphanet.genes.txt
+Source: http://www.orphadata.org/data/xml/en_product6.xml <br>
+Raw file: `en_product6.xml` <br>
+Processed file: `orphanet.genes.txt` <br>
+Downlaod the raw and processed files from \<website - coming soon\>. <br>
+Move these files to `${RAREVARDIR}/disease.genes/Orphanet/`.
 
 To produce the processed file from the raw file: <br>
-grep ENSG disease.genes/Orphanet/en_product6.xml | sort | uniq | grep -o 'ENSG[0-9]*' > disease.genes/Orphanet/orphanet.genes.txt
+```
+grep ENSG ${RAREVARDIR}/disease.genes/Orphanet/en_product6.xml | sort | uniq | grep -o 'ENSG[0-9]*' > ${RAREVARDIR}/disease.genes/Orphanet/orphanet.genes.txt
+```
 
 #### Other: Cardiovascular and Cancer disease genes
 We assessed overlap of genes with multi-tissue outliers with two expert curated disease gene lists: one for heritable cancer predisposition and one for heritable cardiovascular disease. See the methods section of our manuscript for more information. <br>
-Raw files: cancer.genes.gold.standard.csv (Cancer), cardio.genes.gold.standard.csv (Cardio) 
+Raw files: `cancer.genes.gold.standard.csv` (Cancer), `cardio.genes.gold.standard.csv` (Cardio) 
+Downlaod the raw files from \<website - coming soon\>. <br>
+Move these files to `${RAREVARDIR}/disease.genes/Other/`.
 
 ## Main figures
 #### Figure 1
@@ -336,9 +357,7 @@ Rscript paper_figures/suppfig.number.outliers.per.individual.R
 ```
 
 #### Single-tissue replication analysis controlling for sampling differences
-```
-Generated when running paper_figures/figure1b.outlier.sharing.R above
-```
+Generated when running 'paper_figures/figure1b.outlier.sharing.R' above
 
 #### Overlap between single and multi-tissue outliers
 ```
@@ -377,3 +396,4 @@ Rscript paper_figures/ExtendedDataFigure13.R
 Rscript paper_figures/ExtendedDataFigure14.rpkm.R
 Rscript paper_figures/ExtendedDataFigure14.Zscores.R
 ```
+
