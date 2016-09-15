@@ -4,12 +4,11 @@
 require(reshape2)
 require(plyr)
 require(data.table)
-require(foreach)
 require(doMC)
 require(matrixStats)
 
 # Register backend for parallelization
-registerDoMC(cores = 10)
+doMC::registerDoMC(cores = 10)
 
 #------------ FUNCTIONS
 
@@ -23,7 +22,7 @@ tissues = scan('preprocessing/gtex_2015-01-12_tissues_all_normalized_samples.txt
 # Read in the flat file 
 rpkm = fread('preprocessing/gtex_2015-01-12_rpkm.txt')
 
-# Gene ID as key
+# Gene and Tissue IDs as keys
 keys = c('Tissue', 'Gene')
 setkeyv(rpkm, keys)
 
