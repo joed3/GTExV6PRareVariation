@@ -145,7 +145,7 @@ plot.replications = function(repli) {
 #------------- MAIN
 
 # Read in tissue colors and names
-tissues = read.table(paste0(dir, '/data/gtex_tissue_colors.txt'), header = T, stringsAsFactors = F, sep = "\t")
+tissues = read.table('gtex_tissue_colors.txt', header = T, stringsAsFactors = F, sep = "\t")
 
 # Read in outlier sharing data
 sharing.raw = read.table(paste0(dir, '/data/fromXin/Fig1_outlierSharing.txt'), header = T, stringsAsFactors = F, sep = '\t')

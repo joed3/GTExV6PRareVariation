@@ -18,7 +18,7 @@ fontsizes = theme(panel.grid.major = element_blank(),
                   axis.title = element_text(size = fontsize))
 
 # read in tissue colors
-colors = read.table(paste0(dir, '/data/gtex_tissue_colors.txt'), header = T, stringsAsFactors = F, sep = "\t")
+colors = read.table('gtex_tissue_colors.txt', header = T, stringsAsFactors = F, sep = "\t")
 
 tis.colors = paste0("#", colors$tissue_color_hex)
 names(tis.colors) = colors$tissue_site_detail_id

@@ -102,7 +102,7 @@ ase.data$ASE = abs(ase.data$REF_RATIO - 0.5)
 outlierdir = paste0(dir,'/data/')
 medz = read.picked(paste0(outlierdir, 'outliers_medz_picked.txt'))
 single = read.picked(paste0(outlierdir, 'outliers_singlez_picked.txt'))
-tissues = read.table(paste0(outlierdir, 'gtex_tissue_colors.txt'), header = T, stringsAsFactors = F, sep = "\t")
+tissues = read.table('gtex_tissue_colors.txt', header = T, stringsAsFactors = F, sep = "\t")
 single$TISSUE_ABBR = tissues[match(single$TISSUE, tissues$tissue_site_detail_id), 'tissue_site_detail_abbr']
 
 # get outliers (and matched non-outliers), for a variety of Z thresholds

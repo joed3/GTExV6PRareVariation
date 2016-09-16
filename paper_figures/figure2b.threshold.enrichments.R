@@ -125,7 +125,7 @@ props.plot.medz.singlez = ggplot(both.props, aes(x = THRESH, y = ESTIM, colour =
 ## Supplementary figure
 ## plots for individual single tissues
 # read in file with tissue names in long form
-tissues = read.table(paste0(dir, '/data/gtex_tissue_colors.txt'), header = T, stringsAsFactors = F, sep = "\t")
+tissues = read.table('gtex_tissue_colors.txt', header = T, stringsAsFactors = F, sep = "\t")
 tissues$names_pretty = sub(" - ", " -\n", tissues$tissue_site_detail, fixed = T)
 tissues$names_pretty = sub(" \\(.*?\\)", "", tissues$names_pretty)
 tissues$names_pretty[tissues$names_pretty == "Heart -\nAtrial Appendage"] = "Heart - Atrial\nAppendage"

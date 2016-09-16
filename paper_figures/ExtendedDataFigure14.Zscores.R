@@ -43,7 +43,7 @@ dir = Sys.getenv('RAREVARDIR')
 # load ClinVar-matched data
 load(file = paste(dir,"/data/figure5c.out.RData",sep="")) 
 # load a list of individual IDs considered here
-list_indivs_all = as.character(unlist(read.table(paste(dir,"/reference/gtex_2015-01-12_wgs_ids_outlier_filtered.txt",sep=""),
+list_indivs_all = as.character(unlist(read.table(paste(dir,"/preprocessing/gtex_2015-01-12_wgs_ids_outlier_filtered.txt",sep=""),
                                                  sep='\t', header = FALSE, na.strings = "NA"))) 
 # load Z-score values of genes for individuals with pathogenic variants
 clinvar.zscore = read.table(paste(dir,"/data/Zscores.ClinVar.subset.txt",sep=""),
@@ -55,8 +55,7 @@ clinvar.zscore_bg = read.table(paste(dir,"/data/Zscores.ClinVar.all.txt",sep="")
                                sep='\t', header = TRUE, na.strings = "NA",check.names=FALSE)
 colnames(clinvar.zscore_bg)[3] <- "AbsMed"
 
-table_colors = read.table(paste(dir,"/reference/gtex_tissue_colors.txt",sep=""),
-                          sep='\t', header = TRUE, na.strings = "NA")
+table_colors = read.table("gtex_tissue_colors.txt", sep='\t', header = TRUE, na.strings = "NA")
 group_name = c("AA","AB","AC","AD","AE","AF","AG","AH","AI","AJ","AK",
                "BA","BB","BC","BD","BE","BF","BG","BH","BI","BJ","BK",
                "C","D","E","F","G","H","I","J","K","L","M",
