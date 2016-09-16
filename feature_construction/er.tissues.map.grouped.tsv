@@ -1,0 +1,28 @@
+ER_ID	ER_Tissue	GTEx_Tissues	Tissue_Group
+E063	Adipose_Nuclei	Adipose_Subcutaneous, Adipose_Visceral_Omentum	1
+E066	Adult_Liver	Liver	2
+E065	Aorta	Artery_Aorta	3
+E067	Brain_Angular_Gyrus	Brain_Cortex	4
+E068	Brain_Anterior_Caudate	Brain_Caudate_basal_ganglia	4
+E069	Brain_Cingulate_Gyrus	Brain_Anterior_cingulate_cortex_BA24	4
+E071	Brain_Hippocampus_Middle	Brain_Hippocampus	4
+E072	Brain_Inferior_Temporal_Lobe	Brain_Cortex, Brain_Frontal_Cortex_BA9	4
+E073	Brain_Mid_Frontal_Lobe	Brain_Cortex, Brain_Frontal_Cortex_BA9	4
+E027	Breast_Myoepithelial_Cells	Breast_Mammary_Tissue	5
+E075	Colonic_Mucosa	Colon_Transverse	6
+E076	Colon_Smooth_Muscle	Colon_Transverse	6
+E106	Sigmoid_Colon	Colon_Sigmoid	7
+E079	Esophagus	Esophagus_Gastroesophageal_Junction, Esophagus_Mucosa, Esophagus_Muscularis	8
+E116	GM12878_Lymphoblastoid	Cells_EBV-transformed_lymphocytes	9
+E095	Left_Ventricle	Heart_Left_Ventricle	10
+E096	Lung	Lung	11
+E097	Ovary	Ovary	12
+E098	Pancreas	Pancreas	13
+E062	Peripheral_Blood_Mononuclear_Primary_Cells	Whole_Blood	14
+E104	Right_Atrium	Heart_Atrial_Appendage	15
+E108	Skeletal_Muscle_Female	Muscle_Skeletal	16
+E107	Skeletal_Muscle_Male	Muscle_Skeletal	16
+E109	Small_Intestine	Small_Intestine_Terminal_Ileum	17
+E113	Spleen	Spleen	18
+E110	Stomach_Mucosa	Stomach	19
+E111	Stomach_Smooth_Muscle	Stomach	19

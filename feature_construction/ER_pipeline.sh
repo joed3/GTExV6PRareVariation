@@ -2,8 +2,6 @@
 
 set -o nounset -o errexit -o pipefail
 
-## Required file: er.tissues.map.grouped.tsv
-
 ## Copies selected ER tissues to our annotation directory
 ## Also makes sure the files are position sorted
 ANNO_DIR=${RAREVARDIR}/features/annotations/epigenomicsRoadmap
@@ -30,7 +28,7 @@ do
 	    else
 		header=0
 	    fi
-	done < ${RAREVARDIR}/preprocessing/er.tissues.map.grouped.tsv
+	done < er.tissues.map.grouped.tsv
 done
 
 ## Merges similar tissues into single BED file
