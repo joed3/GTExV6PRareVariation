@@ -8,7 +8,7 @@ set -o nounset -o errexit -o pipefail
 # note that this also excludes UTRs
 dir=${RAREVARDIR}
 coding=${dir}/reference/gencode.v19.annotation_coding.lincRNA_padded.bed
-ind_file=${dir}/preprocessing/gtex_2015-01-12_wgs_ids.txt #121
+ind_file=../preprocessing/gtex_2015-01-12_wgs_ids.txt #121
 snv_indel_dir=${dir}/features/bySite
 sv_dir=${dir}/features/variantBeds/individuals
 outfile=${dir}/data/variant_counts_per_individual_all.txt

@@ -14,7 +14,7 @@ fi
 vcf=$1
 vcfsv=$2
 
-indincl=${RAREVARDIR}/preprocessing/gtex_2015-01-12_AF_ids.txt
+indincl=../preprocessing/gtex_2015-01-12_AF_ids.txt
 beddir=${RAREVARDIR}/features/variantBeds
 
 # get prefix of output files
