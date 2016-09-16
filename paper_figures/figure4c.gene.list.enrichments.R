@@ -2,6 +2,7 @@
 
 dir = Sys.getenv('RAREVARDIR')
 annodir = paste0(dir, '/features/annotations')
+exacdir = Sys.getenv('EXAC_DIR')
 
 # Load required packages
 require(ggplot2)
@@ -131,7 +132,7 @@ acmg.genes = acmg$Gene
 
 # Read in and define PTV-constrained genes (pLI > 0.9)
 exac.threshold = 0.9
-exac = read.table('/mnt/lab_data/montgomery/shared/ExAC/release0.3/functional_gene_constraint/forweb_cleaned_exac_r03_march16_z_data_pLI.txt', sep = '\t', stringsAsFactors = F, header = T)
+exac = read.table(paste0(exacdir, '/forweb_cleaned_exac_r03_march16_z_data_pLI.txt'), sep = '\t', stringsAsFactors = F, header = T)
 exac.genes = exac$gene[exac$pLI > exac.threshold]
 
 # Read in the ClinVar genes

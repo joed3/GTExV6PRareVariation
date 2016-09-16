@@ -294,7 +294,7 @@ grep ENSG ${RAREVARDIR}/features/annotations/Orphanet/en_product6.xml | sort | u
 #### Other: Cardiovascular and Cancer disease genes
 We assessed overlap of genes with multi-tissue outliers with two expert curated disease gene lists: one for heritable cancer predisposition and one for heritable cardiovascular disease. See the methods section of our manuscript for more information. <br>
 Raw files: `cancer.genes.gold.standard.csv` (Cancer), `cardio.genes.gold.standard.csv` (Cardio) 
-Downlaod the raw files from \<website - coming soon\>. <br>
+Download the raw files from \<website - coming soon\>. <br>
 Move these files to `${RAREVARDIR}/features/annotations/Other/`.
 
 ## Shared eQTLs defined by METASOFT
@@ -305,7 +305,7 @@ across tissues.
 python shared.eqtls/bf.metasoft.py --META ${RAREVARDIR}/data/metasoft/Metasoft_Output_v6p.txt \
     --TISS ${RAREVARDIR}/data/metasoft/Metasoft_tissue_order.txt \
     --OUT ${RAREVARDIR}/data/metasoft/gtex.metasoft.v6p.selected.txt
-Rscript --no-save shared.eqtls/metasoft.summary.R
+Rscript shared.eqtls/metasoft.summary.R
 ```
 
 ## Main figures
