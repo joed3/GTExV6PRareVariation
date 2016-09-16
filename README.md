@@ -97,18 +97,18 @@ Generates processed data that can be downloaded from \<website - coming soon\>. 
 
 #### Generate rpkm and read count matrices from GTEx V6P combined file
 ```
-cat \<path to downloaded file\>/GTEx_Data_V6_Annotations_SampleAttributesDS.txt | \
+cat <path to downloaded file>/GTEx_Data_V6_Annotations_SampleAttributesDS.txt | \
 	cut -f1,14 | sed 's/ - /_/' | sed 's/ /_/g' | sed 's/(//' | sed 's/)//' | sed 's/c-1/c1/' | grep -v NA12878 > \
 	${RAREVARDIR}/preprocessing/gtex_2015-01-12_samples_tissues.txt
 
 python preprocessing/split_by_tissues.py \
-    --GTEX \<path to downloaded file\>/GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_rpkm.gct \
+    --GTEX <path to downloaded file>/GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_rpkm.gct \
     --SAMPLE ${RAREVARDIR}/preprocessing/gtex_2015-01-12_samples_tissues.txt \
     --OUT ${RAREVARDIR}/preprocessing/PEER \
     --END .rpkm.txt <br>
 
 python preprocessing/split_by_tissues.py \
-    --GTEX \<path to downloaded file\>/GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_reads.gct \
+    --GTEX <path to downloaded file>/GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_reads.gct \
     --SAMPLE ${RAREVARDIR}/preprocessing/gtex_2015-1-12_samples_tissues.txt \
     --OUT ${RAREVARDIR}/preprocessing/PEER \
     --END .reads.txt
@@ -135,8 +135,7 @@ python preprocessing/gather_filter_rpkm.py
 
 #### Make list of expressed genes
 ```
-cat preprocessing/PEER/*peer.ztrans.txt | cut -f1 | sort | uniq | \
-grep -v Id > preprocessing/gtex.expressed.genes.txt
+cat preprocessing/PEER/*peer.ztrans.txt | cut -f1 | sort | uniq | grep -v Id > preprocessing/gtex.expressed.genes.txt
 ```
 
 #### Make summary statistics for expressed genes
@@ -150,7 +149,7 @@ Generates processed data that can be downloaded from \<website - coming soon\>. 
 
 Copy or move the GTEx annotation file (`gencode.v19.genes.v6p_model.patched_contigs.gtf.gz`) to `${RAREVARDIR}/reference`.
 ```
-bash preprocessing/process.reference.files.sh \<path to\>/gencode.v19.genes.v6p_model.patched_contigs.gtf.gz \<path to\>/gencode.v19.annotation.gtf
+bash preprocessing/process.reference.files.sh <path to>/gencode.v19.genes.v6p_model.patched_contigs.gtf.gz <path to>/gencode.v19.annotation.gtf
 ```
 (relies on `pad.gtf.exons.py`, `gtf2TSS.sh`, and `gtf2genebed.sh`)
 
@@ -185,9 +184,9 @@ Rscript call_outliers/single_tissue_replication.R
 
 #### Processing VCFs into bed files for each individual
 ```
-bash feature_construction/vcf2bedfiles.sh 
-	 \<path to \>/GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Indiv_GATK_HaplotypeCaller.vcf.gz 
-	 \<path to\>/gtex.lumpy.gs.svscore.low_conf.vcf.gz
+bash feature_construction/vcf2bedfiles.sh \
+	 <path to>/GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Indiv_GATK_HaplotypeCaller.vcf.gz \
+	 <path to>/gtex.lumpy.gs.svscore.low_conf.vcf.gz
 ```
 (relies on :
 * `vcf2bedfiles_helper_processVCF.sh`
@@ -204,7 +203,6 @@ bash feature_construction/extract.1kg.AF.sh
 (uses multiple cores; relies on `process.1kg.AF.py`)
 ```
 bash feature_construction/subset.CADD.features.sh
-
 bash feature_construction/TFBS_pipeline.sh
 ```
 (relies on `pouya.raw.summary.py`)
@@ -265,7 +263,7 @@ Move the downloaded file to `${RAREVARDIR}/features/annotations/GWAS/`.
 Source: http://www.omim.org/ <br>
 Raw files: `morbidmap.txt` and `mim2gene.txt` <br>
 Processed file: `omim.genes.txt`
-Downlaod the raw and processed files from \<website - coming soon\>. <br>
+Download the raw and processed files from \<website - coming soon\>. <br>
 Move these files to `${RAREVARDIR}/features/annotations/OMIM/`.
 
 To produce the processed file from the raw files: <br>
@@ -283,7 +281,7 @@ rm ${RAREVARDIR}/features/annotations/OMIM/omim.genes.temp.txt ${RAREVARDIR}/fea
 Source: http://www.orphadata.org/data/xml/en_product6.xml <br>
 Raw file: `en_product6.xml` <br>
 Processed file: `orphanet.genes.txt` <br>
-Downlaod the raw and processed files from \<website - coming soon\>. <br>
+Download the raw and processed files from \<website - coming soon\>. <br>
 Move these files to `${RAREVARDIR}/features/annotations/Orphanet/`.
 
 To produce the processed file from the raw file: <br>
@@ -353,7 +351,7 @@ Rscript paper_figures/figure5c.R
 ## Supplemental figures
 
 #### GTEx design matrix and the MAFs in 1KG european populations
-(Running calculate.euro.subpop.af.sh uses five cores.)
+(Running `calculate.euro.subpop.af.sh` uses five cores.)
 ```
 bash feature_construction/calculate.euro.subpop.af.sh
 Rscript feature_construction/assess.euro.subpop.R
