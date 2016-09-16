@@ -298,10 +298,15 @@ Downlaod the raw files from \<website - coming soon\>. <br>
 Move these files to `${RAREVARDIR}/features/annotations/Other/`.
 
 ## Shared eQTLs defined by METASOFT
+Process the METASOFT results choosing the single best variant tested per gene as determined by P-value from the RE2 model. <br>
+Also provide summary statistics regarding the number of tissues the eQTL is active in and the expression level for the gene <br>
+across tissues.
+```
 python shared.eqtls/bf.metasoft.py --META ${RAREVARDIR}/data/metasoft/Metasoft_Output_v6p.txt \
     --TISS ${RAREVARDIR}/data/metasoft/Metasoft_tissue_order.txt \
     --OUT ${RAREVARDIR}/data/metasoft/gtex.metasoft.v6p.selected.txt
-
+Rscript --no-save shared.eqtls/metasoft.summary.R
+```
 
 ## Main figures
 #### Figure 1
