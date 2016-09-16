@@ -2,7 +2,6 @@
 
 set -o nounset -o errexit -o pipefail
 
-PEER_DIR=${RAREVARDIR}/preprocessing/PEER
 TraitsFileName=${PEER_DIR}/${1}.rpkm.log2.ztrans.txt
 CovsFileName=${RAREVARDIR}/data/covariates/${1}_Analysis.covariates.txt
 MaxFactorsN=$(grep InferredCov ${CovsFileName} | wc -l)
@@ -17,7 +16,7 @@ OutDir=${PEER_DIR}/${1}_Factors"$MaxFactorsN"
 tissue=${1}
 
 echo "R -f calc.PEER.factors.core.R --vanilla --slave --args $TraitsFileName $MaxFactorsN $MaxIterations $BoundTol $VarTol $e_pa $e_pb $a_pa $a_pb $OutDir $tissue"
-R -f ${PEER_DIR}/calc.PEER.factors.core.R --vanilla --slave --args $TraitsFileName $MaxFactorsN $MaxIterations $BoundTol $VarTol $e_pa $e_pb $a_pa $a_pb $OutDir $tissue
+R -f preprocessing/PEER/calc.PEER.factors.core.R --vanilla --slave --args $TraitsFileName $MaxFactorsN $MaxIterations $BoundTol $VarTol $e_pa $e_pb $a_pa $a_pb $OutDir $tissue
 
 echo "calc.PEER.factors.single.tissue.sh DONE"
 

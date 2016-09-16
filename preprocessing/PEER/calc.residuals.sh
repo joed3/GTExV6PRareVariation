@@ -11,11 +11,10 @@ residCalculator(){
 	Covariates=${RAREVARDIR}/data/covariates/${line}_Analysis.covariates.txt
 	Peer=${PEER_DIR}/${line}_Factors*/factors.tsv
 	OUT=${PEER_DIR}/${line}.peer.ztrans.txt
-	R -f ${PEER_DIR}/calc.residuals.core.R --slave --vanilla --args ${RPKM} ${Covariates} ${Peer} ${OUT} &>${RAREVARDIR}/logs/calc.residuals.${line}.log
+	R -f preprocessing/PEER/calc.residuals.core.R --slave --vanilla --args ${RPKM} ${Covariates} ${Peer} ${OUT} &>${RAREVARDIR}/logs/calc.residuals.${line}.log
 }
 
 # Run above function for each tissue in parallel
 # Requesting 10 cores
-export PEER_DIR
 export -f residCalculator
 for line in `cat ${PEER_DIR}/gtex_eqtl_tissues.txt`; do echo $line; done | parallel --jobs 10 residCalculator {1}
