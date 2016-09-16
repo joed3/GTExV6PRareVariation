@@ -17,4 +17,4 @@ residCalculator(){
 # Run above function for each tissue in parallel
 # Requesting 10 cores
 export -f residCalculator
-for line in `cat ${PEER_DIR}/gtex_eqtl_tissues.txt`; do echo $line; done | parallel --jobs 10 residCalculator {1}
+for line in `cat preprocessing/PEER/gtex_eqtl_tissues.txt`; do echo $line; done | parallel --jobs 10 residCalculator {1}

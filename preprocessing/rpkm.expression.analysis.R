@@ -18,18 +18,18 @@ doMC::registerDoMC(cores = 10)
 dir = Sys.getenv('RAREVARDIR')
 
 # Read in list of individuals and tissues
-samples = scan(paste0(dir, 'preprocessing/gtex_2015-01-12_individuals_all_normalized_samples.txt'), what = character())
-tissues = scan(paste0(dir, 'preprocessing/gtex_2015-01-12_tissues_all_normalized_samples.txt'), what = character())
+samples = scan(paste0(dir, '/preprocessing/gtex_2015-01-12_individuals_all_normalized_samples.txt'), what = character())
+tissues = scan(paste0(dir, '/preprocessing/gtex_2015-01-12_tissues_all_normalized_samples.txt'), what = character())
 
 # Read in the flat file 
-rpkm = fread(paste0(dir, 'preprocessing/gtex_2015-01-12_rpkm.txt'))
+rpkm = fread(paste0(dir, '/preprocessing/gtex_2015-01-12_rpkm.txt'))
 
 # Gene and Tissue IDs as keys
 keys = c('Tissue', 'Gene')
 setkeyv(rpkm, keys)
 
 # Read in list of all expressed genes 
-expressed.genes = read.table(paste0(dir, 'preprocessing/gtex.expressed.genes.txt'), sep = '\t', header = F, stringsAsFactors = F)[, 1]
+expressed.genes = read.table(paste0(dir, '/preprocessing/gtex.expressed.genes.txt'), sep = '\t', header = F, stringsAsFactors = F)[, 1]
 
 # Filter RPKM flat file for only these expressed genes
 rpkm = rpkm[Gene %in% expressed.genes]
@@ -55,5 +55,5 @@ tissue_meds = apply(rpkm_mean_mat, 1, median, na.rm = T)
 tissue_stats = data.frame(GENE = rownames(rpkm_mean_mat), MEAN = tissue_means, MEDIAN = tissue_meds, SD = tissue_sds)
 
 # Write out tissue stats and raw matrices
-write.table(tissue_stats, paste0(dir, 'data/genes.rpkm.summary.stats.txt'), quote = F, sep = '\t', col.names = T, row.names = F)
-write.table(rpkm_mean_mat, paste0(dir, 'data/genes.rpkm.mean.mat.txt'), quote = F, sep = '\t', col.names = T, row.names = T)
+write.table(tissue_stats, paste0(dir, '/data/genes.rpkm.summary.stats.txt'), quote = F, sep = '\t', col.names = T, row.names = F)
+write.table(rpkm_mean_mat, paste0(dir, '/data/genes.rpkm.mean.mat.txt'), quote = F, sep = '\t', col.names = T, row.names = T)
