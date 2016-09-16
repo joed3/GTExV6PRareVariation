@@ -31,10 +31,12 @@ read_type <- function(DIR, MAFs, TYPE, mafstr, prefix){
 read_file <- function(DIR, MAFs, TYPEs, mafstr, type.names, prefix = ''){
 	ocs = read_type(DIR, MAFs, TYPEs[1], mafstr, prefix)
 	ocs$TYPE = type.names[1]
-	for(i in 2:length(TYPEs)){
-		ocs_temp = read_type(DIR, MAFs, TYPEs[i], mafstr, prefix)
-		ocs_temp$TYPE = type.names[i]
-		ocs = rbind(ocs, ocs_temp)
+    if (length(TYPEs) > 1) {
+        for(i in 2:length(TYPEs)){
+		    ocs_temp = read_type(DIR, MAFs, TYPEs[i], mafstr, prefix)
+		    ocs_temp$TYPE = type.names[i]
+		    ocs = rbind(ocs, ocs_temp)
+        }
 	}
 	return(ocs)
 }
@@ -70,22 +72,26 @@ single_logit_type <- function(data, MAFs, TYPE, scale = T){
 	estims = single_logit_core(data[data$MAF == MAFs[1] & data$TYPE == TYPE, ], scale = scale)
 	estims$MAF = MAFs[1]
 	estims$TYPE = TYPE
-	for(i in 2:length(MAFs)){
-		estims_temp = single_logit_core(data[data$MAF == MAFs[i] & data$TYPE == TYPE, ], scale = scale)
-		estims_temp$MAF = MAFs[i]
-		estims_temp$TYPE = TYPE
-		estims = rbind(estims, estims_temp)
-	}
+	if (length(MAFs) > 1) {
+	   for(i in 2:length(MAFs)){
+	       estims_temp = single_logit_core(data[data$MAF == MAFs[i] & data$TYPE == TYPE, ], scale = scale)
+           estims_temp$MAF = MAFs[i]
+           estims_temp$TYPE = TYPE
+           estims = rbind(estims, estims_temp)
+        }
+    }
 	return(estims)
 }
 
 #### Function to calculate functional enrichments for given outlier detection method across variant types and MAFs
 single_logit <- function(data, MAFs, TYPEs, scale = T){
 	estims = single_logit_type(data, MAFs, TYPEs[1], scale = scale)
-	for(i in 2:length(TYPEs)){
-		estims_temp = single_logit_type(data, MAFs, TYPEs[i], scale = scale)
-		estims = rbind(estims, estims_temp)
-	}
+	if (length(TYPEs) > 1) {
+	    for(i in 2:length(TYPEs)){
+		    estims_temp = single_logit_type(data, MAFs, TYPEs[i], scale = scale)
+		    estims = rbind(estims, estims_temp)
+	    }
+    }
 	return(estims)
 }
 
