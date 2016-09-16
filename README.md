@@ -71,6 +71,7 @@ mkdir ${RAREVARDIR}/reference
 mkdir ${RAREVARDIR}/data
 mkdir ${RAREVARDIR}/data/medz
 mkdir ${RAREVARDIR}/data/singlez
+mkdir ${RAREVARDIR}/data/metasoft
 ```
 
 These directories are required to hold the results of scripts for which we do not provide processed data.
@@ -141,7 +142,7 @@ grep -v Id > preprocessing/gtex.expressed.genes.txt
 #### Make summary statistics for expressed genes
 (Uses multiple cores. Can set the number at the top of the script. Currently set to 10 cores.)
 ```
-Rscript preprocessing/rpkm.expression.analysis.R >&logs/rpkm.expression.analysis.Rout
+Rscript preprocessing/rpkm.expression.analysis.R
 ```
 
 ## Preparing reference files used later
@@ -295,6 +296,12 @@ We assessed overlap of genes with multi-tissue outliers with two expert curated 
 Raw files: `cancer.genes.gold.standard.csv` (Cancer), `cardio.genes.gold.standard.csv` (Cardio) 
 Downlaod the raw files from \<website - coming soon\>. <br>
 Move these files to `${RAREVARDIR}/features/annotations/Other/`.
+
+## Shared eQTLs defined by METASOFT
+python shared.eqtls/bf.metasoft.py --META ${RAREVARDIR}/data/metasoft/Metasoft_Output_v6p.txt \
+    --TISS ${RAREVARDIR}/data/metasoft/Metasoft_tissue_order.txt \
+    --OUT ${RAREVARDIR}/data/metasoft/gtex.metasoft.v6p.selected.txt
+
 
 ## Main figures
 #### Figure 1
