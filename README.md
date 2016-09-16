@@ -352,6 +352,14 @@ Rscript paper_figures/figure5c.R
 
 ## Supplemental figures
 
+#### GTEx design matrix and the MAFs in 1KG european populations
+(Running calculate.euro.subpop.af.sh uses five cores.)
+```
+bash feature_construction/calculate.euro.subpop.af.sh
+Rscript feature_construction/assess.euro.subpop.R
+Rscript paper_figures/suppfig.gtex.design.R
+```
+
 #### Number of rare variants per individual and PCA
 You need to set the path to the downloaded expression covariates and subject annotations in the script below. <br> 
 ```
