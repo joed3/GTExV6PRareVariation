@@ -2,6 +2,9 @@
 
 set -o nounset -o errexit -o pipefail
 
+# set number of processes
+nproc=10
+
 ## assumes that want features for all subdirectories of the input directory with the exception of those that start with archive
 ## also assumes those directories will have the correct structure (i.e. will have been created by run_build_feature_count_summaries_all_genes.sh)
 ## will make a directory based on the method name if it does not exist.
@@ -83,9 +86,9 @@ do
 done
 
 # annotation features
-parallel --jobs 10 runfeatures ::: SNPs indels ::: 0-1 1-5 5-10 10-25 ::: $windows ::: F
+parallel --jobs $nproc runfeatures ::: SNPs indels ::: 0-1 1-5 5-10 10-25 ::: $windows ::: F
 # count features
-parallel --jobs 10 runfeatures ::: SNPs indels HallLabSV ::: 0-1 1-5 5-10 10-25 ::: $windows ::: T
+parallel --jobs $nproc runfeatures ::: SNPs indels HallLabSV ::: 0-1 1-5 5-10 10-25 ::: $windows ::: T
 
 wait
 echo "done compiling features for $METHOD!"

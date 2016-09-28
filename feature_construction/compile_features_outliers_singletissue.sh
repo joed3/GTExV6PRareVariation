@@ -2,6 +2,9 @@
 
 set -o nounset -o errexit -o pipefail
 
+# set number of processes
+nproc=10
+
 ## paths are hardcoded and woul dneed to be updated for a different version/purpose!
 indir=${RAREVARDIR}/features/byGene
 inds=${RAREVARDIR}/preprocessing/gtex_2015-01-12_wgs_ids_outlier_filtered.txt
@@ -35,7 +38,7 @@ export indir
 export outlierdir
 export inds
 
-parallel --jobs 10 runfeatures ::: 10kb ::: $tissues
+parallel --jobs $nproc runfeatures ::: 10kb ::: $tissues
 
 wait
 echo "done compiling features for singlez"
