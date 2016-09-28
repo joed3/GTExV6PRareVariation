@@ -3,6 +3,9 @@
 set -o nounset
 shopt -s expand_aliases
 
+# set number of processes
+nproc=10
+
 # helper script for vcf2bedfiles.sh
 # processes CNV output
 # this is done separately from other SVs because the genotypes are encoded differently
@@ -75,6 +78,6 @@ export dir
 ncol=`head -n1 $cn | wc -w`
 cols=$(eval echo "{3..$ncol}")
 
-for i in $cols; do echo $i; done | parallel --jobs 10 processcn {}
+for i in $cols; do echo $i; done | parallel --jobs $nproc processcn {}
 
 wait # just to be sure it doesn't return before it's done.

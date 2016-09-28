@@ -2,6 +2,9 @@
 
 set -o nounset -o errexit -o pipefail
 
+# set number of processes
+nproc=25
+
 # get CADD scores for each of the individual SNP bed files
 
 if [ $# -ne 1 ]; then
@@ -22,7 +25,7 @@ export indir
 date
 echo
 
-parallel --jobs 25 "echo {}; cat {} | ./extractCADDscores_ekt.py > {.}.CADD.bed" ::: ${indir}/*_SNPs.bed
+parallel --jobs $nproc "echo {}; cat {} | ./extractCADDscores_ekt.py > {.}.CADD.bed" ::: ${indir}/*_SNPs.bed
 
 # mv all created files to withCADD directory
 mv ${indir}/*CADD.bed $outdir

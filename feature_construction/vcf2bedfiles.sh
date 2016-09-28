@@ -4,6 +4,9 @@
 
 set -o nounset
 
+# set number of processes to run in parallel when gzipping
+nproc=15
+
 ## takes as input the two vcfs to operate on
 usage="usage: vcf2bedfiles.sh <GTEx SNV/indel vcf> <SV vcf>"
 if [ $# -ne 2 ]; then
@@ -66,6 +69,6 @@ echo "Done compiling CADD scores."
 date
 
 echo "Gzipping files..."
-parallel --jobs 15 gzip ::: ${beddir}/individuals/*.bed
-parallel --jobs 15 gzip ::: ${beddir}/individuals/withCADD/*.bed
+parallel --jobs $nproc gzip ::: ${beddir}/individuals/*.bed
+parallel --jobs $nproc gzip ::: ${beddir}/individuals/withCADD/*.bed
 echo "Done gzipping."

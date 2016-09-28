@@ -3,6 +3,9 @@
 set -o nounset
 shopt -s expand_aliases
 
+# set number of processes
+nproc=10
+
 # helper script for vcf2bedfiles.sh
 # processes output from vcf tools to create bed files for each individual
 # the bed files contain MAF and genotype in 4th and 5th columns
@@ -151,6 +154,6 @@ export VCFPREFIX
 
 cols=$(eval echo "{3..$ncol}")
 
-for i in $cols; do echo $i; done | parallel --jobs 10 processgt {1}
+for i in $cols; do echo $i; done | parallel --jobs $nproc processgt {1}
 
 wait # just to be double sure it doesn't return before it's done.
