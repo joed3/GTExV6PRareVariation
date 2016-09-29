@@ -2,6 +2,28 @@
 Repository to reproduce analyses from the GTEx V6P Rare Variation Manuscript
 
 # To run the code
+
+## Install the dependencies
+R packages
+* data.table
+* doMC
+* ggplot2
+* plyr
+* reshape2
+
+Python modules
+* numpy
+* pysam
+* scipy
+
+Unix packages
+* GNU parallel
+* tabix
+
+External software
+* bedtools v2.26.0 or later
+* vcftools
+
 ## Download required files
 Download from \<website - coming soon\>: <br>
 * processed data directory (referred to below as \<processed_data\>)
@@ -158,7 +180,7 @@ bash preprocessing/process.reference.files.sh <path to>/gencode.v19.genes.v6p_mo
 Generates processed data that can be downloaded from \<website - coming soon\>. <br>
 
 #### Call multi-tissue outliers
-(Uses multiple cores. Can set the number at the top of the script.)
+(Uses 12 cores. Can set the number at the top of the script.)
 ```
 Rscript call_outliers/call_outliers_medz.R
 ```
@@ -174,7 +196,7 @@ Rscript call_outliers/compare_single_multi_outliers.R
 ```
 
 #### Run replication for single-tissue and multi-tissue outliers
-(The multi-tissue replication uses multiple cores.)
+(The multi-tissue replication uses 12 cores. Can set the number at the top of the script.)
 ```
 Rscript call_outliers/multi_tissue_replication.R
 Rscript call_outliers/single_tissue_replication.R
@@ -188,7 +210,7 @@ bash feature_construction/vcf2bedfiles.sh \
 	 <path to>/GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Indiv_GATK_HaplotypeCaller.vcf.gz \
 	 <path to>/gtex.lumpy.gs.svscore.low_conf.vcf.gz
 ```
-(relies on :
+(this script and some of it's dependencies use multiple cores [set number at top of relevant scripts]; relies on :
 * `vcf2bedfiles_helper_processVCF.sh`
 * `vcf2bedfiles_helper_processVCF_SV.sh`
 * `vcf2bedfiles_helper_processVCFtoolsOutput.sh`
@@ -200,9 +222,12 @@ bash feature_construction/vcf2bedfiles.sh \
 ```
 bash feature_construction/extract.1kg.AF.sh
 ```
-(uses multiple cores; relies on `process.1kg.AF.py`)
+(uses 15 cores, the number of which is set at the top of the script; relies on `process.1kg.AF.py`)
 ```
 bash feature_construction/subset.CADD.features.sh
+```
+(uses 8 cores, set in the sort command)
+```
 bash feature_construction/TFBS_pipeline.sh
 ```
 (relies on `pouya.raw.summary.py`)
@@ -216,25 +241,25 @@ bash run_add_features_variant_beds.sh
 ```
 **Important:** Make sure to use bedtools version 2.26.0 or later.
 Memory leak in previous versions causes the memory for this script to blow up. <br>
-(uses multiple cores; relies on `add_features_variant_beds.sh`)
+(uses 15+ cores. Set the number of processes at the top of the script. Relies on `add_features_variant_beds.sh`.)
 
 #### Collapse site-level features created above into gene-level features
 ```
 bash feature_construction/run_build_feature_count_summaries_all_genes.sh
 ```
 (uses multiple cores; relies on :
-* `build_count_summaries_all_genes.sh`
-* `build_feature_summaries_all_genes.sh`
+* `build_count_summaries_all_genes.sh` set number of processes at top of script
+* `build_feature_summaries_all_genes.sh` set number of processes at top of script
 * `build_feature_set.py`)
 
 #### Compile features for outliers and controls
 ```
 bash feature_construction/run_compile_features_outliers.sh
 ```
-(uses multiple cores; relies on:
-* `compile_features_outliers.sh`
+(uses up to 10 cores; relies on:
+* `compile_features_outliers.sh` set number of processes at top of script
 * `compile_features_outliers_nothresh.sh`
-* `compile_features_outliers_singletissue.sh`
+* `compile_features_outliers_singletissue.sh` set number of processes at top of script
 * `pick_outliers_controls_imbalanced.py`)
 
 ## Disease gene annotations
@@ -351,7 +376,7 @@ Rscript paper_figures/figure5c.R
 ## Supplemental figures
 
 #### GTEx design matrix and the MAFs in 1KG european populations
-(Running `calculate.euro.subpop.af.sh` uses five cores.)
+(Running `calculate.euro.subpop.af.sh` uses five cores. This is set at the top of the script.)
 ```
 bash feature_construction/calculate.euro.subpop.af.sh
 Rscript feature_construction/assess.euro.subpop.R
