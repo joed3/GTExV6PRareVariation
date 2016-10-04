@@ -4,7 +4,6 @@ dir = Sys.getenv('RAREVARDIR')
 
 ## Load required packages
 require(ggplot2)
-require(gplots)
 require(reshape2)
 require(cowplot)
 

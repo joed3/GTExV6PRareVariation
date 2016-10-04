@@ -6,8 +6,6 @@ exacdir = Sys.getenv('EXAC_DIR')
 
 # Load required packages
 require(ggplot2)
-require(gtable)
-require(gridExtra)
 require(RColorBrewer)
 
 #--------------- FUNCTIONS

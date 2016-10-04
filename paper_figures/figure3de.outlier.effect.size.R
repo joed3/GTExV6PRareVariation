@@ -6,7 +6,6 @@ dir = Sys.getenv('RAREVARDIR')
 require(ggplot2)
 require(reshape2)
 require(plyr)
-require(RColorBrewer)
 
 #-------------------- FUNCTIONS
 

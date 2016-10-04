@@ -7,7 +7,6 @@ phenoFile = '/mnt/lab_data/montgomery/shared/datasets/gtex/GTEx_Analysis_2015-01
 
 # Load required packages
 require(ggplot2)
-require(RColorBrewer)
 require(cowplot)
 
 

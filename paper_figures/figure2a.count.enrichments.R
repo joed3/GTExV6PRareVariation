@@ -4,7 +4,7 @@ dir = Sys.getenv('RAREVARDIR')
 
 # Load required packages and functions
 require(ggplot2)
-require(gtable)
+
 source('enrichment.functions.R')
 options(stringsAsFactors=FALSE)
 #--------------------- FUNCTIONS
