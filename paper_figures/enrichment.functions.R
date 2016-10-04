@@ -1,9 +1,5 @@
 #!/usr/bin/env Rscript
 
-##Load required packages
-require(ggplot2)
-require(gtable)
-
 ####################### FUNCTIONS
 
 #### Function to generate default ggplot colors
