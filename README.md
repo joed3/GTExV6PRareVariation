@@ -5,11 +5,16 @@ Repository to reproduce analyses from the GTEx V6P Rare Variation Manuscript
 
 ## Install the dependencies
 R packages
+* cowplot
 * data.table
 * doMC
 * ggplot2
+* plotrix
 * plyr
+* pROC
+* RColorBrewer
 * reshape2
+* scales
 
 Python modules
 * numpy
