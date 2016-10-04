@@ -2,9 +2,8 @@
 
 ## PATHS TO BE SET ###########
 dir = Sys.getenv('RAREVARDIR')
-subjectFile = '/mnt/lab_data/montgomery/shared/datasets/gtex/GTEx_Analysis_2015-01-12/sample_annotations/GTEx_Analysis_2015-01-12_\
-Annotations_SubjectPhenotypesDS.txt' # adjust path as necessary
-covariatesDir = '/mnt/lab_data/montgomery/shared/datasets/gtex/GTEx_Analysis_2015-01-12/eqtl_data/eQTLInputFiles/covariates/'
+subjectFile = 'GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt' # adjust path as necessary
+covariatesDir = 'eQTLInputFiles/covariates/'
 
 # looking into whether or not individuals with a lot of rare variants are outliers in PCA space
 
