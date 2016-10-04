@@ -210,7 +210,7 @@ bash feature_construction/vcf2bedfiles.sh \
 	 <path to>/GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Indiv_GATK_HaplotypeCaller.vcf.gz \
 	 <path to>/gtex.lumpy.gs.svscore.low_conf.vcf.gz
 ```
-(this script and some of it's dependencies use multiple cores [set number at top of relevant scripts]; relies on :
+(this script and some of its dependencies use multiple cores [set number at top of relevant scripts]; relies on :
 * `vcf2bedfiles_helper_processVCF.sh`
 * `vcf2bedfiles_helper_processVCF_SV.sh`
 * `vcf2bedfiles_helper_processVCFtoolsOutput.sh`
