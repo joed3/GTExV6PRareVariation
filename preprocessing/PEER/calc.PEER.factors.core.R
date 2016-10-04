@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 args <- commandArgs(trailingOnly=T)
 if (length(args) < 4) {
   cat("Usage: R -f calc.PEER.factors.core.R --slave --vanilla --args TraitsFileName MaxFactorsN MaxIterations BoundTol VarTol e_pa e_pb a_pa a_pb OutDir\n", file=stderr())
