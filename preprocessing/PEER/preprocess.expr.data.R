@@ -1,4 +1,4 @@
-#!/usr/bin/Rscript
+#!/usr/bin/env Rscript
 
 # R script to process RPKM and read count matrices so that columns match covariate files
 # Prepare matrices for input to PEER
