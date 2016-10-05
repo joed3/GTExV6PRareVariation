@@ -9,6 +9,8 @@ R packages
 * data.table
 * doMC
 * ggplot2
+* matrixStats
+* peer
 * plotrix
 * plyr
 * pROC
@@ -18,6 +20,7 @@ R packages
 
 Python modules
 * numpy
+* pybedtools
 * pysam
 * scipy
 
