@@ -13,42 +13,6 @@ require(plyr)
 
 source('enrichment.functions.R')
 
-# Function to combine SNV and indel feature dataframes
-combine.features <- function(snvs, indels){
-	features = names(snvs)
-	features = features[!(features %in% c('gene_id', 'ID', 'RANK', 'Y'))]
-
-	snvs$Pair = paste(snvs$gene_id, snvs$ID, sep = '_')
-	indels$Pair = paste(indels$gene_id, indels$ID, sep = '_')
-
-	combined = rbind(snvs[!(snvs$Pair %in% indels$Pair), ], indels[!(indels$Pair %in% snvs$Pair), ])
-
-	common.pairs = intersect(snvs$Pair, indels$Pair)
-	snvs.intersect = snvs[snvs$Pair %in% common.pairs, ]
-	snvs.intersect = snvs.intersect[order(snvs.intersect$Pair), ]
-	indels.intersect = indels[indels$Pair %in% common.pairs, ]
-	indels.intersect = indels.intersect[order(indels.intersect$Pair), ]
-	combined.temp = snvs.intersect
-	for(i in 1:length(features)){
-		feature = features[i]
-		if(feature == 'n_variants'){
-			combined.temp[, feature] = snvs.intersect[, feature] + indels.intersect[, feature]
-		}
-		else if(grepl('any', feature)){
-			combined.temp[, feature] = (snvs.intersect[, feature] | indels.intersect[, feature]) + 0
-		}
-		else if(grepl('max', feature)){
-			combined.temp[, feature] = sapply(1:nrow(snvs.intersect), function(x){pmax(snvs.intersect[x, feature], indels.intersect[x, feature], na.rm = T)})
-		}
-		else if(feature == 'closest_variant'){
-			combined.temp[, feature] = sapply(1:nrow(snvs.intersect), function(x){min(c(snvs.intersect[x, feature], indels.intersect[x, feature]))})
-		}
-	}
-	combined = rbind(combined, combined.temp)
-	combined = combined[, -which(colnames(combined) == 'Pair')]
-	return(combined)
-}
-
 # Function to impute missing TFBS features from CADD to 0
 impute.tfbs <- function(features){
 	features$any_tfbs_CADD = ifelse(is.na(features$any_tfbs_CADD), 0, features$any_tfbs_CADD)
@@ -68,17 +32,12 @@ types = c('10kb with PC', '200kb with PC')
 # 10kb distance threshold with PC
 features.snvs.10kb = read.table(paste0(dir, '/data/medz/10kb_genebody_features_SNPs_MAF0-1.txt'), sep = '\t', header = T, stringsAsFactors = F)
 
-features.indels.10kb = read.table(paste0(dir, '/data/medz/10kb_genebody_features_indels_MAF0-1.txt'), sep = '\t', header = T, stringsAsFactors = F)
-
 # 200kb distance threshold with PC
 features.snvs.200kb = read.table(paste0(dir, '/data/medz/200kb_genebody_features_SNPs_MAF0-1.txt'), sep = '\t', header = T, stringsAsFactors = F)
 
-features.indels.200kb = read.table(paste0(dir, '/data/medz/200kb_genebody_features_indels_MAF0-1.txt'), sep = '\t', header = T, stringsAsFactors = F)
-
-# Combine SNV and indel features
 # Replace missing TFBS features from CADD with 0
-features.10kb = impute.tfbs(combine.features(features.snvs.10kb, features.indels.10kb))
-features.200kb = impute.tfbs(combine.features(features.snvs.200kb, features.indels.200kb))
+features.10kb = impute.tfbs(features.snvs.10kb)
+features.200kb = impute.tfbs(features.snvs.200kb)
 
 # Find the estimated log odds estimates and CIs
 # Scaled
