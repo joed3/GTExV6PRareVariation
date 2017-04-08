@@ -28,7 +28,7 @@ impute.tfbs <- function(features){
 
 # Define estimate types
 window.types = c('10kb with PC', '200kb with PC')
-outlier.types = c('Under', 'Over')
+outlier.types = c('Underexpression', 'Overexpression')
 
 # Read in features for indels and SNVs
 # 10kb distance threshold with PC
@@ -42,8 +42,8 @@ dynames = c('any_dyadic', 'max_dyadic', 'n_variants')
 enhnames = c('any_enhancer', 'max_enhancer')
 
 # Replace missing TFBS features from CADD with 0
-features.10kb = impute.tfbs(features.snvs.10kb) %>% select(which(!(colnames(features.10kb) %in% dynames)))
-features.200kb = impute.tfbs(features.snvs.200kb) %>% select(1, 29:31, which(colnames(features.200kb) %in% enhnames))
+features.10kb = impute.tfbs(features.snvs.10kb) %>% select(which(!(colnames(features.snvs.10kb) %in% dynames)))
+features.200kb = impute.tfbs(features.snvs.200kb) %>% select(1, 29:31, which(colnames(features.snvs.200kb) %in% enhnames))
 
 # Split over and under expression outliers
 f10.over = subset(features.10kb, RANK > 0)
@@ -98,9 +98,9 @@ estims.10kb.scaled = filter(estims.10kb.scaled, FEAT %in% add.names.raw) %>%
     mutate(FEAT = factor(mapvalues(FEAT, from = add.names.raw, to = add.names), levels = add.names[length(add.names):1]))
 
 estims.10kb.over = filter(estims.10kb.over, FEAT %in% add.names.raw) %>%
-    mutate(FEAT = factor(mapvalues(FEAT, from = add.names.raw, to = add.names), levels = add.names))
+    mutate(FEAT = factor(mapvalues(FEAT, from = add.names.raw, to = add.names), levels = add.names[length(add.names):1]))
 estims.10kb.under = filter(estims.10kb.under, FEAT %in% add.names.raw) %>%
-            mutate(FEAT = factor(mapvalues(FEAT, from = add.names.raw, to = add.names), levels = add.names))
+            mutate(FEAT = factor(mapvalues(FEAT, from = add.names.raw, to = add.names), levels = add.names[length(add.names):1]))
 estims.10kb = rbind(estims.10kb.over, estims.10kb.under)
 
 add.colors = c('mediumorchid3', rep('mediumpurple4', 4), 'tomato', rep('maroon3', 5))
