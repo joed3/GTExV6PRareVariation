@@ -9,6 +9,7 @@ library(cowplot)
 
 ## load figure panel with enrichments split by over and underexpression outliers
 load(paste0(dir, '/data/figure3b.feature.enrichments.RData'))
+load(paste0(dir, '/data/figure2c.ASE.enrichments.RData'))
 
 fontsize = 11
 fontsizes = theme(axis.text = element_text(size = fontsize),
@@ -37,20 +38,25 @@ extra$Type = 'All'
 joined.nothresh = rbind(joined.nothresh, extra)
 
 dist.plot = ggplot(joined.nothresh, aes(log2(Median + 2), fill = Type)) + geom_density(alpha = 0.5, colour = 'white') +
-    xlab(expression('log'[2]~'(median RPKM + 2)')) +
+    xlab(expression('Log'[2]~'(median RPKM + 2)')) + ylab('Density') +
     theme_bw() + scale_fill_manual(values = c('darkgrey','dodgerblue4','dodgerblue'), name = '') +
     fontsizes + theme(legend.position = c(0.7, 0.85))
 
 add.effects.plot.over.under = add.effects.plot.over.under +
     fontsizes + theme(legend.position = c(0.2, 0.85))
 
+ase.plot.rare = ase.plot.rare + fontsizes
+
 ## combine the two plots into a two-paneled figure
 combined = ggdraw() +
-    draw_plot(dist.plot, 0, 0, 0.5, 1) +
-    draw_plot(add.effects.plot.over.under, 0.5, 0, 0.49, 1) +
-    draw_plot_label(c('a','b'), c(0, 0.5), c(1, 1), size = 14)
+    draw_plot(dist.plot, 0, 0.5, 5/11, 0.5) +
+    draw_plot(add.effects.plot.over.under, 5/11, 0.5, 6/11, 0.5) +
+    draw_plot(ase.plot.rare, 0.2, 0, 0.6, 0.5) +
+    draw_plot_label(c('a', 'b', 'c'),
+                    c(0, 5/11, 0.2),
+                    c(1, 1, 0.5), size = 14)
 
-pdf(paste0(dir, '/paper_figures/suppfig.over.under.expression.pdf'), height = 5, width = 10)
+pdf(paste0(dir, '/paper_figures/suppfig.over.under.expression.pdf'), height = 10, width = 11)
 
 combined
 

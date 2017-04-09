@@ -163,10 +163,9 @@ ase.plot = ggplot(plot.data.all, aes(x = type, y = ASE, fill = type, alpha = thr
           legend.position = c(0.3, 0.8),
           legend.direction = 'horizontal')
 
-# Save workspace image
-save(ase.plot, ase.colors, file = paste0(dir, '/data/figure2c.ASE.enrichments.RData'))
-
-
+## FOR SUPPLMENTARY PANEL: look specifically at rare variants with the expectation that
+## the ASE should be concordant with the observed outlier effect.
+## For instance, for an underexpression outlier, we expect the rare variant to be underexpressed.
 
 ## read in rare variants associated with outliers and matched non-outliers
 rarevars = fread(paste0(dir, '/features/byGene/10kb_genebody/all_rare_variants_SNPs.txt'))
@@ -209,8 +208,6 @@ plot.data.rare$class = ifelse(plot.data.rare$thresh > 0, yes = 'Overexpression',
 plot.data.rare$class = factor(plot.data.rare$class, levels = c('Underexpression', 'Overexpression'))
 plot.data.rare$thresh = factor(plot.data.rare$thresh)
 
-pdf(paste0(dir, '/paper_figures/suppfig.ase.over.under.pdf'), height = 5, width = 6.5)
-
 ase.plot.rare = ggplot(plot.data.rare,
                         aes(x = type, y = ASE, fill = type, alpha = thresh.abs)) +
     facet_grid(~class) +
@@ -233,7 +230,6 @@ ase.plot.rare = ggplot(plot.data.rare,
           panel.grid.major = element_blank(),
           strip.background = element_blank(),
           strip.text = element_text(size = 11, face = 'bold'))
-print(ase.plot.rare)
-
-dev.off()
  
+## Save main and supplemental plots
+save(ase.plot, ase.plot.rare, ase.colors, file = paste0(dir, '/data/figure2c.ASE.enrichments.RData'))
