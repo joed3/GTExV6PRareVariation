@@ -18,6 +18,7 @@ fontsizes = theme(axis.text = element_text(size = fontsize),
                   legend.title = element_text(size = fontsize - 1),
                   legend.key = element_blank(),
                   legend.background = element_blank(),
+                  strip.text = element_text(face = 'plain', size = fontsize + 1),
                   panel.grid.major = element_blank(),
                   panel.grid.minor = element_blank())
 
