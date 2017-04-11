@@ -7,137 +7,147 @@ require(ggplot2)
 
 source('enrichment.functions.R')
 options(stringsAsFactors=FALSE)
-#--------------------- FUNCTIONS
 
-# for each variant type and each minor allele frequency bin,
-# get the ratio of the portions of outliers/non outliers with rare variants
-# and the associated confidence intervals (exp of Wald interval on the log of the proportion ratio)
-proportion.ratios = function(counts) {
-    mafs = unique(counts$MAF)
-    types = unique(counts$TYPE)
-    # make emty data frame and fill it from rbinds (not very many, so it's fine)
-    results = data.frame(ESTIM=numeric(), CI.LOW=numeric(), CI.HIGH=numeric(), MAF=character(), TYPE=character(),
-        stringsAsFactors = F)
-    for (m in mafs) {
-        for (t in types) {
-            results = rbind(results, proportion.ratios.helper(counts, m, t))
-        }
+#------------------- FUNCTIONS
+## Function that runs the generic read_file function specified in enrichment.functions.R
+## and also creates "any" features
+read_file_mod = function(dir, mafs, types, suffix, names, prefix) {
+    count = read_file(dir, mafs, types, suffix, names, prefix)
+    count$any_variant = (count$n_variants > 0) + 0
+    return(count)
+}
+
+## Function to return the subset of the counts data frame that includes individuals
+## with fewer than the specified number of outliers
+filter_num_outliers = function(countdata, outlierdata, threshold) {
+    exclude.inds = outlierdata$ind[outlierdata$noutliers >= threshold]
+    exclude.genes = countdata$gene_id[countdata$ID %in% exclude.inds & countdata$Y == 1]
+    counts.subset = countdata[!(countdata$ID %in% exclude.inds),]
+    counts.subset = counts.subset[!(counts.subset$gene_id %in% exclude.genes), ]
+    return(counts.subset)
+}
+
+## Function that runs proportion.ratios from enrichment.functions.R
+## and also sets factor levels
+counts2props = function(countdata, mafs, typenames) {
+    prop.ratio = proportion.ratios(countdata)
+    prop.ratio$MAF = factor(prop.ratio$MAF, levels = mafs)
+    prop.ratio$TYPE = factor(prop.ratio$TYPE, levels = typenames)
+    return(prop.ratio)
+}
+
+## Function to plot count enrichments by MAF facetted by variant type
+## Include error bars
+ratio.plot = function(plotdata, hasAlpha = FALSE, legend.title = '') {
+    p = ggplot(plotdata, aes(x = MAF, y = ESTIM)) +
+        theme_bw() + xlab('Minor allele frequency (%)') + ylab('Enrichment') +
+        geom_abline(intercept = 1, slope = 0) +
+        scale_colour_manual(values=colors.type) + guides(colour = FALSE) +
+        facet_wrap( ~ TYPE, scales = "free") + 
+        theme(strip.background = element_blank())
+    if (hasAlpha) {
+        p = p + geom_pointrange(aes(x = MAF, ymin = CI.LOW, ymax = CI.HIGH, colour = TYPE,
+                                    alpha = GROUP, group = interaction(MAF, GROUP)),
+                                position = position_dodge(width = 0.6)) +
+            scale_alpha_discrete(range = c(1, 0.4), name = legend.title) +
+            theme(legend.key = element_blank())
+    } else {
+        p = p + geom_pointrange(aes(x = MAF, ymin = CI.LOW, ymax = CI.HIGH, colour = TYPE))
     }
-    return(results)
 }
 
-# actually does the work of the main function for the given maf bin and variant type
-proportion.ratios.helper = function(counts, maf, type) {
-    counts.subset = counts[counts$MAF == maf & counts$TYPE ==type, c('Y','any_variant')]
-    summary.counts = as.data.frame(table(counts.subset))
-    stopifnot(nrow(summary.counts)== 4 & min(summary.counts$Freq) > 0) # check that no zero values, and right number of values
-    # get required values to get statistic and CI
-    out.var = summary.counts$Freq[summary.counts$Y == 1 & summary.counts$any_variant == 1]
-    nonout.var = summary.counts$Freq[summary.counts$Y == 0 & summary.counts$any_variant == 1]
-    out.total = sum(summary.counts$Freq[summary.counts$Y == 1])
-    nonout.total = sum(summary.counts$Freq[summary.counts$Y == 0])
-    # actually calculate
-    estimate = (out.var/out.total)/(nonout.var/nonout.total)
-    # get bounds of confidence interval on the log of the proportion then exponentiate
-    log.se = sqrt(1/out.var - 1/out.total + 1/nonout.var - 1/nonout.total)
-    max.ci = estimate * exp(1.96*log.se)
-    min.ci = estimate * exp(-1.96*log.se)
-    # put all together in a list that can become the row of a dataframe
-    dfrow = list(ESTIM=estimate, CI.LOW=min.ci, CI.HIGH=max.ci, MAF=maf, TYPE=type)
-    return (dfrow)
-}
+
 
 #------------------- MAIN
 
-# Read in features and counts
+## Set variety of variables that will be useful
 MAFs = c('0-1', '1-5', '5-10', '10-25')
 TYPEs = c('SNPs', 'indels', 'HallLabSV')
 type.names = c('SNV','Indel','SV')
-
-OUT.DIR = paste0(dir, '/data/medz/')
-medz.count.withPC = read_file(OUT.DIR, MAFs, TYPEs, '_counts_MAF', type.names, prefix = '10kb_')
-medz.count.withoutPC = read_file(OUT.DIR, MAFs, TYPEs, '_counts_MAF', type.names, prefix = '10kb_noPC_')
-
-# Turn counts into binary presence/absence 
-medz.count.withPC$any_variant = (medz.count.withPC$n_variants > 0) + 0
-medz.count.withoutPC$any_variant = (medz.count.withoutPC$n_variants > 0) + 0
-
-# Make plot of count enrichments by MAF faceted by variant type
-# Include error bars
 colors.type = c('dodgerblue3','springgreen4','orangered3')
 names(colors.type) = type.names
 
-# Make plot of count enrichment for SNPs only using ratio of proporions instead of log odds
-medz.count.prop.ratio.withPC = proportion.ratios(medz.count.withPC)
-medz.count.prop.ratio.withPC$MAF = factor(medz.count.prop.ratio.withPC$MAF, levels = MAFs)
-medz.count.prop.ratio.withPC$TYPE = factor(medz.count.prop.ratio.withPC$TYPE, levels = type.names)
+MAFs.top0 = paste0(MAFs, '.peer.top0')
+MAFs.top5 = paste0(MAFs, '.peer.top5')
+peer.types = c('Fully corrected', 'Top 5 PEER factors removed', 'No PEER factors removed')
 
-medz.count.prop.ratio.withoutPC = proportion.ratios(medz.count.withoutPC)
-medz.count.prop.ratio.withoutPC$MAF = factor(medz.count.prop.ratio.withoutPC$MAF, levels = MAFs)
-medz.count.prop.ratio.withoutPC$TYPE = factor(medz.count.prop.ratio.withoutPC$TYPE, levels = type.names)
+removed.thresholds = c(500, 50, 30)
+removed.names = c('None','outlier for >= 50 genes','outlier for >= 30 genes')
 
-count.ratio.plot.withPC = ggplot(data = medz.count.prop.ratio.withPC, aes(x = MAF, y = ESTIM)) +
-    theme_bw() + xlab('Minor allele frequency (%)') + ylab('Enrichment') +
-    geom_abline(intercept = 1, slope = 0) +
-    geom_pointrange(aes(x = MAF, ymin = CI.LOW, ymax = CI.HIGH, colour = TYPE)) +
-    scale_colour_manual(values=colors.type) + guides(colour=FALSE) +
-    facet_wrap( ~ TYPE, scales = "free") + 
-    theme(strip.background = element_blank())
+## Read in features and counts
+OUT.DIR = paste0(dir, '/data/medz/')
+# for fig 2b.
+medz.count = read_file_mod(OUT.DIR, MAFs, TYPEs, '_counts_MAF', type.names, prefix = '10kb_')
+# for supp. fig without PC
+medz.count.withoutPC = read_file_mod(OUT.DIR, MAFs, TYPEs, '_counts_MAF', type.names, prefix = '10kb_noPC_')
+# for supp. fig with different levels of peer correction
+medz.count.top0 = read_file_mod(OUT.DIR, MAFs.top0, TYPEs, '_counts_MAF', type.names, prefix = '10kb_')
+medz.count.top0$MAF = gsub('\\.peer\\.top0', '', medz.count.top0$MAF)
+medz.count.top5 = read_file_mod(OUT.DIR, MAFs.top5, TYPEs, '_counts_MAF', type.names, prefix = '10kb_')
+medz.count.top5$MAF = gsub('\\.peer\\.top5', '', medz.count.top5$MAF)
 
-# make same plot (with PC) but excluding individuals with more than 60,000 variants
-# for supplemental figure
+# for supp. fig with different number of individuals removed due to excess outliers
+OUT.DIR.ALL = paste0(dir, '/data/medzall/')
+medz.count.allinds = read_file_mod(OUT.DIR.ALL, MAFs, TYPEs, '_counts_MAF', type.names, prefix = '10kb_')
+outlier.counts = read.table(paste0(dir, '/data/outliers_medz_picked_counts_per_ind.txt'), header = F,
+                            col.names = c('ind', 'noutliers'))
+medz.count.max30 = filter_num_outliers(medz.count.allinds, outlier.counts, 30)
+medz.count.nomax = filter_num_outliers(medz.count.allinds, outlier.counts, 500)
+
+
+## Get proportion ratios for each of the count groups above
+medz.count.prop.ratio = counts2props(medz.count, MAFs, type.names)
+medz.count.prop.ratio.withoutPC = counts2props(medz.count.withoutPC, MAFs, type.names)
+medz.count.prop.ratio.top0 = counts2props(medz.count.top0, MAFs, type.names)
+medz.count.prop.ratio.top5 = counts2props(medz.count.top5, MAFs, type.names)
+medz.count.prop.ratio.max30 = counts2props(medz.count.max30, MAFs, type.names)
+medz.count.prop.ratio.nomax = counts2props(medz.count.nomax, MAFs, type.names)
+
+
+## MAIN FIGURE
+count.ratio.plot = ratio.plot(medz.count.prop.ratio)
+
+## SUPPLEMENTAL PLOT excluding individuals with more than 60,000 variants
 varCounts = read.table(paste0(dir, '/data/variant_counts_per_individual_all.txt'), header = T, row.names = 1)
 indIncl = rownames(varCounts)[rowSums(varCounts, na.rm = T) <= 60000]
-medz.count.withPC.subset = medz.count.withPC[medz.count.withPC$ID %in% indIncl,]
-medz.count.prop.ratio.withPC.subset = proportion.ratios(medz.count.withPC.subset)
-medz.count.prop.ratio.withPC.subset$MAF = factor(medz.count.prop.ratio.withPC.subset$MAF, levels = MAFs)
-medz.count.prop.ratio.withPC.subset$TYPE = factor(medz.count.prop.ratio.withPC.subset$TYPE, levels = type.names)
-medz.count.prop.ratio.withPC.subset$GROUP = "Excluding individuals\nwith > 60000 variants"
-medz.count.prop.ratio.withPC$GROUP = "All variants"
-medz.count.prop.ratio.withPC.subset = rbind(medz.count.prop.ratio.withPC.subset, medz.count.prop.ratio.withPC)
+medz.count.subset = medz.count[medz.count$ID %in% indIncl,]
+medz.count.prop.ratio.subset = counts2props(medz.count.subset, MAFs, type.names)
+medz.count.prop.ratio.subset$GROUP = "Excluding individuals\nwith > 60000 variants"
+medz.count.prop.ratio$GROUP = "All variants"
+medz.count.prop.ratio.subset = rbind(medz.count.prop.ratio.subset, medz.count.prop.ratio)
 
-alphas = c(1, 0.4)
-count.ratio.plot.withPC.subset = ggplot(data = medz.count.prop.ratio.withPC.subset,
-                                        aes(x = MAF, y = ESTIM, alpha = GROUP, colour = TYPE)) +
-    theme_bw() + xlab('Minor allele frequency (%)') + ylab('Enrichment') +
-    geom_abline(intercept = 1, slope = 0) +
-    geom_pointrange(aes(x = MAF, ymin = CI.LOW, ymax = CI.HIGH, group = interaction(MAF, GROUP)),
-                    position = position_dodge(width = 0.4)) +
-    scale_colour_manual(values = colors.type) + guides(colour = FALSE) +
-    scale_alpha_manual(values = alphas, name = NULL) +
-    facet_wrap( ~ TYPE, scales = "free") +
-    theme(strip.background = element_blank(),
-          legend.key = element_blank())
+count.ratio.plot.subset = ratio.plot(medz.count.prop.ratio.subset, hasAlpha = T)
 
-# combine with and without PC in the same plot
+## SUPPLEMENTAL PLOT with/without PC
 medz.count.prop.ratio.withoutPC$GROUP = "Excluding\nexon variants"
-medz.count.prop.ratio.all = rbind(medz.count.prop.ratio.withPC, medz.count.prop.ratio.withoutPC)
-medz.count.prop.ratio.all$GROUP = factor(medz.count.prop.ratio.all$GROUP)
+medz.count.prop.ratio.with.without = rbind(medz.count.prop.ratio, medz.count.prop.ratio.withoutPC)
+medz.count.prop.ratio.with.without$GROUP = factor(medz.count.prop.ratio.with.without$GROUP)
 
-alphas = c(1, 0.4)
-fsize = 9
-count.ratio.plot.with.withoutPC = ggplot(medz.count.prop.ratio.all, aes(x = MAF, y = ESTIM, alpha = GROUP)) +
-    theme_bw() + xlab('Minor allele frequency (%)') + ylab('Enrichment') +
-    geom_abline(intercept = 1, slope = 0) +
-    geom_pointrange(aes(x = MAF, ymin = CI.LOW, ymax = CI.HIGH, colour = TYPE)) +
-    scale_colour_manual(values = colors.type) + guides(colour = FALSE) +
-    scale_alpha_manual(values = alphas, name = NULL) +
-    facet_wrap( ~ TYPE, scales = "free") +
-    theme(strip.text.x = element_text(size = fsize + 1),
-          strip.background = element_blank(),
-          legend.key = element_blank(),
-          axis.text = element_text(size = fsize),
-          axis.title = element_text(size = fsize),
-          legend.text = element_text(size = fsize),
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank())
+count.ratio.plot.with.withoutPC = ratio.plot(medz.count.prop.ratio.with.without, hasAlpha = T)
 
-# output the supplementary figure
-pdf(paste0(dir, '/paper_figures/suppfig.figure2a.withoutPC.pdf'), height = 2.3, width = 7.2)
+## SUPPLEMENTAL PLOT different PEER correction levels
+# adding peer column and combining peer ratios
+medz.count.prop.ratio.top0$GROUP = factor(peer.types[3], levels = peer.types)
+medz.count.prop.ratio.top5$GROUP = factor(peer.types[2], levels = peer.types)
+medz.count.prop.ratio.topall = medz.count.prop.ratio
+medz.count.prop.ratio.topall$GROUP = factor(peer.types[1], levels = peer.types)
+medz.count.prop.ratio.peer = rbind(medz.count.prop.ratio.top0,
+                              medz.count.prop.ratio.top5,
+                              medz.count.prop.ratio.topall)
 
-count.ratio.plot.with.withoutPC
+count.ratio.plot.peer = ratio.plot(medz.count.prop.ratio.peer, hasAlpha = T)
 
-dev.off()
+## SUPPLEMENTAL PLOT excluding different number of individuals
+medz.count.prop.ratio.max30$GROUP = factor(removed.names[3], levels = removed.names)
+medz.count.prop.ratio.nomax$GROUP = factor(removed.names[1], levels = removed.names)
+medz.count.prop.ratio.max50 = medz.count.prop.ratio
+medz.count.prop.ratio.max50$GROUP = factor(removed.names[2], levels = removed.names)
+medz.count.prop.ratio.maxoutlier = rbind(medz.count.prop.ratio.max30,
+                                         medz.count.prop.ratio.max50,
+                                         medz.count.prop.ratio.nomax)
+
+count.ratio.plot.outliers.thresh = ratio.plot(medz.count.prop.ratio.maxoutlier,
+                                              hasAlpha = T, legend.title = 'Excluded individuals')
 
 # Save workspace image
 save.image(paste0(dir, '/data/figure2a.count.enrichments.RData'))
