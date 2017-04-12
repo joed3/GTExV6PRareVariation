@@ -67,11 +67,11 @@ combined.supp = ggdraw() +
     draw_plot(colors.horizontal, heat2.x-0.045, 0.915, 0.4835, dots.w) +
     draw_text('Replication in discovery individuals', heat2.x+0.23, 0.99, size = fontsize) +
     draw_plot(heatmap.subset.subsample, heat2.x, heat.y, heat.w, heat.h) +
-    draw_plot(scatter.discovery.v.all, (1-scatter.w*2)/2, scatter.h, scatter.w, scatter.h) +
-    draw_plot(scatter.discovery.v.distinct, 0.5, scatter.h, scatter.w, scatter.h) +
+    draw_plot(scatter.discovery.v.all, heat1.x, scatter.h, scatter.w, scatter.h) +
+    draw_plot(scatter.discovery.v.distinct, heat2.x, scatter.h, scatter.w, scatter.h) +
     draw_plot(single2multi.plot, 0.25, 0, 0.5, scatter.h) +
     draw_plot_label(c('a','b','c','d','e'),
-                    c(0, heat2.x-0.04, (1-scatter.w*2)/2 + 0.005, 0.505, 0.252),
+                    c(0, heat2.x-0.04, heat1.x+0.005, heat2.x+0.005, 0.253),
                     c(rep(1,2), rep(scatter.h*2, 2), scatter.h), size = 11)
 pdf(paste0(dir, '/paper_figures/suppfig.single.replication.multi.overlap.pdf'), height = 11, width = 9)
 combined.supp
