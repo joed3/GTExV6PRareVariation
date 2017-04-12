@@ -2,7 +2,7 @@
 
 ## PATHS TO SET ###############
 dir = Sys.getenv('RAREVARDIR')
-phenoFile = '/mnt/lab_data/montgomery/shared/datasets/gtex/GTEx_Analysis_2015-01-12/sample_annotations/GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt'
+phenoFile = 'GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt' # adjust path as necessary
 
 
 # Load required packages
@@ -14,7 +14,12 @@ require(cowplot)
 
 # Common axis font sizes
 fontsize = 9
-axisFontSizes = theme(axis.text.y = element_text(size = fontsize), axis.text.x = element_text(size = fontsize), axis.title = element_text(size = fontsize), panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+axisFontSizes = theme(axis.text = element_text(size = fontsize),
+                      axis.title = element_text(size = fontsize),
+                      legend.title = element_text(size = fontsize),
+                      legend.text = element_text(size = fontsize),
+                      panel.grid.major = element_blank(),
+                      panel.grid.minor = element_blank())
 
 # Read in phenotypes file
 phenos = read.csv(phenoFile, sep = '\t', header = T, row.names = 1)
@@ -58,31 +63,59 @@ ind.counts = ind.counts[ind.counts$COUNT < count.thresh, ]
 ind.counts[, c('RACE', 'GENDER', 'AGE', 'BMI', 'ISCH')] = phenos[ind.counts$IND, c('RACE', 'GENDER', 'AGE', 'BMI', 'TRISCHD')]
 
 race.col = c('darkolivegreen3','darkgoldenrod2','dodgerblue2','#FF3D3D','darkgrey')
-counts.by.race = ggplot(data = ind.counts, aes(x = RACE, y = COUNT)) + geom_violin(aes(fill = RACE), scale = 'width', width = .5) + theme_bw() +
-	guides(fill = F) + xlab('') + ylab('Number of genes') + geom_boxplot(fill = 'white', width = .1) + axisFontSizes +
-        scale_fill_manual(values = race.col)
 
-counts.by.gender = ggplot(data = ind.counts, aes(x = GENDER, y = COUNT)) + geom_violin(aes(fill = GENDER), scale = 'width', width = .5) + theme_bw() +
-	guides(fill = F) + xlab('') + ylab('Number of genes') + geom_boxplot(fill = 'white', width = .1) + axisFontSizes
+counts.by.race = ggplot(data = ind.counts, aes(x = RACE, y = COUNT)) +
+    geom_violin(aes(fill = RACE), scale = 'width', width = .5) + theme_bw() +
+    guides(fill = F) + xlab('') + ylab('Number of genes') +
+    geom_boxplot(fill = 'white', width = .1) + axisFontSizes +
+    scale_fill_manual(values = race.col)
 
-counts.by.age = ggplot(data = ind.counts, aes(x = AGE, y = COUNT)) + geom_point(colour = 'dodgerblue3') + geom_smooth(colour = 'black') + theme_bw() +
-	xlab('Age (years)') + ylab('Number of genes') + axisFontSizes
+counts.by.gender = ggplot(data = ind.counts, aes(x = GENDER, y = COUNT)) +
+    geom_violin(aes(fill = GENDER), scale = 'width', width = .5) + theme_bw() +
+    guides(fill = F) + xlab('') + ylab('Number of genes') +
+    geom_boxplot(fill = 'white', width = .1) + axisFontSizes
 
-counts.by.bmi = ggplot(data = ind.counts, aes(x = BMI, y = COUNT)) + geom_point(colour = 'dodgerblue3') + geom_smooth(colour = 'black') + theme_bw() +
-	xlab('BMI') + ylab('Number of genes') + axisFontSizes
+counts.by.age = ggplot(data = ind.counts, aes(x = AGE, y = COUNT)) +
+    geom_point(colour = 'dodgerblue3') + geom_smooth(colour = 'black') + theme_bw() +
+    xlab('Age (years)') + ylab('Number of genes') + axisFontSizes
 
-counts.by.isch = ggplot(data = ind.counts, aes(x = ISCH, y = COUNT)) + geom_point(colour = 'dodgerblue3') + geom_smooth(colour = 'black') + theme_bw() +
-	xlab('Ischemic time (minutes)') + ylab('Number of genes') + axisFontSizes
+counts.by.bmi = ggplot(data = ind.counts, aes(x = BMI, y = COUNT)) +
+    geom_point(colour = 'dodgerblue3') + geom_smooth(colour = 'black') + theme_bw() +
+    xlab('BMI') + ylab('Number of genes') + axisFontSizes
 
-outlier.bias = ggdraw() + draw_plot(ind.counts.plot, 0, .5, 1/3, .5) +
-	draw_plot(counts.by.race, 1/3, .5, 1/3, .5) +
-	draw_plot(counts.by.gender, 2/3, .5, 1/3, .5) +
-	draw_plot(counts.by.age, 0, 0, 1/3, .5) +
-	draw_plot(counts.by.bmi, 1/3, 0, 1/3, .5) +
-	draw_plot(counts.by.isch, 2/3, 0, 1/3, .5) +
-	draw_plot_label(c("a", "b", "c", "d", "e", "f"), c(0, 1/3, 2/3, 0, 1/3, 2/3), c(1, 1, 1, .5, .5, .5), size = 11)
+counts.by.isch = ggplot(data = ind.counts, aes(x = ISCH, y = COUNT)) +
+    geom_point(colour = 'dodgerblue3') + geom_smooth(colour = 'black') + theme_bw() +
+    xlab('Ischemic time (minutes)') + ylab('Number of genes') + axisFontSizes
 
-pdf(paste0(dir, '/paper_figures/suppfig.number.outliers.by.covariates.pdf'), height = 4.5, width = 8, bg = 'white')
+## load figure of rare variant enrichments produced by figure2a.count.enrichments.R 
+load(paste0(dir, '/data/figure2a.count.enrichments.RData'))
+
+count.ratio.plot.outliers.thresh = count.ratio.plot.outliers.thresh + axisFontSizes +
+    scale_alpha_discrete(range = c(1, 0.4), name = 'Excluded individuals',
+                         labels = c('None',
+                                    expression('Outlier for' >= '50 genes'),
+                                    expression('Outlier for' >= '30 genes'))) +
+    theme(legend.text.align = 0)
+
+outlier.bias = ggdraw() +
+    draw_plot(ind.counts.plot,
+              0/3, 0.7, 1/3, 0.3) +
+    draw_plot(counts.by.race,
+              1/3, 0.7, 1/3, 0.3) +
+    draw_plot(counts.by.gender,
+              2/3, 0.7, 1/3, 0.3) +
+    draw_plot(counts.by.age,
+              0/3, 0.4, 1/3, 0.3) +
+    draw_plot(counts.by.bmi,
+              1/3, 0.4, 1/3, 0.3) +
+    draw_plot(counts.by.isch,
+              2/3, 0.4, 1/3, 0.3) +
+    draw_plot(count.ratio.plot.outliers.thresh, 0, 0, 1, 0.38) +
+    draw_plot_label(c("a", "b", "c", "d", "e", "f","g"),
+                    c(0, 1/3, 2/3, 0, 1/3, 2/3, 0),
+                    c(1, 1, 1, 0.7, 0.7, 0.7, 0.37), size = 11)
+
+pdf(paste0(dir, '/paper_figures/suppfig.number.outliers.by.covariates.pdf'), height = 7.5, width = 9, bg = 'white')
 
 outlier.bias
 
