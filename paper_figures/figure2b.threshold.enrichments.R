@@ -138,20 +138,17 @@ tissues$names_pretty[tissues$names_pretty == "Cells -\nTransformed fibroblasts"]
 tissues$names_pretty[tissues$names_pretty == "Esophagus -\nGastroesophageal Junction"] = "Esophagus -\nJunction"
 singlez.props.all$TISSUE_NAME = tissues$names_pretty[match(singlez.props.all$TISSUE, tissues$tissue_site_detail_id)]
 
-pdf(paste0(dir, '/paper_figures/suppfig.singletissue.enrichments.pdf'), width = 10.5, height = 7.5)
-
-ggplot(singlez.props.all, aes(x = THRESH, y = ESTIM)) + geom_hline(yintercept = 1) +
+single.tissues.plot = ggplot(singlez.props.all, aes(x = THRESH, y = ESTIM)) + geom_hline(yintercept = 1) +
     geom_pointrange(aes(ymin = CI.LOW, ymax = CI.HIGH), colour = "mediumorchid4", size = 0.3) +
-    theme_bw() + xlab(expression("|Z-score|")) + ylab("Enrichment") + facet_wrap(~TISSUE_NAME, nrow = 6, scales = "free_y") +
+    theme_bw() + xlab(expression("|Z-score|")) + ylab("Enrichment") +
+    facet_wrap(~TISSUE_NAME, nrow = 7, scales = "free_y") +
     theme(strip.background = element_blank(),
-          strip.text = element_text(size = 8, face = "bold"),
-          panel.margin = unit(c(0.5, 0, 0.5, 1.5), "pt"),
+          strip.text = element_text(size = 8),
+          panel.spacing.x = unit(0.8, 'pt'),
           axis.title = element_text(size = 14),
           axis.text = element_text(size = 8),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank())
-
-dev.off()
 
 # Save workspace image
 save.image(paste0(dir, '/data/figure2b.threshold.enrichments.RData'))
