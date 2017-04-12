@@ -30,7 +30,7 @@ single2multi.plot = ggplot(samples.tissue.overlap, aes(x = nsamples, y = prop, c
     theme_bw() + ylab('Proportion of single-tissue outliers\nthat are multi-tissue outliers') +
     xlab('Number of samples') + guides(colour = FALSE) +
     scale_colour_manual(values = tis.colors) + fontsizes +
-    annotate("text", x = 110, y = 0.055, label = paste("Pearson r =", signif(correlation$estimate,3)), size = 3.5)
+    annotate("text", x = 110, y = 0.055, label = paste("Pearson's r =", signif(correlation$estimate,3)), size = 3.3)
 
 heatmap.subset = plots70[[1]]
 heatmap.subset.subsample = plots70[[2]] + theme(legend.text = element_text(size = fontsize - 1),

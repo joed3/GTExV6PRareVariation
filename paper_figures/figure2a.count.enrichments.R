@@ -113,7 +113,7 @@ indIncl = rownames(varCounts)[rowSums(varCounts, na.rm = T) <= 60000]
 medz.count.subset = medz.count[medz.count$ID %in% indIncl,]
 medz.count.prop.ratio.subset = counts2props(medz.count.subset, MAFs, type.names)
 medz.count.prop.ratio.subset$GROUP = "Excluding individuals\nwith > 60000 variants"
-medz.count.prop.ratio$GROUP = "All variants"
+medz.count.prop.ratio$GROUP = "All individuals"
 medz.count.prop.ratio.subset = rbind(medz.count.prop.ratio.subset, medz.count.prop.ratio)
 
 count.ratio.plot.subset = ratio.plot(medz.count.prop.ratio.subset, hasAlpha = T)

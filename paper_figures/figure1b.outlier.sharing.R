@@ -59,8 +59,8 @@ make.scatter = function(vals1, vals2, xlabel, ylabel, colour = "mediumorchid4") 
         geom_point(colour = colour, size = 0.5) +
         geom_abline(slope = 1, intercept = 0, colour = "darkgrey") + theme_bw() +
         xlab(xlabel) + ylab(ylabel) + ylim(c(minval, maxval)) + xlim(c(minval, maxval)) +
-        annotate("text", x = minval + 0.3*(maxval-minval), y = maxval - 0.02*(maxval-minval),
-                 label = paste("Pearson r =", corval), size = 3.5) +
+        annotate("text", x = minval + 0.2*(maxval-minval), y = maxval - 0.02*(maxval-minval),
+                 label = paste("Pearson's r =", corval), size = 3.3) +
         theme(panel.grid.major = element_blank(),
               panel.grid.minor = element_blank(),
               axis.text = element_text(size = 11),
@@ -81,8 +81,8 @@ make.scatter.gradient = function(df) {
         ylab('Replication in all individuals') +
         xlab('Replication in discovery individuals') + theme_bw() +
         ylim(c(minval, maxval)) + xlim(c(minval, maxval)) +
-        annotate("text", x = minval + 0.3*(maxval-minval), y = maxval - 0.02*(maxval-minval),
-                 label = paste("Pearson r =", corval), size = 3.5) +
+        annotate("text", x = minval + 0.2*(maxval-minval), y = maxval - 0.02*(maxval-minval),
+                 label = paste("Pearson's r =", corval), size = 3.3) +
         theme(panel.grid.major = element_blank(),
               panel.grid.minor = element_blank(),
               legend.position = c(0.8, 0.3),

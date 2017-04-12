@@ -2,8 +2,11 @@
 
 ## PATHS TO BE SET ###########
 dir = Sys.getenv('RAREVARDIR')
-subjectFile = 'GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt' # adjust path as necessary
-covariatesDir = 'eQTLInputFiles/covariates/'
+#subjectFile = 'GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt' # adjust path as necessary
+#covariatesDir = 'eQTLInputFiles/covariates/' # adjust path as necessary
+subjectFile = '/mnt/lab_data/montgomery/shared/datasets/gtex/GTEx_Analysis_2015-01-12/sample_annotations/GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt'
+covariatesDir = '/mnt/lab_data/montgomery/shared/datasets/gtex/GTEx_Analysis_2015-01-12/eqtl_data/eQTLInputFiles/covariates/'
+
 
 # looking into whether or not individuals with a lot of rare variants are outliers in PCA space
 
@@ -44,7 +47,7 @@ medians.df$variable = factor(rownames(medians.df), levels = rownames(medians.df)
 counthist = counthist + geom_vline(data = medians.df, aes(xintercept = value))
 
 # update font sizing for enrichment plot
-count.ratio.plot.withPC.subset = count.ratio.plot.withPC.subset + font.sizing
+count.ratio.plot.subset = count.ratio.plot.subset + font.sizing
 
 # read in covariates to extract genotype PCs
 # need several tissue to cover all people (449 with genotype PCs available)
@@ -124,7 +127,7 @@ combined.plot = ggdraw() +
     draw_plot(counthist, 0.02, 12.1/14.5, 0.98, 2.4/14.5) +
     draw_plot(pca, 0, 5.5/14.5, 1, 6.6/14.5) +
     draw_plot(pca.subset, 0.48, 6.1/14.5, 0.47, 4.2/14.5) +
-    draw_plot(count.ratio.plot.withPC.subset, 0, 2.5/14.5, 1, 3/14.5) +
+    draw_plot(count.ratio.plot.subset, 0, 2.5/14.5, 1, 3/14.5) +
     draw_plot(euro.maf, 0, 0, 1, 2.5/14.5) +
     draw_plot_label(c('a','b','c','d'), c(0,0,0,0), c(1, 12.1/14.5, 5.5/14.5, 2.5/14.5), size = 16)
 
