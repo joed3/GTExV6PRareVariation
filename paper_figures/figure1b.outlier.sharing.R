@@ -13,11 +13,12 @@ dir = Sys.getenv('RAREVARDIR')
 make.sharing.plot = function(df) {
     p = ggplot(data = df, aes(x = variable, y = Row)) +
         geom_tile(aes(fill = value), colour = 'black') + theme_bw() +
-	scale_fill_gradient(low = 'white', high = 'navyblue', name = 'Replication\nproportion', na.value = "grey65") + 
+	scale_fill_gradient(low = 'white', high = 'navyblue', limits = c(0, 0.33), 
+                            name = 'Replication\nproportion', na.value = "grey65") + 
 	theme(axis.ticks = element_blank(),
-              axis.text = element_blank(),
+              axis.text = element_text(size = 0),
               legend.text = element_text(size = 12),
-              axis.title = element_blank(),
+              axis.title = element_text(size = 0),
               plot.margin = unit(c(-3,-3,-3,-3), "mm"),
               panel.border = element_blank())
     return(p)
@@ -40,10 +41,10 @@ make.point.plot = function(tissuesdf, vertical = TRUE){
     }
     p = p + geom_point(aes(colour = tissue_site_detail), size = 2.8) +
         scale_colour_manual(values = colors) + guides(colour = FALSE) + 
-        theme(axis.line = element_blank(),
+        theme(axis.line = element_line(linetype = 0),
               axis.ticks = element_blank(),
-              axis.text = element_blank(),
-              axis.title = element_blank())
+              axis.text = element_text(size = 0),
+              axis.title = element_text(size = 0))
     return(p)
 }
 
@@ -59,7 +60,7 @@ make.scatter = function(vals1, vals2, xlabel, ylabel, colour = "mediumorchid4") 
         geom_abline(slope = 1, intercept = 0, colour = "darkgrey") + theme_bw() +
         xlab(xlabel) + ylab(ylabel) + ylim(c(minval, maxval)) + xlim(c(minval, maxval)) +
         annotate("text", x = minval + 0.3*(maxval-minval), y = maxval - 0.02*(maxval-minval),
-                 label = paste("Pearson r =", corval), size = 4) +
+                 label = paste("Pearson r =", corval), size = 3.5) +
         theme(panel.grid.major = element_blank(),
               panel.grid.minor = element_blank(),
               axis.text = element_text(size = 11),
@@ -81,7 +82,7 @@ make.scatter.gradient = function(df) {
         xlab('Replication in discovery individuals') + theme_bw() +
         ylim(c(minval, maxval)) + xlim(c(minval, maxval)) +
         annotate("text", x = minval + 0.3*(maxval-minval), y = maxval - 0.02*(maxval-minval),
-                 label = paste("Pearson r =", corval), size = 4) +
+                 label = paste("Pearson r =", corval), size = 3.5) +
         theme(panel.grid.major = element_blank(),
               panel.grid.minor = element_blank(),
               legend.position = c(0.8, 0.3),
@@ -208,28 +209,5 @@ plots70 = plot.replications(replications.shared70)
 # 70 both shared and disjoint
 plots70.same.diff = plot.replications(replications70)
 
-plot1 = plots70[[1]] + theme(legend.text = element_text(size = 10), legend.title = element_text(size = 10))
-plot2 = plots70[[2]] + theme(legend.text = element_text(size = 10), legend.title = element_text(size = 10))
+save.image(paste0(dir, '/data/figure1b.outlier.sharing.RData'))
 
-leg.width = 0.04
-plot.width = 0.5
-plot.height = 0.3
-combined.suppfig = ggdraw() +
-    draw_plot(colors.vertical, 0.01,0.62,leg.width,plot.height+0.06) + #top
-    draw_plot(colors.vertical, 0.01,0.27,leg.width,plot.height+0.06) +
-    draw_plot(colors.horizontal, 0.012,0.945,plot.width-0.032,leg.width) + #top
-    draw_plot(colors.horizontal, 0.012,0.595,plot.width-0.032,leg.width) +
-    draw_plot(plot1, leg.width+0.01,0.65,plot.width,plot.height) + #top
-    draw_plot(plot2, leg.width+0.01,0.3,plot.width,plot.height) +        
-    draw_plot(legend, 0.56,0.32,0.35,0.65) +
-    draw_plot(plots70[[3]], 0,0,0.37,0.27) +
-    draw_plot(plots70.same.diff[[5]], 0.4,0,0.37,0.27) +
-    draw_plot_label(c('a','b','c','d'), c(0,0,0,0.4), c(1,0.65,0.28,0.28), size = 13) +
-    draw_text('Replication in all individuals', 0.25, 0.98, size = 11) + #top
-    draw_text('Replication in discovery individuals', 0.25, 0.63, size = 11) +
-    draw_text('Discovery in all individuals', 0.015, 0.8, size = 11, angle = 90) + #top
-    draw_text('Discovery in 70 individuals', 0.015, 0.45, size = 11, angle = 90)
-
-pdf(paste0(dir, '/paper_figures/suppfig.single.tissue.replication.pdf'), width = 9.5, height = 12)
-print(combined.suppfig)
-dev.off()
