@@ -4,6 +4,7 @@ dir = Sys.getenv('RAREVARDIR')
 
 # Load required packages and functions
 require(ggplot2)
+require(cowplot)
 
 source('enrichment.functions.R')
 options(stringsAsFactors=FALSE)
@@ -152,3 +153,19 @@ count.ratio.plot.outliers.thresh = ratio.plot(medz.count.prop.ratio.maxoutlier,
 # Save workspace image
 save.image(paste0(dir, '/data/figure2a.count.enrichments.RData'))
 
+fsize = 8
+count.ratio.plot.peer = count.ratio.plot.peer +
+    theme(axis.text = element_text(size = fsize),
+          axis.title = element_text(size = fsize),
+          legend.text = element_text(size = fsize),
+          strip.text = element_text(size = fsize + 1),
+          panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank())
+
+labeled.peer = ggdraw() +
+    draw_plot(count.ratio.plot.peer, 0,0,1,1) +
+    draw_plot_label('e', 0, 0.97, size = fsize + 3)
+
+pdf(paste0(dir, '/paper_figures/suppfig.peer.enrichments.panel.pdf'), width = 9, height = 2.6)
+labeled.peer
+dev.off()
