@@ -29,9 +29,9 @@ single.tissues.plot = single.tissues.plot + fontsizes
 
 ## combine the two plots into a two-paneled figure
 combined = ggdraw() +
-    draw_plot(count.ratio.plot.with.withoutPC, 0.1, 4/5, 0.8, 1/5) +
-    draw_plot(single.tissues.plot, 0, 0, 1, 4/5) +
-    draw_plot_label(c('a', 'b'), c(0.1, 0), c(1, 4/5), size = 11)
+    draw_plot(single.tissues.plot, 0, 1/5, 1, 4/5) +
+    draw_plot(count.ratio.plot.with.withoutPC, 0.1, 0, 0.8, 1/5) +
+    draw_plot_label(c('a', 'b'), c(0, 0.1), c(1, 1/5), size = 11)
 
 pdf(paste0(dir, '/paper_figures/suppfig.count.enrichments.pdf'), height = 11.5, width = 10)
 

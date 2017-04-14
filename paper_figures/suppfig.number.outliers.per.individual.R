@@ -4,7 +4,6 @@
 dir = Sys.getenv('RAREVARDIR')
 phenoFile = 'GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt' # adjust path as necessary
 
-
 # Load required packages
 require(ggplot2)
 require(cowplot)
@@ -104,9 +103,9 @@ outlier.bias = ggdraw() +
               1/3, 0.7, 1/3, 0.3) +
     draw_plot(counts.by.gender,
               2/3, 0.7, 1/3, 0.3) +
-    draw_plot(counts.by.age,
-              0/3, 0.4, 1/3, 0.3) +
     draw_plot(counts.by.bmi,
+              0/3, 0.4, 1/3, 0.3) +
+    draw_plot(counts.by.age,
               1/3, 0.4, 1/3, 0.3) +
     draw_plot(counts.by.isch,
               2/3, 0.4, 1/3, 0.3) +

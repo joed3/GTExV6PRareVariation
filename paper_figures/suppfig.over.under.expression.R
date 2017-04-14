@@ -50,12 +50,12 @@ ase.plot.rare = ase.plot.rare + fontsizes
 
 ## combine the two plots into a two-paneled figure
 combined = ggdraw() +
-    draw_plot(dist.plot, 0, 0.5, 5/11, 0.5) +
-    draw_plot(add.effects.plot.over.under, 5/11, 0.5, 6/11, 0.5) +
-    draw_plot(ase.plot.rare, 0.2, 0, 0.6, 0.5) +
+    draw_plot(ase.plot.rare, 0.2, 0.5, 0.6, 0.5) +
+    draw_plot(dist.plot, 0, 0, 5/11, 0.5) +
+    draw_plot(add.effects.plot.over.under, 5/11, 0, 6/11, 0.5) +
     draw_plot_label(c('a', 'b', 'c'),
-                    c(0, 5/11, 0.2),
-                    c(1, 1, 0.5), size = 14)
+                    c(0.2, 0, 5/11),
+                    c(1, 0.5, 0.5), size = 14)
 
 pdf(paste0(dir, '/paper_figures/suppfig.over.under.expression.pdf'), height = 10, width = 11)
 

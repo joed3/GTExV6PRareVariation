@@ -52,27 +52,32 @@ heat1.x = 0.04
 heat2.x = 0.49
 scatter.w = 0.4
 scatter.h = 0.3
-heat.y = 2*scatter.h + 0.02
+heat.y = scatter.h + 0.005
 vert.y = heat.y - 0.039
 vert.h = heat.h + 0.07
+hor.y = heat.y + 0.295
+disc.y = heat.y + 0.17
+rep.y = heat.y + 0.37
 combined.supp = ggdraw() +
+    draw_plot(scatter.discovery.v.all, heat1.x, 1-scatter.h, scatter.w, scatter.h) +
+    draw_plot(scatter.discovery.v.distinct, heat2.x, 1-scatter.h, scatter.w, scatter.h) +
+
     draw_plot(colors.vertical, heat1.x-0.07, vert.y, dots.w, vert.h) +
-    draw_text('Discovery in all individuals', 0.01, 0.79, size = fontsize, angle = 90) +
-    draw_plot(colors.horizontal, heat1.x-0.045, 0.915, 0.470, dots.w) +
-    draw_text('Replication in all individuals', heat1.x+0.2, 0.99, size = fontsize) +
+    draw_text('Discovery in all individuals', 0.01, disc.y, size = fontsize, angle = 90) +
+    draw_plot(colors.horizontal, heat1.x-0.045, hor.y, 0.470, dots.w) +
+    draw_text('Replication in all individuals', heat1.x+0.2, rep.y, size = fontsize) +
     draw_plot(heatmap.subset, heat1.x, heat.y, heat.w, heat.h) +
-    draw_plot(white.rectangle, heat1.x+0.38, 0.68, 0.2, 0.2) +
+    draw_plot(white.rectangle, heat1.x+0.38, heat.y+0.06, 0.2, 0.2) +
     draw_plot(colors.vertical, heat2.x-0.07, vert.y, dots.w, vert.h) +
-    draw_text('Discovery in 70 individuals', heat2.x-0.03, 0.79, size = fontsize, angle = 90) +
-    draw_plot(colors.horizontal, heat2.x-0.045, 0.915, 0.4835, dots.w) +
-    draw_text('Replication in discovery individuals', heat2.x+0.23, 0.99, size = fontsize) +
+    draw_text('Discovery in 70 individuals', heat2.x-0.03, disc.y, size = fontsize, angle = 90) +
+    draw_plot(colors.horizontal, heat2.x-0.045, hor.y, 0.4835, dots.w) +
+    draw_text('Replication in discovery individuals', heat2.x+0.23, rep.y, size = fontsize) +
     draw_plot(heatmap.subset.subsample, heat2.x, heat.y, heat.w, heat.h) +
-    draw_plot(scatter.discovery.v.all, heat1.x, scatter.h, scatter.w, scatter.h) +
-    draw_plot(scatter.discovery.v.distinct, heat2.x, scatter.h, scatter.w, scatter.h) +
+
     draw_plot(single2multi.plot, 0.25, 0, 0.5, scatter.h) +
     draw_plot_label(c('a','b','c','d','e'),
-                    c(0, heat2.x-0.04, heat1.x+0.005, heat2.x+0.005, 0.253),
-                    c(rep(1,2), rep(scatter.h*2, 2), scatter.h), size = 11)
+                    c(heat1.x+0.005, heat2.x+0.005, 0, heat2.x-0.04, 0.253),
+                    c(rep(1,2), rep(1-scatter.h-0.015, 2), scatter.h), size = 11)
 pdf(paste0(dir, '/paper_figures/suppfig.single.replication.multi.overlap.pdf'), height = 11, width = 9)
 combined.supp
 dev.off()
