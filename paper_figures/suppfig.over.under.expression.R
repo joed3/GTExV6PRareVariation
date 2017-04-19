@@ -25,20 +25,16 @@ fontsizes = theme(axis.text = element_text(size = fontsize),
 ## read in median expression values
 medians = read.table(paste0(dir, '/preprocessing/gtex_2015-01-12_median_rpkm.txt'), header = T, stringsAsFactors = F)
 ## read in outlier list
-outliers = read.table(paste0(dir, '/data/outliers_medz_picked.txt'), header = T, stringsAsFactors = F)
 outliers.nothresh = read.table(paste0(dir, '/data/outliers_medz_nothreshold_picked.txt'), header = T, stringsAsFactors = F)
 
-joined = merge(outliers, medians, by.x = 'GENE', by.y = 'Gene')
+joined = merge(outliers.nothresh, medians, by.x = 'GENE', by.y = 'Gene')
 joined$Type = ifelse(joined$Z > 0, 'Overexpression', 'Underexpression')
-
-joined.nothresh = merge(outliers.nothresh, medians, by.x = 'GENE', by.y = 'Gene')
-joined.nothresh$Type = ifelse(joined.nothresh$Z > 0, 'Overexpression', 'Underexpression')
-joined.nothresh$Type[abs(joined.nothresh$Z) < 2] = 'All'
-extra = joined.nothresh[joined.nothresh$Type != 'All',]
+joined$Type[abs(joined$Z) < 2] = 'All'
+extra = joined[joined$Type != 'All',]
 extra$Type = 'All'
-joined.nothresh = rbind(joined.nothresh, extra)
+joined = rbind(joined, extra)
 
-dist.plot = ggplot(joined.nothresh, aes(log2(Median + 2), fill = Type)) + geom_density(alpha = 0.5, colour = 'white') +
+dist.plot = ggplot(joined, aes(log2(Median + 2), fill = Type)) + geom_density(alpha = 0.5, colour = 'white') +
     xlab(expression('Log'[2]~'(median RPKM + 2)')) + ylab('Density') +
     theme_bw() + scale_fill_manual(values = c('darkgrey','dodgerblue4','dodgerblue'), name = '') +
     fontsizes + theme(legend.position = c(0.7, 0.85))
@@ -63,3 +59,11 @@ combined
 
 dev.off()
 
+## Wilcoxon tests comparing the log2(median RPKM+2) of genes with over(under)expression outliers to all genes
+over = log2(joined$Median[joined$Type == 'Overexpression'] + 2)
+under = log2(joined$Median[joined$Type == 'Underexpression'] + 2)
+all = log2(joined$Median[joined$Type == 'All'] + 2)
+
+print(wilcox.test(over, all))
+
+print(wilcox.test(under, all))
