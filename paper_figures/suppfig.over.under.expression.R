@@ -34,9 +34,11 @@ extra = joined[joined$Type != 'All',]
 extra$Type = 'All'
 joined = rbind(joined, extra)
 
-dist.plot = ggplot(joined, aes(log2(Median + 2), fill = Type)) + geom_density(alpha = 0.5, colour = 'white') +
+dist.plot = ggplot(joined, aes(log2(Median + 2), fill = Type, colour = Type)) + geom_density(alpha = 0.4) +
     xlab(expression('Log'[2]~'(median RPKM + 2)')) + ylab('Density') +
-    theme_bw() + scale_fill_manual(values = c('darkgrey','dodgerblue4','dodgerblue'), name = '') +
+    theme_bw() + scale_fill_manual(values = c(NA, 'dodgerblue4', 'dodgerblue'), name = '') +
+    scale_colour_manual(values = c('black',NA,NA)) +
+    guides(colour = FALSE) +
     fontsizes + theme(legend.position = c(0.7, 0.85))
 
 add.effects.plot.over.under = add.effects.plot.over.under +
