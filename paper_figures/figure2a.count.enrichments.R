@@ -121,6 +121,7 @@ count.ratio.plot.subset = ratio.plot(medz.count.prop.ratio.subset, hasAlpha = T)
 
 ## SUPPLEMENTAL PLOT with/without PC
 medz.count.prop.ratio.withoutPC$GROUP = "Excluding\nexon variants"
+medz.count.prop.ratio$GROUP = "All variants"
 medz.count.prop.ratio.with.without = rbind(medz.count.prop.ratio, medz.count.prop.ratio.withoutPC)
 medz.count.prop.ratio.with.without$GROUP = factor(medz.count.prop.ratio.with.without$GROUP)
 
