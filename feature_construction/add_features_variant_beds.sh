@@ -23,7 +23,7 @@ consolidated=${CADD_DIR}/sorted.consolidated.annotations.bed.gz
 
 # check that there are the correct arguments
 if [ $# -ne 3 ]; then
-    echo "usage: add_encode_features.sh input_file_name 1KG_AF_bed_file outdir"
+    echo "usage: add_features_variant_beds.sh input_file_name 1KG_AF_bed_file outdir"
     exit
 fi
 f=$1
