@@ -39,13 +39,17 @@ counts2props = function(countdata, mafs, typenames) {
 
 ## Function to plot count enrichments by MAF facetted by variant type
 ## Include error bars
-ratio.plot = function(plotdata, hasAlpha = FALSE, legend.title = '') {
+ratio.plot = function(plotdata, hasAlpha = FALSE, free = TRUE, legend.title = '') {
     p = ggplot(plotdata, aes(x = MAF, y = ESTIM)) +
         theme_bw() + xlab('Minor allele frequency (%)') + ylab('Enrichment') +
         geom_abline(intercept = 1, slope = 0) +
         scale_colour_manual(values=colors.type) + guides(colour = FALSE) +
-        facet_wrap( ~ TYPE, scales = "free") + 
         theme(strip.background = element_blank())
+    if (free) {
+        p = p + facet_wrap( ~ TYPE, scales = "free")
+    } else {
+        p = p + facet_wrap( ~ TYPE)
+    }
     if (hasAlpha) {
         p = p + geom_pointrange(aes(x = MAF, ymin = CI.LOW, ymax = CI.HIGH, colour = TYPE,
                                     alpha = GROUP, group = interaction(MAF, GROUP)),
@@ -107,6 +111,12 @@ medz.count.prop.ratio.nomax = counts2props(medz.count.nomax, MAFs, type.names)
 
 ## MAIN FIGURE
 count.ratio.plot = ratio.plot(medz.count.prop.ratio)
+
+data.snv.indel = medz.count.prop.ratio[medz.count.prop.ratio$TYPE %in% c('SNV','Indel'),]
+data.sv = medz.count.prop.ratio[medz.count.prop.ratio$TYPE == 'SV',]
+
+count.ratio.plot.snv.indel = ratio.plot(data.snv.indel, free = FALSE)
+count.ratio.plot.sv = ratio.plot(data.sv)
 
 ## SUPPLEMENTAL PLOT excluding individuals with more than 60,000 variants
 varCounts = read.table(paste0(dir, '/data/variant_counts_per_individual_all.txt'), header = T, row.names = 1)
