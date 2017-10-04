@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Python script to perform multiple testing correction (BF on the gene level) on GTEx Metasoft results
+# Python script to pick the best shared eQTL per gene ranking variants by P-value from the RE2 model
 
 import os
 import sys

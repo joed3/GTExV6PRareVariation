@@ -33,7 +33,7 @@ External software
 * vcftools
 
 ## Download required files
-Download from \<website - coming soon\>: <br>
+Download from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz: <br>
 * processed data directory (referred to below as \<processed_data\>)
 
 Download from http://www.gtexportal.org/home/datasets: <br>
@@ -92,7 +92,7 @@ export EXAC_DIR=<the path to forweb_cleaned_exac_r03_march16_z_data_pLI.txt (exc
 ```
 
 If you are going to run everything from scratch, first make the directories that are assumed to exist. <br>
-You can skip this step if you will use the processed data files downloaded from \<website - coming soon\>. <br>
+You can skip this step if you will use the processed data files downloaded from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
 ```
 mkdir ${RAREVARDIR}/logs
 mkdir ${RAREVARDIR}/preprocessing
@@ -119,11 +119,11 @@ mkdir ${RAREVARDIR}/features/annotations/Other
 ```
 
 Then you can run the code below. <br>
-Some of the steps reproduce processed files available on \<website - coming soon\> and are marked as such.
+Some of the steps reproduce processed files available on https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz and are marked as such.
 
 # Pipeline
 ## Expression data correction and normalization
-Generates processed data that can be downloaded from \<website - coming soon\>. <br>
+Generates processed data that can be downloaded from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
 
 #### Generate rpkm and read count matrices from GTEx V6P combined file
 ```
@@ -175,7 +175,7 @@ Rscript preprocessing/rpkm.expression.analysis.R
 ```
 
 ## Preparing reference files used later
-Generates processed data that can be downloaded from \<website - coming soon\>. <br>
+Generates processed data that can be downloaded from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
 
 Copy or move the GTEx annotation file (`gencode.v19.genes.v6p_model.patched_contigs.gtf.gz`) to `${RAREVARDIR}/reference`.
 ```
@@ -185,7 +185,7 @@ bash preprocessing/process.reference.files.sh <path to>/gencode.v19.genes.v6p_mo
 
 
 ## Outlier calling
-Generates processed data that can be downloaded from \<website - coming soon\>. <br>
+Generates processed data that can be downloaded from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
 
 #### Call multi-tissue outliers
 (Uses 12 cores. Can set the number at the top of the script.)
@@ -277,26 +277,26 @@ We are also providing, where applicable, the commands and raw files needed to ge
 #### ACMG
 Source: http://www.ncbi.nlm.nih.gov/clinvar/docs/acmg/ <br>
 Raw file: `acmg.csv` <br>
-Download from \<website - coming soon\>. <br>
+Download from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
 Move the downloaded file to `${RAREVARDIR}/features/annotations/ACMG/`.
 
 #### ClinVar
 Source: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/gene_condition_source_id <br>
 Raw file: `gene_condition_source_id` <br>
-Download from \<website - coming soon\>. <br>
+Download from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
 Move the downloaded file to `${RAREVARDIR}/features/annotations/ClinVar/`.
 
 #### GWAS
 Source: http://www.ebi.ac.uk/gwas/ <br>
 Raw file: `gwas_catalog_v1.0-downloaded_2015-11-30.tsv` <br>
-Download from \<website - coming soon\>. <br>
+Download from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
 Move the downloaded file to `${RAREVARDIR}/features/annotations/GWAS/`.
 
 #### OMIM
 Source: http://www.omim.org/ <br>
 Raw files: `morbidmap.txt` and `mim2gene.txt` <br>
 Processed file: `omim.genes.txt`
-Download the raw and processed files from \<website - coming soon\>. <br>
+Download the raw and processed files from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
 Move these files to `${RAREVARDIR}/features/annotations/OMIM/`.
 
 To produce the processed file from the raw files: <br>
@@ -314,7 +314,7 @@ rm ${RAREVARDIR}/features/annotations/OMIM/omim.genes.temp.txt ${RAREVARDIR}/fea
 Source: http://www.orphadata.org/data/xml/en_product6.xml <br>
 Raw file: `en_product6.xml` <br>
 Processed file: `orphanet.genes.txt` <br>
-Download the raw and processed files from \<website - coming soon\>. <br>
+Download the raw and processed files from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
 Move these files to `${RAREVARDIR}/features/annotations/Orphanet/`.
 
 To produce the processed file from the raw file: <br>
@@ -322,10 +322,16 @@ To produce the processed file from the raw file: <br>
 grep ENSG ${RAREVARDIR}/features/annotations/Orphanet/en_product6.xml | sort | uniq | grep -o 'ENSG[0-9]*' > ${RAREVARDIR}/features/annotations/Orphanet/orphanet.genes.txt
 ```
 
+#### DDG2P
+Source: http://www.ebi.ac.uk/gene2phenotype/downloads <br>
+Raw file: `DDG2P_2_8_2017.csv.gz` <br>
+Download the raw file from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
+Move this file to `${RAREVARDIR}/features/annotations/DDG2P/`.
+
 #### Other: Cardiovascular and Cancer disease genes
 We assessed overlap of genes with multi-tissue outliers with two expert curated disease gene lists: one for heritable cancer predisposition and one for heritable cardiovascular disease. See the methods section of our manuscript for more information. <br>
 Raw files: `cancer.genes.gold.standard.csv` (Cancer), `cardio.genes.gold.standard.csv` (Cardio) 
-Download the raw files from \<website - coming soon\>. <br>
+Download the raw files from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
 Move these files to `${RAREVARDIR}/features/annotations/Other/`.
 
 ## Shared eQTLs defined by METASOFT
