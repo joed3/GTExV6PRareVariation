@@ -430,28 +430,48 @@ Generated when running `paper_figures/figure2a.count.enrichments.R above`
 
 #### Enrichment of functional genomic annotations among an expanded set of multi-tissue outliers
 ```
-Rscript paper_figures/ExtendedDataFigure9.R
+Rscript paper_figures/EDF7.R
 ```
 
 #### Association between ASE and RIVER scores
 ```
-Rscript paper_figures/ExtendedDataFigure11.R
+Rscript paper_figures/EDF9d.R
 ```
 
 #### Correlation between test posterior probabilities and the fraction of tissues
 ```
 Rscript paper_figures/main_RIVER_10CV.R
-Rscript paper_figures/ExtendedDataFigure12.R
+Rscript paper_figures/EDF9c.R
 ```
 
 #### Distribution of predictive scores for pathogenic variants and all variants
 ```
-Rscript paper_figures/ExtendedDataFigure13.R
+Rscript paper_figures/EDF10bd.R
 ```
 
 #### Expression levels for genes proximal to pathogenic variants
 ```
-Rscript paper_figures/ExtendedDataFigure14.rpkm.R
-Rscript paper_figures/ExtendedDataFigure14.Zscores.R
+Rscript paper_figures/EDF10ef.rpkm.R
+Rscript paper_figures/EDF10ef.Zscores.R
+```
+#### Adjusted R-squared values between top 15 PEER factors and top 20 sample and subject covariates in skeletal muscle
+``` 
+Rscript paper_figures/muscle_covariates_peerfactors.R
+Rscript paper_figures/superheat_peer_muscle.R /data/muscle_samples_covariates_peerFactors.RData muscle.sample.peer.pdf 0.7
+Rscript paper_figures/superheat_peer_muscle.R /data/muscle_subject_covariates_peerFactors.RData muscle.subject.peer.pdf 0.7
 ```
 
+#### Adjusted R-squared values between the total expression component removed by PEER in each of 44 tissues and top 20 sample and subject covariates
+``` 
+Rscript paper_figures/pve_samples_pertiss.R
+Rscript paper_figures/pve_subject_pertiss.R
+Rscript paper_figures/process_results.R
+Rscript paper_figures/superheat_expression.R /data/superheat.subject.RData rv.subject.expression.pdf 0.25
+Rscript paper_figures/superheat_expression.R /data/superheat.sample.RData rv.sample.expression.pdf 0.25
+```
+
+#### Comparison between the predictive power of RIVER and that of the genomic annotation model, as in Fig. 5a, across different Z-score thresholds for outlier calling
+``` 
+Rscript paper_figures/main_RIVER_VaryingThrds.R
+Rscript paper_figures/Generate_figures_RIVER_VaryingThrds.R
+```

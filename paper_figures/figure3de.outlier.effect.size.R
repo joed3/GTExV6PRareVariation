@@ -18,13 +18,10 @@ rgb2string <- function(x){
 format.labels <- function(char.vec){
 	for(i in 1:length(char.vec)){
 		if(char.vec[i] == 'TSS non-coding'){
-			char.vec[i] = 'TSS\nnon-coding'
+			char.vec[i] = 'TSS'
 		}
 		else if(char.vec[i] == 'Top 1% conserved non-coding'){
-			char.vec[i] = 'Top 1%\nconserved\nnon-coding'
-		}
-		else if(char.vec[i] == 'Non-conserved'){
-			char.vec[i] = 'Non-\nconserved'
+			char.vec[i] = 'Conserved'
 		}
 	}
 	return(char.vec)
@@ -35,18 +32,11 @@ format.labels <- function(char.vec){
 # load necessary data
 load(paste0(dir, '/data/figure3a.rare.variant.class.enrichments.RData'))
 
-# Move No variant annotation to the end of the ordering
-no.variant.index = which(estims.scaled$Cat == 'No variant')
-no.variant.scaled = estims.scaled[no.variant.index, ]
-estims.scaled = estims.scaled[-no.variant.index, ]
-estims.scaled = rbind(estims.scaled, no.variant.scaled)
-
 # Add row for non-outliers
 estims.scaled = rbind(estims.scaled, data.frame(Cat = 'Non-outlier', Estim = NA, Std = NA, Pval = NA))
 
 # Format the annotation labels to fit on the X-axis
-estims.scaled$Cat = as.character(estims.scaled$Cat)
-estims.scaled$Cat = format.labels(estims.scaled$Cat)
+estims.scaled$Cat = format.labels(as.character(estims.scaled$Cat))
 colors$HumanID = format.labels(colors$HumanID)
 
 # Read in Xin's effect size data
@@ -76,7 +66,7 @@ combined.effects = rbind(effects.melted[, colsToKeep], ase.effects.melted[, cols
 
 combined.effects$TYPE = factor(ifelse(combined.effects$compoundId == 'Non-outlier', 'Non-outlier', 'Outlier'), levels = names(type.color))
 
-combined.effects$variable = factor(combined.effects$variable, labels = c("Median Z-score", "Mean ASE across tissues"))
+combined.effects$variable = factor(combined.effects$variable, labels = c("Median Z-score", "Mean ASE"))
 
 median.nonoutlier.effect = median(effects.melted$value[effects.melted$compoundId == "Non-outlier"], na.rm = T)
 median.nonoutlier.ase = median(ase.effects.melted$value[ase.effects.melted$compoundId == "Non-outlier"], na.rm = T)
@@ -87,12 +77,17 @@ median.data$cat = factor(median.data$cat, levels = c("Median Z-score", "Mean ASE
 # For now, not including the other category. May want to include it in the supplement?
 effects.plot = ggplot(data = combined.effects, aes(x = compoundId, y = value, group = compoundId)) +
     geom_hline(data = median.data, aes(yintercept = yval), colour = 'darkgrey') +
-    geom_violin(aes(fill = compoundId), scale = 'width', width = .5) + geom_point(aes(colour = TYPE)) +
-    geom_jitter(aes(colour = TYPE), width = .2) + facet_grid(variable~., scales = "free_y", switch = "y") +
+    geom_violin(aes(fill = compoundId), scale = 'width', width = .5) +
+    geom_point(aes(colour = TYPE)) +
+    geom_jitter(aes(colour = TYPE), width = .2) +
+    facet_wrap(~variable, ncol = 1, scales = "free_y", strip.position = 'left') +
     theme_bw() + guides(fill = F, colour = F) +
-    scale_fill_manual(values = colors.final) + scale_colour_manual(values = type.color) +
+    scale_fill_manual(values = colors.final) +
+    scale_colour_manual(values = type.color) +
     xlab('') + ylab('') +
-    theme(strip.background = element_blank())
+    theme(strip.background = element_blank(),
+          strip.placement = 'outside',
+          strip.text = element_text(hjust = 0))
 effects.plot
 
 # Save workspace image

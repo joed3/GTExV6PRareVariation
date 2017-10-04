@@ -51,6 +51,7 @@ make.point.plot = function(tissuesdf, vertical = TRUE){
 make.scatter = function(vals1, vals2, xlabel, ylabel, colour = "mediumorchid4") {
     cor.res = cor.test(vals1, vals2)
     corval = signif(cor.res$estimate, 3)
+    print(cor.res)
     
     minval = min(c(vals1, vals2)) - 0.01
     maxval = max(c(vals1, vals2)) + 0.01
@@ -71,6 +72,7 @@ make.scatter = function(vals1, vals2, xlabel, ylabel, colour = "mediumorchid4") 
 make.scatter.gradient = function(df) {
     cor.res = cor.test(df$value, df$orig.value)
     corval = signif(cor.res$estimate, 3)
+    print(cor.res)
     
     minval = min(c(df$value, df$orig.value)) - 0.01
     maxval = max(c(df$value, df$orig.value)) + 0.01

@@ -104,9 +104,9 @@ both.props = rbind(singlez.combined.props, medz.props)
 colors = c('dodgerblue3', 'mediumorchid4')
 names(colors) = c("Multi-tissue outlier","Single-tissue outlier")
 
-both.props$labely = ifelse(both.props$type == "Multi-tissue outlier", yes = both.props$CI.HIGH + 0.05, no = 0.95)
-index.above = both.props$type == "Single-tissue outlier" & both.props$THRESH %in% c(2,4,6,8)
-both.props$labely[index.above] = both.props$CI.HIGH[index.above] + 0.07
+both.props$labely = ifelse(both.props$type == "Multi-tissue outlier", yes = both.props$CI.HIGH + 0.07, no = 0.94)
+index.above = both.props$type == "Single-tissue outlier" & both.props$THRESH %in% c(2,4,6,8,10)
+both.props$labely[index.above] = both.props$CI.HIGH[index.above] + 0.09
 
 props.plot.medz.singlez = ggplot(both.props, aes(x = THRESH, y = ESTIM, colour = type)) +
     geom_pointrange(aes(ymin = CI.LOW, ymax = CI.HIGH)) + theme_bw() +

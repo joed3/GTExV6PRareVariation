@@ -24,24 +24,24 @@ axisFontSizes = theme(axis.text.x = element_text(size = fsize),
 
 outlier.cats.forest.scaled = outlier.cats.forest.scaled + axisFontSizes
 add.effects.plot.scaled = add.effects.plot.scaled + axisFontSizes
-effects.plot = effects.plot + axisFontSizes + theme(plot.margin = margin(5.5,5.5,-5.5,0))
+effects.plot = effects.plot + axisFontSizes + theme(plot.margin = margin(5.5,5.5,-5.5,0),
+                                                    axis.text.x = element_text(angle = 20, hjust = 1, vjust = 1))
 
-# Make figure with 5 panels
-# Leave space to add panel C from Xin
-mygrey = "grey45"
+x1 = 0.049
+x2 = 0.041
 figure3.combined = ggdraw() + 
-  draw_plot(outlier.cats.forest.scaled, 0.04, .79, .49, .21) +
-  draw_plot(add.effects.plot.scaled, .59, .79, .41, .21) +
-  draw_plot(effects.plot, 0, 0, 1, .34) +
-  draw_line(c(0.05, 0.05), c(0.825, 0.92), colour = mygrey) + # SNV/indel
-  draw_line(c(0.16, 0.16), c(0.925, 0.99), colour = mygrey) + # SV
-  draw_text(c('SNV /\nindel', 'SV'), c(0.02, 0.14), c(0.87, 0.96), size = 11, colour = mygrey) +
-  draw_line(c(0.63, 0.63), c(0.83, 0.9), colour = mygrey) + # conservation
-  draw_line(c(0.64, 0.64), c(0.92, 0.975), colour = mygrey) + # regulation
-  draw_text(c('Conservation', 'Regulation'), c(0.58, 0.6), c(0.87, 0.95), size = 11, colour = mygrey) +
-  draw_plot_label(c('a', 'b', 'c', 'd', 'e'), c(0, 0.53, 0, 0, 0), c(1, 1, .79, .34, .2), size = 15)
+    draw_plot(effects.plot, 0.27, 0, 0.73, .6) +
+    draw_plot(outlier.cats.forest.scaled, 0.005, 0.5, 0.27, 0.5) +
+    draw_plot(add.effects.plot.scaled, 0.005, 0, 0.27, 0.5) +
+    draw_line(c(0.018, 0.018), c(0.57, 0.81)) + # SNV/indel
+    draw_line(c(x1, x1), c(0.81, 0.99)) + # SV
+    draw_text(c('SNV / indel', 'SV'), c(0.01, x2), c(0.69, 0.9), size = 11, angle = 90) +
+    draw_line(c(x1, x1), c(0.07, 0.26)) + # conservation
+    draw_line(c(x1, x1), c(0.3, 0.44)) + # regulation
+    draw_text(c('Conservation', 'Regulation'), c(x2, x2), c(0.17, 0.37), size = 11, angle = 90) +
+    draw_plot_label(c('a', 'b', 'c', 'd', 'e'), c(0, 0, 0.28, 0.28, 0.28), c(1, 0.5, 1, .61, .37), size = 15)
 
-pdf(paste0(dir, '/paper_figures/figure3.raw.pdf'), height = 13.5, width = 12, bg = 'white')
+pdf(paste0(dir, '/paper_figures/figure3.raw.pdf'), height = 6.2, width = 12, bg = 'white')
 
 figure3.combined
 
