@@ -77,13 +77,13 @@ Download ExAC constraint data from ftp://ftp.broadinstitute.org/pub/ExAC_release
 * `forweb_cleaned_exac_r03_march16_z_data_pLI.txt`
 
 Download RNA-Seq data for K562 cell lines from ENCODE at https://www.encodeproject.org/search/?type=Experiment&biosample_term_name=K562&assay_title=RNA-seq
-* ENCFF104VTJ_CSHL_1.tsv
-* ENCFF201HGA_CSHL_2.tsv
-* ENCFF387ZRA_Caltech_1.tsv
-* ENCFF870QAL_Caltech_2.tsv
-* ENCFF553DDU_UConn_1.tsv
-* ENCFF811VBA_UConn_2.tsv
-* gencode.v24.tRNAs.gtf.gz
+* `ENCFF104VTJ_CSHL_1.tsv`
+* `ENCFF201HGA_CSHL_2.tsv`
+* `ENCFF387ZRA_Caltech_1.tsv`
+* `ENCFF870QAL_Caltech_2.tsv`
+* `ENCFF553DDU_UConn_1.tsv`
+* `ENCFF811VBA_UConn_2.tsv`
+* `gencode.v24.tRNAs.gtf.gz`
 
 Download the hg19 human reference genome in FASTA format from http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz. Combine FASTA files for each chromosome into a single reference FASTA.
 

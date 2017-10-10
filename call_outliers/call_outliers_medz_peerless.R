@@ -128,8 +128,8 @@ medz_picked = medz_picked[order(-abs(medz_picked$Z)), ]
 write.table(medz_picked, paste(dir, '/data/outliers_medz_nothreshold_picked', PEERSuffix, sep = ''), col.names = T, row.names = F, quote = F, sep = '\t')
 
 ## Filter WGS individual lists for individuals that pass the number of outlier filters
-wgs.feat.inds = read.table(paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids.txt'), sep = '\t', header = F, stringsAsFactors = F)[, 1]
-wgs.count.inds = read.table(paste0(dir, '/preprocessing/gtex_2015-01-12_wgs_ids_HallLabSV.txt'), sep = '\t', header = F, stringsAsFactors = F)[, 1]
+wgs.feat.inds = read.table('../preprocessing/gtex_2015-01-12_wgs_ids.txt', sep = '\t', header = F, stringsAsFactors = F)[, 1]
+wgs.count.inds = read.table('../preprocessing/gtex_2015-01-12_wgs_ids_HallLabSV.txt', sep = '\t', header = F, stringsAsFactors = F)[, 1]
 
 wgs.feat.inds = wgs.feat.inds[wgs.feat.inds %in% medz_ind_picked]
 wgs.count.inds = wgs.count.inds[wgs.count.inds %in% medz_ind_picked]
