@@ -43,8 +43,6 @@ Download from http://www.gtexportal.org/home/datasets: <br>
 * `gencode.v19.genes.v6p_model.patched_contigs.gtf.gz`
 * `GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_reads.gct.gz` (gunzip it)
 * `GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_rpkm.gct.gz` (gunzip it)
-* `GTEx_Data_V6_Annotations_SampleAttributesDS.txt`
-* `GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt`
 * the covariates used during eQTL discovery
 * the eGene and significant variant-gene associations based on permutations for each tissue (`GTEx_Analysis_v6p_eQTL.tar` on the portal)
 
@@ -55,6 +53,8 @@ Download from dbGaP: <br>
 (It is possible some of the file names may be different in the final release.)
 * `GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Indiv_GATK_HaplotypeCaller.vcf.gz`
 * ASE files
+* `GTEx_Data_V6_Annotations_SampleAttributesDS.txt`
+* `GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt`
 
 Download from http://krishna.gs.washington.edu/download/CADD/v1.2/:
 * `whole_genome_SNVs.tsv.gz`
@@ -317,7 +317,7 @@ Move the downloaded file to `${RAREVARDIR}/features/annotations/GWAS/`.
 #### OMIM
 Source: http://www.omim.org/ <br>
 Raw files: `morbidmap.txt` and `mim2gene.txt` <br>
-Processed file: `omim.genes.txt`
+Processed file: `omim.genes.txt` <br>
 Download the raw and processed files from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz. <br>
 Move these files to `${RAREVARDIR}/features/annotations/OMIM/`.
 
@@ -358,8 +358,7 @@ Move these files to `${RAREVARDIR}/features/annotations/Other/`.
 
 ## Shared eQTLs defined by METASOFT
 Process the METASOFT results choosing the single best variant tested per gene as determined by P-value from the RE2 model. <br>
-Also provide summary statistics regarding the number of tissues the eQTL is active in and the expression level for the gene <br>
-across tissues.
+Also provide summary statistics regarding the number of tissues the eQTL is active in and the expression level for the gene across tissues.
 ```
 python shared.eqtls/bf.metasoft.py --META ${RAREVARDIR}/data/metasoft/Metasoft_Output_v6p.txt \
     --TISS ${RAREVARDIR}/data/metasoft/Metasoft_tissue_order.txt \
