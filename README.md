@@ -31,6 +31,9 @@ Unix packages
 External software
 * bedtools v2.26.0 or later
 * vcftools
+* samtools
+* bwa
+* PICARD
 
 ## Download required files
 Download from https://s3-us-west-2.amazonaws.com/gtex-v6p-rare-variation-data/GTExV6PRareVariationData.tar.gz: <br>
@@ -73,6 +76,18 @@ Download Epigenomics Roadmap files from http://www.broadinstitute.org/~meuleman/
 Download ExAC constraint data from ftp://ftp.broadinstitute.org/pub/ExAC_release/release0.3/functional_gene_constraint/:
 * `forweb_cleaned_exac_r03_march16_z_data_pLI.txt`
 
+Download RNA-Seq data for K562 cell lines from ENCODE at https://www.encodeproject.org/search/?type=Experiment&biosample_term_name=K562&assay_title=RNA-seq
+* ENCFF104VTJ_CSHL_1.tsv
+* ENCFF201HGA_CSHL_2.tsv
+* ENCFF387ZRA_Caltech_1.tsv
+* ENCFF870QAL_Caltech_2.tsv
+* ENCFF553DDU_UConn_1.tsv
+* ENCFF811VBA_UConn_2.tsv
+* gencode.v24.tRNAs.gtf.gz
+
+Download the hg19 human reference genome in FASTA format from http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz. Combine FASTA files for each chromosome into a single reference FASTA.
+
+
 Other files: <br>
 * `gtex.lumpy.gs.svscore.low_conf.vcf.gz` (Obtained directly from the Hall Lab.)
 
@@ -91,6 +106,8 @@ export ENCODE_MOTIF_DIR=<the path to matches.txt.gz (excluding the file name)>
 export ER_DIR=<the path to the Epigenomics Roadmap directory (sub directories are prom, enh, and dyadic)>
 export EXAC_DIR=<the path to forweb_cleaned_exac_r03_march16_z_data_pLI.txt (excluding the file name)>
 export GTEXCISDIR=<the path to the eGene and significant variant-gene pairs for each tissue from the GTEx v6p release>
+export HG19=<the path to the HG19 reference genome in FASTA format>
+export PICARDPATH=<the path to the PICARD executable directory>
 ```
 
 If you are going to run everything from scratch, first make the directories that are assumed to exist. <br>
@@ -104,13 +121,7 @@ mkdir ${RAREVARDIR}/data
 mkdir ${RAREVARDIR}/data/medz
 mkdir ${RAREVARDIR}/data/singlez
 mkdir ${RAREVARDIR}/data/metasoft
-```
-
-These directories are required to hold the results of scripts for which we do not provide processed data.
-```
-mkdir ${RAREVARDIR}/paper_figures
 mkdir ${RAREVARDIR}/features
-mkdir ${RAREVARDIR}/features/variantBeds
 mkdir ${RAREVARDIR}/features/annotations
 mkdir ${RAREVARDIR}/features/annotations/ACMG
 mkdir ${RAREVARDIR}/features/annotations/ClinVar
@@ -118,6 +129,15 @@ mkdir ${RAREVARDIR}/features/annotations/GWAS
 mkdir ${RAREVARDIR}/features/annotations/OMIM
 mkdir ${RAREVARDIR}/features/annotations/Orphanet
 mkdir ${RAREVARDIR}/features/annotations/Other
+```
+
+These directories are required to hold the results of scripts for which we do not provide processed data.
+```
+mkdir ${RAREVARDIR}/paper_figures
+mkdir ${RAREVARDIR}/features/variantBeds
+mkdir ${RAREVARDIR}/data/CRISPR
+mkdir ${RAREVARDIR}/data/CRISPR/bams
+mkdir ${RAREVARDIR}/data/K562
 ```
 
 Then you can run the code below. <br>
@@ -345,6 +365,64 @@ python shared.eqtls/bf.metasoft.py --META ${RAREVARDIR}/data/metasoft/Metasoft_O
     --TISS ${RAREVARDIR}/data/metasoft/Metasoft_tissue_order.txt \
     --OUT ${RAREVARDIR}/data/metasoft/gtex.metasoft.v6p.selected.txt
 Rscript shared.eqtls/metasoft.summary.R
+```
+
+## Validation of large-effect rare variants using CRISPR-Cas9 genome editing
+Prioritize variants for validation with CRISPR
+```
+Rscript crispr/prioritize.for.crispr.R
+```
+
+Prune the list of prioritized CRISPR variants down to a manageable size (N ~ 12)
+```
+Rscript crispr/prune.crispr.variants.R
+```
+
+Add major/minor allele info
+```
+python crispr/add.major.minor.alleles.py --IN ${RAREVARDIR}/data/CRISPR/crispr.overexpression.candidates.pruned.vcf \
+    --OUT ${RAREVARDIR}/data/CRISPR/crispr.overexpression.candidates.pruned.maf.alleles.vcf \
+    --FRQ ${RAREVARDIR}/features/variantBeds/GTEx_Analysis_2015-01-12_WholeGenomeSeq_148Indiv_GATK_HaplotypeCaller_123EAonly_SNPs.frq
+```
+
+Extract 100 bp sequences from the hg19 reference centered on each variant position
+```
+out=${RAREVARDIR}/data/CRISPR/crispr.candidates.donor.seq.raw.fa
+if [ -e $out ]; then
+    rm $out
+fi
+ref=${HG19}/hg19.fa
+positions=`tail -n +2 ${RAREVARDIR}/data/CRISPR/crispr.candidates.pruned.vep.loftee.parsed.vcf | awk '{print "chr"$1":"$2-49"-"$2+49}'`
+for line in $positions; do
+    samtools faidx $ref $line >> $out
+done
+```
+
+Generate donor sequences. One sequence for wild-type and one for rare allele.
+```
+python crispr/process.crispr.donor.seq.py \
+    --VCF ${RAREVARDIR}/data/CRISPR/crispr.candidates.pruned.vep.loftee.parsed.vcf \
+    --FASTA ${RAREVARDIR}/data/CRISPR/crispr.candidates.donor.seq.raw.fa \
+    --OUT ${RAREVARDIR}/data/CRISPR/crispr.candidates.donor.seq.fa
+```
+
+Index the reference FASTA files for each amplicon region in the cDNA and gDNA
+```
+bwa index -p crispr/crispr.outlier.cdna.ref.fa crispr/crispr.outlier.cdna.ref.fa
+bwa index -p crispr/crispr.control.cdna.ref.fa crispr/crispr.control.cdna.ref.fa
+bwa index -p crispr/crispr.outlier.gdna.ref.fa crispr/crispr.outlier.gdna.ref.fa
+bwa index -p crispr/crispr.control.gdna.ref.fa crispr/crispr.control.gdna.ref.fa
+```
+
+Perform mapping with BWA, sort and output to BAM format using samtools. <br>
+Uses 10 cores. This is set at the top of the script.
+```
+bash crispr/crispr.bwa.aln.sort.sh
+```
+
+Summarize the CRISPR results
+```
+R CMD BATCH --no-save crispr/summarize.crispr.results.R
 ```
 
 ## Main figures
