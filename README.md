@@ -43,6 +43,7 @@ Download from http://www.gtexportal.org/home/datasets: <br>
 * `GTEx_Data_V6_Annotations_SampleAttributesDS.txt`
 * `GTEx_Analysis_2015-01-12_Annotations_SubjectPhenotypesDS.txt`
 * the covariates used during eQTL discovery
+* the eGene and significant variant-gene associations based on permutations for each tissue (`GTEx_Analysis_v6p_eQTL.tar` on the portal)
 
 Download from Gencode (http://www.gencodegenes.org/releases/19.html; Comprehensive gene annotation gtf):
 * `gencode.v19.annotation.gtf.gz` (gunzip it)
@@ -89,6 +90,7 @@ export KG_DIR=<the path to the 1000 genomes files>
 export ENCODE_MOTIF_DIR=<the path to matches.txt.gz (excluding the file name)>
 export ER_DIR=<the path to the Epigenomics Roadmap directory (sub directories are prom, enh, and dyadic)>
 export EXAC_DIR=<the path to forweb_cleaned_exac_r03_march16_z_data_pLI.txt (excluding the file name)>
+export GTEXCISDIR=<the path to the eGene and significant variant-gene pairs for each tissue from the GTEx v6p release>
 ```
 
 If you are going to run everything from scratch, first make the directories that are assumed to exist. <br>
@@ -408,14 +410,14 @@ Rscript paper_figures/suppfig.number.rare.vars.pca.R
 Rscript paper_figures/ExtendedDataFigure3.R
 ```
 
-#### Distribution of the nubmer of genes with an multi-tissue outlier
+#### Distribution of the number of genes with a multi-tissue outlier
 You need to set the path to the subject annotations in the script below. <br> 
 ```
 Rscript paper_figures/suppfig.number.outliers.per.individual.R
 ```
 
 #### Single-tissue replication analysis controlling for sampling differences
-Generated when running 'paper_figures/figure1b.outlier.sharing.R' above
+Generated when running `paper_figures/figure1b.outlier.sharing.R` above
 
 #### Overlap between single and multi-tissue outliers
 ```
@@ -428,9 +430,24 @@ Generated when running `paper_figures/figure2b.threshold.enrichments.R` above
 #### Multi-tissue outlier rare variant enrichments when excluding coding regions
 Generated when running `paper_figures/figure2a.count.enrichments.R above`
 
+#### Comparison of enrichment of functional rare SNVs between over- and underexpression outliers
+Generated when running `paper_figures/figure3b.feature.enrichments.R`
+
 #### Enrichment of functional genomic annotations among an expanded set of multi-tissue outliers
 ```
 Rscript paper_figures/EDF7.R
+```
+
+#### Comparing distribution of the number of rare variants in the GTEx cohort for disease and control genes
+```
+bash paper_figures/annotate.variants.by.gene.sh 
+Rscript paper_figures/suppfig.rare.var.counts.disease.genes.gtex.cohort.R
+```
+
+#### Evolutionary constraint of genes with multi-tissue outliers and their overlap with multi-tissue eGenes
+Relies on the eGene and singificant variant-gene associations as downloaded for the GTEx v6p release from the portal. Also relies on output from `paper_figures/figure4b.exac.enrichments.R`, `paper_figures/figure4c.gene.list.enrichments.R`, and `paper_figures/suppfig.rare.var.counts.disease.genes.gtex.cohort.R`.
+```
+Rscript paper_figures/suppfig.egene.enrichment.R
 ```
 
 #### Association between ASE and RIVER scores
