@@ -1,5 +1,3 @@
-Add PEER correction effect shown in EDF 1c
-
 Remaining files from Yung and Xin for the CRISPR analysis
 	/users/xli6/data/xin/gtex/replication/gtex_allrare.txt
 	${RAREVARDIR}/data/CRISPR/candidate_SNVs_120116.txt

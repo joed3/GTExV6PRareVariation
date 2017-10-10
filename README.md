@@ -488,6 +488,44 @@ Rscript paper_figures/suppfig.number.rare.vars.pca.R
 Rscript paper_figures/ExtendedDataFigure3.R
 ```
 
+#### Improvement of rare variant enrichments at varying levels of PEER correction
+Generate expression residuals with the top 0 or 5 PEER factors removed in addition to sex and genotype PCs
+```
+bash preprocessing/PEER/calc_residuals_covs_peerless.sh ${RAREVARDIR}/preprocessing/PEER 0 &
+bash preprocessing/PEER/calc_residuals_covs_peerless.sh ${RAREVARDIR}/preprocessing/PEER 5 &
+```
+
+Generate flat files for these new PEER corrected datasets to use for outlier calling
+```
+python preprocessing/gather_filter_normalized_expression_peerless.py \
+    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_tissues_all_normalized_samples.txt \
+    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_individuals_all_normalized_samples.txt \
+    .peer.top0.ztrans.txt \
+    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_normalized_expression.peer.top0.txt
+
+python preprocessing/gather_filter_normalized_expression_peerless.py \
+    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_tissues_all_normalized_samples.txt \
+    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_individuals_all_normalized_samples.txt \
+    .peer.top5.ztrans.txt \
+    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_normalized_expression.peer.top5.txt
+```
+
+Call Median Z-score outliers on data with top 0/5 PEER factors removed
+```
+R -f call_outliers/call_outliers_medz_peerless.R --slave --vanilla --args .peer.top0.txt
+R -f call_outliers/call_outliers_medz_peerless.R --slave --vanilla --args .peer.top5.txt
+```
+
+Compile features for outliers and non-outliers with 0/5 top PEER factors removed
+```
+bash feature_construction/run_compile_features_outliers_peerless.sh
+```
+
+Compare variant count enrichments across MAF bins for fully corrected data and data with top 0/5 PEER factors removed
+```
+Rscript paper_figures/suppfig.count.enrichments.peer.effect.R
+```
+
 #### Distribution of the number of genes with a multi-tissue outlier
 You need to set the path to the subject annotations in the script below. <br> 
 ```
