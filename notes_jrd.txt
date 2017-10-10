@@ -1,4 +1,0 @@
-Remaining files from Yung and Xin for the CRISPR analysis
-	/users/xli6/data/xin/gtex/replication/gtex_allrare.txt
-	${RAREVARDIR}/data/CRISPR/candidate_SNVs_120116.txt
-What do we do about the sequence data for the CRISPR assay?
