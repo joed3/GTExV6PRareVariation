@@ -88,6 +88,9 @@ Download RNA-Seq data for K562 cell lines from ENCODE at https://www.encodeproje
 
 Download the hg19 human reference genome in FASTA format from http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz. Combine FASTA files for each chromosome into a single reference FASTA.
 
+Download VCFs from the UK10K dataset for two studies
+* ALSPAC VCF: https://www.google.com/url?q=https://www.ebi.ac.uk/ega/datasets/EGAD00001000740&sa=D&ust=1507684754410000&usg=AFQjCNFJ8j8ESpELYWdyx6wU7jGU1w2waQ
+* TWINS UK VCF: https://www.google.com/url?q=https://www.ebi.ac.uk/ega/datasets/EGAD00001000741&sa=D&ust=1507684754411000&usg=AFQjCNG16PtulHOxP-G1QN5knTBs_wlFTQ
 
 Other files: <br>
 * `gtex.lumpy.gs.svscore.low_conf.vcf.gz` (Obtained directly from the Hall Lab.)
@@ -292,6 +295,11 @@ bash feature_construction/run_compile_features_outliers.sh
 * `compile_features_outliers_nothresh.sh`
 * `compile_features_outliers_singletissue.sh` set number of processes at top of script
 * `pick_outliers_controls_imbalanced.py`)
+
+#### Compute minor allele frequencies of rare variants segregating in GTEx using the UK10K dataset
+```
+bash feature_construction/calc.uk10k.freqs.sh
+```
 
 ## Disease gene annotations
 We are providing the processed gene lists for the eight disease gene sets we analyzed for overlap with genes with multi-tissue outliers. <br>

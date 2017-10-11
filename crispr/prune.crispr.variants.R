@@ -186,7 +186,7 @@ colnames(vars.pared)[2] = 'POS'
 colnames(vars.pared)[3] = 'ID'
 
 # Add MAFs from UK10K
-uk10k = read.table('/users/xli6/data/xin/gtex/replication/gtex_allrare.txt', sep = '\t', header = T, stringsAsFactors = F)[, c(1:2, 6:7, 15)]
+uk10k = read.table(dir, '/features/variantBeds/UK10K/gtex_allrare.txt', sep = '\t', header = T, stringsAsFactors = F)[, c(1:2, 6:7, 15)]
 uk10k$INDid = paste0('GTEX-', uk10k$INDid)
 uk10k$ID = paste(uk10k$variantId_1, uk10k$variantId_2, uk10k$GeneId, uk10k$INDid, sep = ':')
 uk10k = uk10k[order(uk10k$ID), ]
