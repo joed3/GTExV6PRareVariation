@@ -43,6 +43,7 @@ Download from http://www.gtexportal.org/home/datasets: <br>
 * `gencode.v19.genes.v6p_model.patched_contigs.gtf.gz`
 * `GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_reads.gct.gz` (gunzip it)
 * `GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_rpkm.gct.gz` (gunzip it)
+* `GTEx_Analysis_v6p_RNA-seq_RNA-SeQCv1.1.8_gene_median_rpkm.gct` (gunzip it)
 * the covariates used during eQTL discovery
 * the eGene and significant variant-gene associations based on permutations for each tissue (`GTEx_Analysis_v6p_eQTL.tar` on the portal)
 
@@ -467,143 +468,103 @@ Rscript paper_figures/figure5c.R
 ```
 
 ## Supplemental figures
-
-#### GTEx design matrix and the MAFs in 1KG european populations
-(Running `calculate.euro.subpop.af.sh` uses five cores. This is set at the top of the script.)
+#### EDF 1 and Supplementary Tables 1 and 2
 ```
-bash feature_construction/calculate.euro.subpop.af.sh
-Rscript feature_construction/assess.euro.subpop.R
-Rscript paper_figures/suppfig.gtex.design.R
-```
-
-#### Number of rare variants per individual and PCA
-You need to set the path to the downloaded expression covariates and subject annotations in the script below. <br> 
-```
-Rscript paper_figures/suppfig.number.rare.vars.pca.R
-```
-
-#### Improvement of replication of outliers across tissues by PEER correction
-```
-Rscript paper_figures/ExtendedDataFigure3.R
-```
-
-#### Improvement of rare variant enrichments at varying levels of PEER correction
-Generate expression residuals with the top 0 or 5 PEER factors removed in addition to sex and genotype PCs
-```
-bash preprocessing/PEER/calc_residuals_covs_peerless.sh ${RAREVARDIR}/preprocessing/PEER 0 &
-bash preprocessing/PEER/calc_residuals_covs_peerless.sh ${RAREVARDIR}/preprocessing/PEER 5 &
-```
-
-Generate flat files for these new PEER corrected datasets to use for outlier calling
-```
-python preprocessing/gather_filter_normalized_expression_peerless.py \
-    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_tissues_all_normalized_samples.txt \
-    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_individuals_all_normalized_samples.txt \
-    .peer.top0.ztrans.txt \
-    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_normalized_expression.peer.top0.txt
-
-python preprocessing/gather_filter_normalized_expression_peerless.py \
-    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_tissues_all_normalized_samples.txt \
-    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_individuals_all_normalized_samples.txt \
-    .peer.top5.ztrans.txt \
-    ${RAREVARDIR}/preprocessing/gtex_2015-01-12_normalized_expression.peer.top5.txt
-```
-
-Call Median Z-score outliers on data with top 0/5 PEER factors removed
-```
-R -f call_outliers/call_outliers_medz_peerless.R --slave --vanilla --args .peer.top0.txt
-R -f call_outliers/call_outliers_medz_peerless.R --slave --vanilla --args .peer.top5.txt
-```
-
-Compile features for outliers and non-outliers with 0/5 top PEER factors removed
-```
-bash feature_construction/run_compile_features_outliers_peerless.sh
-```
-
-Compare variant count enrichments across MAF bins for fully corrected data and data with top 0/5 PEER factors removed
-```
-Rscript paper_figures/suppfig.count.enrichments.peer.effect.R
-```
-
-#### Distribution of the number of genes with a multi-tissue outlier
-You need to set the path to the subject annotations in the script below. <br> 
-```
-Rscript paper_figures/suppfig.number.outliers.per.individual.R
-```
-
-#### Single-tissue replication analysis controlling for sampling differences
-Generated when running `paper_figures/figure1b.outlier.sharing.R` above
-
-#### Overlap between single and multi-tissue outliers
-```
-Rscript paper_figures/suppfig.compare.single.multi.R
-```
-
-#### Single-tissue outlier rare variant enrichments
-Generated when running `paper_figures/figure2b.threshold.enrichments.R` above
-
-#### Multi-tissue outlier rare variant enrichments when excluding coding regions
-Generated when running `paper_figures/figure2a.count.enrichments.R above`
-
-#### Comparison of enrichment of functional rare SNVs between over- and underexpression outliers
-Generated when running `paper_figures/figure3b.feature.enrichments.R`
-
-#### Enrichment of functional genomic annotations among an expanded set of multi-tissue outliers
-```
-Rscript paper_figures/EDF7.R
-```
-
-#### Comparing distribution of the number of rare variants in the GTEx cohort for disease and control genes
-```
-bash paper_figures/annotate.variants.by.gene.sh 
-Rscript paper_figures/suppfig.rare.var.counts.disease.genes.gtex.cohort.R
-```
-
-#### Evolutionary constraint of genes with multi-tissue outliers and their overlap with multi-tissue eGenes
-Relies on the eGene and singificant variant-gene associations as downloaded for the GTEx v6p release from the portal. Also relies on output from `paper_figures/figure4b.exac.enrichments.R`, `paper_figures/figure4c.gene.list.enrichments.R`, and `paper_figures/suppfig.rare.var.counts.disease.genes.gtex.cohort.R`.
-```
-Rscript paper_figures/suppfig.egene.enrichment.R
-```
-
-#### Association between ASE and RIVER scores
-```
-Rscript paper_figures/EDF9d.R
-```
-
-#### Correlation between test posterior probabilities and the fraction of tissues
-```
-Rscript paper_figures/main_RIVER_10CV.R
-Rscript paper_figures/EDF9c.R
-```
-
-#### Distribution of predictive scores for pathogenic variants and all variants
-```
-Rscript paper_figures/EDF10bd.R
-```
-
-#### Expression levels for genes proximal to pathogenic variants
-```
-Rscript paper_figures/EDF10ef.rpkm.R
-Rscript paper_figures/EDF10ef.Zscores.R
-```
-#### Adjusted R-squared values between top 15 PEER factors and top 20 sample and subject covariates in skeletal muscle
-``` 
+## Adjusted R-squared values between top 15 PEER factors and top 20 sample and subject covariates in skeletal muscle
 Rscript paper_figures/muscle_covariates_peerfactors.R
 Rscript paper_figures/superheat_peer_muscle.R /data/muscle_samples_covariates_peerFactors.RData muscle.sample.peer.pdf 0.7
 Rscript paper_figures/superheat_peer_muscle.R /data/muscle_subject_covariates_peerFactors.RData muscle.subject.peer.pdf 0.7
-```
 
-#### Adjusted R-squared values between the total expression component removed by PEER in each of 44 tissues and top 20 sample and subject covariates
-``` 
+## Adjusted R-squared values between the total expression component removed by PEER in each of 44 tissues and top 20 sample and subject covariates
 Rscript paper_figures/pve_samples_pertiss.R
 Rscript paper_figures/pve_subject_pertiss.R
 Rscript paper_figures/process_results.R
 Rscript paper_figures/superheat_expression.R /data/superheat.subject.RData rv.subject.expression.pdf 0.25
-Rscript paper_figures/superheat_expression.R /data/superheat.sample.RData rv.sample.expression.pdf 0.25
+Rscript paper_figures/superheat_expression.R /data/superheat.sample.RData rv.sample.expression.pdf 0.2
+
+## Improvement of rare variant enrichments at varying levels of PEER correction
+#Generate expression residuals with the top 0 or 5 PEER factors removed in addition to sex and genotype PCs
+bash preprocessing/PEER/calc_residuals_covs_peerless.sh ${RAREVARDIR}/preprocessing/PEER 0
+bash preprocessing/PEER/calc_residuals_covs_peerless.sh ${RAREVARDIR}/preprocessing/PEER 5
+
+# Generate flat files for these new PEER corrected datasets to use for outlier calling
+python preprocessing/gather_filter_normalized_expression_peerless.py \
+       ${RAREVARDIR}/preprocessing/gtex_2015-01-12_tissues_all_normalized_samples.txt \
+       ${RAREVARDIR}/preprocessing/gtex_2015-01-12_individuals_all_normalized_samples.txt \
+       .peer.top0.ztrans.txt \
+       ${RAREVARDIR}/preprocessing/gtex_2015-01-12_normalized_expression.peer.top0.txt
+python preprocessing/gather_filter_normalized_expression_peerless.py \
+       ${RAREVARDIR}/preprocessing/gtex_2015-01-12_tissues_all_normalized_samples.txt \
+       ${RAREVARDIR}/preprocessing/gtex_2015-01-12_individuals_all_normalized_samples.txt \
+       .peer.top5.ztrans.txt \
+       ${RAREVARDIR}/preprocessing/gtex_2015-01-12_normalized_expression.peer.top5.txt
+
+# Call Median Z-score outliers on data with top 0/5 PEER factors removed and compile features
+R -f call_outliers/call_outliers_medz_peerless.R --slave --vanilla --args .peer.top0.txt
+R -f call_outliers/call_outliers_medz_peerless.R --slave --vanilla --args .peer.top5.txt
+bash feature_construction/run_compile_features_outliers_peerless.sh
+```
+Panel c is produced in `paper_figures/figure2a.count.enrichments.R`
+
+#### EDF 2
+You need to set the path to the subject annotations in the script below. <br>
+```
+Rscript paper_figures/suppfig.number.outliers.per.individual.R
 ```
 
-#### Comparison between the predictive power of RIVER and that of the genomic annotation model, as in Fig. 5a, across different Z-score thresholds for outlier calling
-``` 
+#### EDF 3
+```
+Rscript paper_figures/suppfig.single.replication.compare.multi.R
+```
+
+#### EDF 4
+You need to set the path to the downloaded expression covariates and subject annotations in the script below. <br>
+```
+Rscript paper_figures/suppfig.number.rare.vars.pca.R
+```
+
+#### EDF 5
+```
+Rscript paper_figures/suppfig.count.enrichments.R
+```
+
+#### EDF 6
+Before running, set path to RNA-seq RPKMs in `preprocessing/get_median_rpkms.R ` correctly. <br>
+```
+Rscript preprocessing/get_median_rpkms.R
+Rscript paper_figures/suppfig.over.under.expression.R
+```
+
+#### EDF 7
+```
+Rscript paper_figures/EDF7.R
+```
+
+#### EDF 8
+Relies on the eGene and singificant variant-gene associations as downloaded for the GTEx v6p release from the portal.
+```
+bash paper_figures/annotate.variants.by.gene.sh 
+Rscript paper_figures/suppfig.rare.var.counts.disease.genes.gtex.cohort.R
+Rscript paper_figures/suppfig.egene.enrichment.R
+```
+
+#### EDF 9
+```
+## Comparison between the predictive power of RIVER and that of the genomic annotation model, as in Fig. 5a, across different Z-score thresholds for outlier calling
 Rscript paper_figures/main_RIVER_VaryingThrds.R
 Rscript paper_figures/Generate_figures_RIVER_VaryingThrds.R
+
+## Correlation between test posterior probabilities and the fraction of tissues
+Rscript paper_figures/main_RIVER_10CV.R
+Rscript paper_figures/EDF9c.R
+Rscript paper_figures/EDF9d.R
+Rscript paper_figures/EDF9e.R
+```
+
+
+#### EDF 10
+```
+Rscript paper_figures/EDF10bd.R
+Rscript paper_figures/EDF10ef.rpkm.R
+Rscript paper_figures/EDF10ef.Zscores.R
 ```
