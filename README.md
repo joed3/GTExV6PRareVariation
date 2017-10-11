@@ -558,17 +558,13 @@ Rscript paper_figures/suppfig.egene.enrichment.R
 
 #### EDF 9
 ```
-## Comparison between the predictive power of RIVER and that of the genomic annotation model, as in Fig. 5a, across different Z-score thresholds for outlier calling
 Rscript paper_figures/main_RIVER_VaryingThrds.R
 Rscript paper_figures/Generate_figures_RIVER_VaryingThrds.R
-
-## Correlation between test posterior probabilities and the fraction of tissues
 Rscript paper_figures/main_RIVER_10CV.R
 Rscript paper_figures/EDF9c.R
 Rscript paper_figures/EDF9d.R
 Rscript paper_figures/EDF9e.R
 ```
-
 
 #### EDF 10
 ```
@@ -576,3 +572,6 @@ Rscript paper_figures/EDF10bd.R
 Rscript paper_figures/EDF10ef.rpkm.R
 Rscript paper_figures/EDF10ef.Zscores.R
 ```
+
+### EDF 11
+EDF11c is generated in `crispr/summarize.crispr.results.R`, run above.
