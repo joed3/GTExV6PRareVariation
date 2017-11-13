@@ -29,7 +29,7 @@ library(pROC)
 dir = Sys.getenv('RAREVARDIR')
 
 # Recall required functions
-source('RIVER.R')
+source(paste(dir,'/paper_figures/RIVER.R',sep=""))
 library(pROC)
 library(glmnet)
 library(dplyr)
@@ -48,15 +48,15 @@ corr_table = data.frame(Rcont=matrix(NA,nrow(thrds_table),1),pvalcont=matrix(NA,
 
 for (level in 1:nrow(thrds_table)) {
   ## load genomic features and outlier status used for training RIVER
-  G = as.data.frame(fread(paste("/data/genomic_features_thrd",thrds_table[level,"labels"],".txt",sep=""), 
+  G = as.data.frame(fread(paste(dir,"/data/genomic_features_thrd",thrds_table[level,"labels"],".txt",sep=""), 
                           sep='\t', header = TRUE, na.strings = "NaN")) # genomic features
   Gtemp = data.frame(G %>% mutate(rnum=row_number()))
   
-  E = as.data.frame(fread(paste("/data/Zscores_thrd",thrds_table[level,"labels"],".txt",sep=""),
+  E = as.data.frame(fread(paste(dir,"/data/Zscores_thrd",thrds_table[level,"labels"],".txt",sep=""),
                           sep='\t', header = TRUE, na.strings = "NaN")) # z-scores
   
   ## load information of all rare variants (only 10K from TSS)
-  GAll = as.data.frame(fread(paste("/data/gtex_AllRareSNVs.uniq.complete.txt",sep=""), 
+  GAll = as.data.frame(fread(paste(dir,"/data/gtex_AllRareSNVs.uniq.complete.txt",sep=""), 
                              sep='\t', header = TRUE, na.strings = "NaN")) 
   GAll = GAll[,c(1,2,3,4,5,7)] # indiv | gene | chr | pos | allele | nrv
   
@@ -68,7 +68,7 @@ for (level in 1:nrow(thrds_table)) {
   Gn = left_join(Gtemp, GAll, by="exid")
   
   ## import N2 pairs
-  dups <- load('/data/N2pairs.txt')
+  dups <- load(paste(dir,'/data/N2pairs.txt',sep=""))
   corr_table[level,"npairs"] = dim(dups)[1]
   
   # Compute |Median Z-scores|
@@ -160,7 +160,7 @@ for (level in 1:nrow(thrds_table)) {
   cat('    P-value: ',format.pval(roc.test(int.em.roc, g.roc)$p.value,digits=4,
                                   eps=0.00001),'***\n')
   # =========== Save data
-  save.image(file = paste("/data/RIVER_thrd",
+  save.image(file = paste(dir,"/data/RIVER_thrd",
                           as.character(thrds_table[level,"labels"]), ".out.RData",sep=""))
 }
-save.image(file = paste("/data/RIVER_VaryingThrds.out.RData",sep=""))
+save.image(file = paste(dir,"/data/RIVER_VaryingThrds.out.RData",sep=""))
