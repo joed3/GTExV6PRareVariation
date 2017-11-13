@@ -1,4 +1,4 @@
-Adipose_Subcutaneous                                                                                                                                                                                        
+Adipose_Subcutaneous
 Adipose_Visceral_Omentum
 Adrenal_Gland
 Artery_Aorta
