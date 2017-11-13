@@ -95,6 +95,12 @@ Download VCFs from the UK10K dataset for two studies
 Other files: <br>
 * `gtex.lumpy.gs.svscore.low_conf.vcf.gz` (Obtained directly from the Hall Lab.)
 
+Download annotation resources to generate genomic features for running RIVER
+* CADD: http://krishna.gs.washington.edu/download/CADD/v1.3/whole_genome_SNVs_inclAnno.tsv.gz and http://krishna.gs.washington.edu/download/CADD/v1.3/whole_genome_SNVs_inclAnno.tsv.gz.tbi
+* DANN: https://cbcl.ics.uci.edu/public_data/DANN/data/DANN_whole_genome_SNVs.tsv.bgz and https://cbcl.ics.uci.edu/public_data/DANN/data/DANN_whole_genome_SNVs.tsv.bgz.tbi
+* phylop: http://hgdownload.cse.ucsc.edu/goldenpath/hg19/phyloP100way/hg19.100way.phyloP100way.bw
+* chromHMM: http://hgdownload.soe.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeBroadHmm/wgEncodeBroadHmmGm12878HMM.bed.gz
+
 ## Setup
 The code relies on an assumed directory structure.
 Everything is under an upper level directory.
@@ -133,6 +139,17 @@ mkdir ${RAREVARDIR}/features/annotations/GWAS
 mkdir ${RAREVARDIR}/features/annotations/OMIM
 mkdir ${RAREVARDIR}/features/annotations/Orphanet
 mkdir ${RAREVARDIR}/features/annotations/Other
+mkdir ${RAREVARDIR}/RIVER
+mkdir ${RAREVARDIR}/RIVER/code
+mkdir ${RAREVARDIR}/RIVER/code/mfiles
+mkdir ${RAREVARDIR}/RIVER/data
+mkdir ${RAREVARDIR}/RIVER/data/expression
+mkdir ${RAREVARDIR}/RIVER/data/score
+mkdir ${RAREVARDIR}/RIVER/data/score/indiv
+mkdir ${RAREVARDIR}/RIVER/data/score/feature
+mkdir ${RAREVARDIR}/RIVER/data/rvsite
+mkdir ${RAREVARDIR}/data/wgs
+mkdir ${RAREVARDIR}/data/wgs/1KG 
 ```
 
 These directories are required to hold the results of scripts for which we do not provide processed data.
@@ -432,6 +449,71 @@ Summarize the CRISPR results
 ```
 R CMD BATCH --no-save crispr/summarize.crispr.results.R
 ```
+## RIVER
+Here is an entire procedure of generating genomic features and expression values for running RIVER. To run these codes, you might need to move `gencode.v19.genes.v6p.patched_contigs.autosome.coding_linkRNA.gtf`,`gene_ensembl_ids.txt`,`tissue_names.txt` into `{RAREVARDIR}/reference and `an original WGS vcf file` into `{RAREVARDIR}/data/wgs`.
+Note that you might need to change specified directory names into your own directories and revise some codes depending on which and how many features you would like to consider in your study. In order to run RIVER in bioconductor, you might also need to generate data following data structure and format in RIVER R package based upon final two files and a list of individual pairs having same rare variants within 10K from TSS of each gene.
+
+#### [Step 1] Generate matlab annotation files with both indivs and genes considered in GTEx v6p and gene expression matrix used for calling outliers later
+```
+matlab -nodisplay -nodesktop -nosplash -nojvm -singleCompThread -r "run('${RAREVARDIR}/RIVER/code/generate_annotation_matlab.m')"
+matlab -nodisplay -nodesktop -nosplash -nojvm -singleCompThread -r "run('${RAREVARDIR}/RIVER/code/generate_expmat_44tissues.m')"
+```
+#### [Step 2] In a WGS vcf file, all indels were removed, high quality variant calls (VQSLOD = PASS) were considered, only sites having <= 10 individuals in terms of missing genotypes were considered, and only autosomes were considered, and only European subjects were considered.
+```
+vcftools --gzvcf ${RAREVARDIR}/data/wgs/${an_original_GTEx_WGS_file} --keep ${RAREVARDIR}/preprocessing/gtex_2015-01-12_wgs_ids.txt --remove-indels --remove-filtered-all --max-missing-count 10 --not-chr X --recode --recode-INFO-all --stdout | bgzip -c > ${RAREVARDIR}/data/wgs/a_filtered_and_compressed_GTEx_WGS_vcf_file
+tabix -p vcf ${RAREVARDIR}/data/wgs/filtered_and_compressed_GTEx_WGS_vcf_file
+```
+#### [Step 3] Compute GTEx allele frequencies with only subjects of interest
+```
+vcftools --gzvcf ${RAREVARDIR}/data/wgs/filtered_and_compressed_GTEx_WGS_vcf_file} --freq --out ${RAREVARDIR}/data/wgs/GTEx_af.vcf
+bgzip -c ${RAREVARDIR}/data/wgs/GTEx_af.vcf > ${RAREVARDIR}/data/wgs/GTEx_af.vcf.gz
+tabix -p vcf ${RAREVARDIR}/data/wgs/GTEx_af.vcf.gz
+```
+#### [Step 4] Extract a list of targeted regions for genes of interest
+```
+matlab -nodisplay -nodesktop -nosplash -nojvm -singleCompThread -r "run('${RAREVARDIR}/RIVER/code/generate_regions.m')"
+```
+#### [Step 5] In each subject of interest, extract a list of individual-specific rare variant sites based on AFs of both GTEx and EUR 1K population
+```
+count_ind=0
+for ID in $(cat ${RAREVARDIR}/preprocessing/gtex_2015-01-12_wgs_ids_outlier_filtered.txt)
+do
+count_ind=$(( $count_ind + 1 ))
+cat ${RAREVARDIR}/RIVER/data/rvsite/region.tss10k.txt | ${RAREVARDIR}/RIVER/code/extract_rvsites_ByInd.py -n $count_ind --id $ID --WGSvcf_in ${RAREVARDIR}/data/wgs/a_filtered_and_compressed_GTEx_WGS_vcf_file --GTExvcf_in ${RAREVARDIR}/data/wgs/a_compressed_GTEx_allele_frequency_file --EURvcf_in ${RAREVARDIR}/data/wgs/1KG/a_compressed_EUR_allele_freq_vcf_file --site_out ${RAREVARDIR}/RIVER/data/score/indiv/${ID}.${count_ind}.rvsites.txt
+done
+```
+#### [Step 6] Extract all the features simulataneously (CADD, chromHMM, phylop, DANN).
+```
+count_ind=0
+for ID in $(cat ${RAREVARDIR}/preprocessing/gtex_2015-01-12_wgs_ids_outlier_filtered.txt)
+do
+count_ind=$(( $count_ind + 1))
+cat ${RAREVARDIR}/RIVER/data/score/indiv/${ID}.txt | ${RAREVARDIR}/RIVER/code/extract_scores_combined.py -n $count_ind --id $ID --af_in ${RAREVARDIR}/data/wgs/GTEx_af.vcf.gz --wgs_in filtered_and_compressed_GTEx_WGS_vcf_file --anno_in ${RAREVARDIR}/data/wgs/GTEx_vep.vcf.gz --cadd_in ${RAREVARDIR}/RIVER/data/whole_genome_SNVs_inclAnno.tsv.gz --dann_in ${RAREVARDIR}/RIVER/data/DANN_whole_genome_SNVs.tsv.bgz --chromHMM_in ${RAREVARDIR}/RIVER/data/wgEncodeBroadHmmGm12878HMM.sorted.hg19.bed.txt.gz --phylop_in ${RAREVARDIR}/RIVER/data/phyloP100way.txt.gz --score_out ${RAREVARDIR}/RIVER/data/score/indiv/${ID}.${count_ind}.score.nuc.txt
+done
+```
+#### [Step 7] Extract quantitative values of genomic features from individual files generated by the previous script at gene level
+```
+count_ind=0
+for ID in $(cat ${RAREVARDIR}/preprocessing/gtex_2015-01-12_wgs_ids_outlier_filtered.txt)
+do
+count_ind=$(( $count_ind + 1 ))
+sed "s/order = 1;/order = $count_ind/" ${RAREVARDIR}/RIVER/code/extract_features_byInd.m > ${RAREVARDIR}/RIVER/code/mfiles/extract_features.$ID.$count_ind.m
+matlab -nodisplay -nodesktop -nosplash -nojvm -singleCompThread -r "run('${RAREVARDIR}/RIVER/code/mfiles/extract_features.$ID.$count_ind.m')"
+done
+```
+#### [Step 8] Compute normalized scores of genomic features
+```
+for order in {1..11}
+do 
+sed "s/order = 1;/order = $order/" ${RAREVARDIR}/RIVER/code/compute_scores.m > ${RAREVARDIR}/RIVER/code/mfiles/compute_scores.$order.m
+matlab -nodisplay -nodesktop -nosplash -nojvm -singleCompThread -r "run('${RAREVARDIR}/RIVER/code/mfiles/compute_scores.$order.m')"
+done
+```
+#### [Step 9] Generate both "genomic_features.txt" and "zscores.txt" for running RIVER
+```
+matlab -nodisplay -nodesktop -nosplash -nojvm -singleCompThread -r "run('${RAREVARDIR}/RIVER/code/generate_data_RIVER.m')"
+```
+
 
 ## Main figures
 #### Figure 1
